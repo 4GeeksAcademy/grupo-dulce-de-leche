@@ -1,7 +1,170 @@
-/*
-    home.css: This website contains selectors only used in home.css
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600&display=swap');
 
-    All pages share the styles on index.css but you should create 
-    one more css for each page that will contain the selected used 
-    on that page only (the ones not reused in other pages).
-*/
+
+h1 {
+    letter-spacing: 0em;
+    margin-top: -173px;
+    font-weight: bold;
+    line-height: 1;
+    font-size: 7em;
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    margin-bottom: 34px;
+}
+
+h2 {
+    font-weight: bold;
+    font-family: 'Nunito', sans-serif;
+    font-size: 5em;
+    line-height: 1;
+    padding-bottom: 18px;
+}
+
+h3 {
+    padding-bottom: 18px;
+    padding-top: 36px;
+    font-weight: bold;
+    font-family: 'Nunito', sans-serif;
+    color: white;
+    font-size: 3.5em;
+    line-height: 1;
+}
+
+p {
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.blanco {
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+    color:white;
+}
+.contenedor-fluid {
+    width: 100%;
+    padding-right: var(--bs-gutter-x, 0rem);
+    padding-left: var(--bs-gutter-x, 0rem);
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.start {
+    padding-left: 80px;
+    padding-right: 80px;
+    padding-bottom: 140px;
+    padding-top: 200px;
+    background: #415E4C;
+}
+
+img.started {
+    margin: 0 auto;
+    display: block;
+    width: 80%;
+}
+
+.intro {
+    padding-bottom: 80px;
+    padding-top: 80px;
+}
+
+.fondo {
+    background-position: right;
+    height: 630px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+img.spices {
+    width: 95%;
+}
+
+.row.especias {
+    padding-bottom: 140px;
+    margin-top: -98px;
+}
+
+img.imagen {
+    width: 100%;
+}
+
+img.sal {
+    border-radius: 14px;
+    width: 100%;
+    float: right;
+}
+
+.receta_uno {
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+    height: 400px;
+    background-image: url(https://images.pexels.com/photos/4202390/pexels-photo-4202390.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1;);
+}
+
+.receta_dos {
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+    height: 400px;
+    background-image: url(https://images.pexels.com/photos/6542792/pexels-photo-6542792.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+}
+
+.receta_tres {
+    /*background: content-box;*/
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+    height: 400px;
+    background-image: url(https://images.pexels.com/photos/4696279/pexels-photo-4696279.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+}
+
+
+.row.interior_receta_uno {
+    padding-top: 40px;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+.row.fila_receta_dos {
+    padding-bottom: 20px;
+    padding-top: 40px;
+    text-align: center;
+}
+
+.interior_receta {
+    text-align: center;
+    padding-top: 40px;
+}
+
+.recipes {
+    background: no-repeat;
+    background-position-x: right;
+    padding: 100px 80px;
+}
+
+.receta_uno, .receta_dos, .receta_tres {
+    margin: 13px;
+    border-radius: 14px;
+}
+
+.inventory {
+    padding: 140px 80px;
+    background: #EBF0E4;
+}
+
+.texto_uno {
+    padding-bottom: 80px;
+    text-align: left;
+}
+
+.texto_dos {
+    padding-bottom: 80px;
+    text-align: right;
+}
+
+img.leaf {
+    margin: 0 auto;
+    display: block;
+    width: 64%;
+}

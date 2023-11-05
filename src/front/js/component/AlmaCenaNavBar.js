@@ -15,7 +15,7 @@ export const AlmaCenaNavbar = () => {
 		</Navbar.Brand>
 		<Navbar.Toggle aria-controls="basic-navbar-nav" />
 		<Navbar.Collapse id="basic-navbar-nav">
-		  <Nav className="ml-auto gap-2">
+		  <Nav className="ms-auto ml-auto gap-5 me-5">
 			<SignUpButton />
 			<Button variant="light">Login</Button>
 		  </Nav>

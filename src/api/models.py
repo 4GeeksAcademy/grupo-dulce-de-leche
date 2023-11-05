@@ -5,16 +5,20 @@ db = SQLAlchemy()
 class User(db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), nullable=False)
+    last_name = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(80), unique=True, nullable=False)
     password = db.Column(db.String(80), nullable=False)
     address = db.Column(db.String(80), unique=True, nullable=False)
 
     def __repr__(self):
-        return f'<User {self.email}>'
+         return 'User {}'.format (self.email)
 
     def serialize(self):
         return {
             "id": self.id,
+            "name" : self.name,
+            "last_name" : self.last.name,
             "email": self.email,
             "address": self.address
         }
@@ -33,6 +37,7 @@ class MateriasPrimas(db.Model):
             "nombre": self.nombre,
             "clasificacion": self.clasificacion,
         }
+    
  
 class UserMateriasPrimas(db.Model):
     __tablename__ = 'user_materias_primas'
@@ -53,15 +58,16 @@ class UserMateriasPrimas(db.Model):
             "materias_primas_id": self.materias_primas_id,
             "cantidad": self.cantidad
         }
-    
+
 class Receta(db.Model):
     __tablename__ = 'receta'
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(80), nullable=False )
     rinde = db.Column(db.Integer, nullable=False)
+    unidad_medida = db.Column(db.String(80), nullable=False )
 
     def __repr__(self): #terminal con el print y en el admin
-        return 'Receta {} para {} personas'.format (self.nombre, self.rinde)
+        return 'Esta receta {} rinde para {} {}'.format (self.nombre, self.rinde, self.unidad_medida)
     
     def serialize(self):
         return {
@@ -89,16 +95,17 @@ class UserReceta(db.Model):
         }
 
 
-
-
-# Revisar, nose si tiene que ser de user_materias_primas o de materias_primas
+# crear campo cantidad de ingredientes - listo
 class IngredientesReceta(db.Model):
     __tablename__ = 'ingredientes_receta'
     id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id')) 
+    user_relationship = db.relationship(User) 
     materias_primas_id = db.Column(db.Integer, db.ForeignKey('materias_primas.id')) 
-    user_relationship = db.relationship(MateriasPrimas) 
+    materias_primas_id_relationship = db.relationship(MateriasPrimas) 
     receta_id = db.Column(db.Integer, db.ForeignKey('receta.id')) #tablename - el campo 
     receta_relationship = db.relationship(Receta) #clase - de la tabla
+    cantidad = db.Column(db.Integer, nullable=False)
    
 
     def __repr__(self): #terminal con el print y en el admin
@@ -108,7 +115,8 @@ class IngredientesReceta(db.Model):
         return {
             "id": self.id,
             "materias_primas_id": self.materias_primas_id,
-            "receta_id": self.receta_id
+            "receta_id": self.receta_id,
+            "user_materias_primas_id": self.user_materias_primas_id
         }
 
 

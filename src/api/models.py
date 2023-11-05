@@ -12,7 +12,7 @@ class User(db.Model):
     address = db.Column(db.String(80), unique=True, nullable=False)
 
     def __repr__(self):
-         return 'User {}'.format (self.email)
+         return '{}'.format (self.name)
 
     def serialize(self):
         return {
@@ -30,7 +30,7 @@ class MateriasPrimas(db.Model):
     clasificacion = db.Column(db.String(80), nullable=False)
 
     def __repr__(self): #terminal con el print y en el admin
-        return 'Materia Prima: {} de clasificacion {}'.format (self.nombre, self.clasificacion)
+        return 'Materia prima: {} - Clasificacion {}'.format (self.nombre, self.clasificacion)
     
     def serialize(self):
         return {

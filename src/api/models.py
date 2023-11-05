@@ -28,14 +28,17 @@ class MateriasPrimas(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(80), nullable=False)
     clasificacion = db.Column(db.String(80), nullable=False)
+    unidad_medida = db.Column(db.String(80), nullable=False )
+    
 
     def __repr__(self): #terminal con el print y en el admin
-        return 'Materia prima: {} - Clasificacion {}'.format (self.nombre, self.clasificacion)
+        return 'Materia prima: {} - Clasificacion {} - Unidad de medida: {}'.format (self.nombre, self.clasificacion, self.unidad_medida)
     
     def serialize(self):
         return {
             "nombre": self.nombre,
             "clasificacion": self.clasificacion,
+            "unidad_medida": self.unidad_medida,
         }
     
  
@@ -47,6 +50,7 @@ class UserMateriasPrimas(db.Model):
     materias_primas_id = db.Column(db.Integer, db.ForeignKey('materias_primas.id'))
     materias_primas_relationship = db.relationship(MateriasPrimas)
     cantidad = db.Column(db.Integer, nullable=False)
+#   unidad_medida = db.Column(db.String(80), nullable=False)   
 
     def __repr__(self): #terminal con el print y en el admin
         return 'Usuario {} con materia prima {}'.format (self.user.id, self.materias_primas.id)
@@ -56,7 +60,7 @@ class UserMateriasPrimas(db.Model):
             "id": self.id,
             "user_id": self.user_id,
             "materias_primas_id": self.materias_primas_id,
-            "cantidad": self.cantidad
+            "cantidad": self.cantidad,
         }
 
 class Receta(db.Model):
@@ -67,7 +71,7 @@ class Receta(db.Model):
     unidad_medida = db.Column(db.String(80), nullable=False )
 
     def __repr__(self): #terminal con el print y en el admin
-        return 'Esta receta {} rinde para {} {}'.format (self.nombre, self.rinde, self.unidad_medida)
+        return 'La receta de {}, rinde para {} {}'.format (self.nombre, self.rinde, self.unidad_medida)
     
     def serialize(self):
         return {
@@ -99,8 +103,6 @@ class UserReceta(db.Model):
 class IngredientesReceta(db.Model):
     __tablename__ = 'ingredientes_receta'
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id')) 
-    user_relationship = db.relationship(User) 
     materias_primas_id = db.Column(db.Integer, db.ForeignKey('materias_primas.id')) 
     materias_primas_id_relationship = db.relationship(MateriasPrimas) 
     receta_id = db.Column(db.Integer, db.ForeignKey('receta.id')) #tablename - el campo 

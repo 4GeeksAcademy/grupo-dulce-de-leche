@@ -1,5 +1,6 @@
 import React from "react";
 import { Navbar, Nav, Button } from 'react-bootstrap';
+import SignUpButton from "./SignUpButton";
 
 export const AlmaCenaNavbar = () => {
 	return (
@@ -15,7 +16,7 @@ export const AlmaCenaNavbar = () => {
 		<Navbar.Toggle aria-controls="basic-navbar-nav" />
 		<Navbar.Collapse id="basic-navbar-nav">
 		  <Nav className="ml-auto gap-2">
-			<Button variant="light" className="mr-2">Signup</Button>
+			<SignUpButton />
 			<Button variant="light">Login</Button>
 		  </Nav>
 		</Navbar.Collapse>

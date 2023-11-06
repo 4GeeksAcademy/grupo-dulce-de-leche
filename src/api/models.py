@@ -50,6 +50,7 @@ class UserMateriasPrimas(db.Model):
     materias_primas_id = db.Column(db.Integer, db.ForeignKey('materias_primas.id'))
     materias_primas_relationship = db.relationship(MateriasPrimas)
     cantidad_stock = db.Column(db.Integer, nullable=False)
+    minimo_stock = db.Column(db.Integer, nullable=False)
 
     def __repr__(self): #terminal con el print y en el admin
         return 'Usuario {} con materia prima {}'.format (self.user.id, self.materias_primas.id)
@@ -60,6 +61,7 @@ class UserMateriasPrimas(db.Model):
             "user_id": self.user_id,
             "materias_primas_id": self.materias_primas_id,
             "cantidad_stock": self.cantidad_stock,
+            "minimo_stock": self.minimo_porcentaje
         }
 
 class Receta(db.Model):

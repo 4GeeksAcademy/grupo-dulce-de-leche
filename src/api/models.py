@@ -49,8 +49,7 @@ class UserMateriasPrimas(db.Model):
     user_relationship = db.relationship(User) #clase - con la tabla:  User
     materias_primas_id = db.Column(db.Integer, db.ForeignKey('materias_primas.id'))
     materias_primas_relationship = db.relationship(MateriasPrimas)
-    cantidad = db.Column(db.Integer, nullable=False)
-#   unidad_medida = db.Column(db.String(80), nullable=False)   
+    cantidad_stock = db.Column(db.Integer, nullable=False)
 
     def __repr__(self): #terminal con el print y en el admin
         return 'Usuario {} con materia prima {}'.format (self.user.id, self.materias_primas.id)
@@ -60,7 +59,7 @@ class UserMateriasPrimas(db.Model):
             "id": self.id,
             "user_id": self.user_id,
             "materias_primas_id": self.materias_primas_id,
-            "cantidad": self.cantidad,
+            "cantidad_stock": self.cantidad_stock,
         }
 
 class Receta(db.Model):
@@ -107,7 +106,7 @@ class IngredientesReceta(db.Model):
     materias_primas_id_relationship = db.relationship(MateriasPrimas) 
     receta_id = db.Column(db.Integer, db.ForeignKey('receta.id')) #tablename - el campo 
     receta_relationship = db.relationship(Receta) #clase - de la tabla
-    cantidad = db.Column(db.Integer, nullable=False)
+    cantidad_necesaria = db.Column(db.Integer, nullable=False)
    
 
     def __repr__(self): #terminal con el print y en el admin
@@ -118,7 +117,8 @@ class IngredientesReceta(db.Model):
             "id": self.id,
             "materias_primas_id": self.materias_primas_id,
             "receta_id": self.receta_id,
-            "user_materias_primas_id": self.user_materias_primas_id
+            "user_materias_primas_id": self.user_materias_primas_id,
+            "cantidad_necesaria": self.cantidad_necesaria,
         }
 
 
@@ -130,18 +130,18 @@ class UserProductoFinal(db.Model):
     user_relationship = db.relationship(User) 
     receta_id = db.Column(db.Integer, db.ForeignKey('receta.id')) #tablename - el campo 
     receta_relationship = db.relationship(Receta) #clase - de la tabla
-    cantidad = db.Column(db.Integer, nullable=False)
+    cantidad_inventario = db.Column(db.Integer, nullable=False)
     clasificacion = db.Column(db.String(80), nullable=False)   
 
     def __repr__(self): #terminal con el print y en el admin
-        return 'Usuario {} tiene un producto final {} de la receta {}'.format (self.user.id, self.cantidad, self.receta.id )
+        return 'Usuario {} tiene un producto final {} de la receta {}'.format (self.user.id, self.cantidad_inventario, self.receta.id )
     
     def serialize(self):
         return {
             "id": self.id,
             "user_id": self.user_id,
             "receta_id": self.receta_id,
-            "cantidad" : self.cantidad,
+            "cantidad_inventario" : self.cantidad_inventario,
             "clasificacion": self.clasificacion_id
 
         }

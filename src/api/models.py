@@ -18,7 +18,7 @@ class User(db.Model):
         return {
             "id": self.id,
             "name" : self.name,
-            "last_name" : self.last.name,
+            "last_name" : self.last_name,
             "email": self.email,
             "address": self.address
         }
@@ -134,6 +134,7 @@ class UserProductoFinal(db.Model):
     receta_relationship = db.relationship(Receta) #clase - de la tabla
     cantidad_inventario = db.Column(db.Integer, nullable=False)
     clasificacion = db.Column(db.String(80), nullable=False)   
+    cantidad_inventario_minimo = db.Column(db.Integer, nullable=False)
 
     def __repr__(self): #terminal con el print y en el admin
         return 'Usuario {} tiene un producto final {} de la receta {}'.format (self.user.id, self.cantidad_inventario, self.receta.id )
@@ -144,7 +145,7 @@ class UserProductoFinal(db.Model):
             "user_id": self.user_id,
             "receta_id": self.receta_id,
             "cantidad_inventario" : self.cantidad_inventario,
-            "clasificacion": self.clasificacion_id
-
+            "clasificacion": self.clasificacion_id,
+            "cantidad_inventario_minimo": self.cantidad_inventario_minimo
         }
 

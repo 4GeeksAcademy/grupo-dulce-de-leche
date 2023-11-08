@@ -25,6 +25,8 @@ from flask_bcrypt import Bcrypt
 ENV = "development" if os.getenv("FLASK_DEBUG") == "1" else "production"
 static_file_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../public/')
 app = Flask(__name__)
+app.config["JWT_SECRET_KEY"] = "AlmaCena"
+jwt = JWTManager(app)
 app.url_map.strict_slashes = False
 
 
@@ -69,7 +71,8 @@ def get_users():
 # ENDPOINTS | VER INFO DE USER
 
 @app.route('/users/<int:user_id>', methods=['GET'])
-def get_user(user_id):
+def get_user():
+    user_id=get_jwt_identity()
     user = User.query.get(user_id)
     if user is None:
         raise APIException("User not found", status_code=404)
@@ -140,9 +143,10 @@ def logout():
 
 # ENDPOINT | MATERIAS PRIMAS DEL USUARIO
 
-@app.route('/<int:user_id>/dashboard/ingredients', methods=['GET'])
-# @jwt_required()
-def get_user_ingredients(user_id):
+@app.route('/dashboard/ingredients', methods=['GET'])
+@jwt_required()
+def get_user_ingredients():
+    user_id=get_jwt_identity()
     user_materias_primas = UserMateriasPrimas.query.filter_by(user_id=user_id).all()
 
     ingredients_list = []
@@ -158,11 +162,55 @@ def get_user_ingredients(user_id):
 
     return jsonify(ingredients_list), 200
 
+# ENDPOINT | CREAR NUEVO INGREDIENTE CON USUARIO
+
+@app.route('/dashboard/ingredients', methods=['POST'])
+@jwt_required()
+def create_ingredient():
+    user_id=get_jwt_identity()
+    body = request.get_json()
+    if body is None:
+        raise APIException("Request body is missing", status_code=400)
+
+    # Verifica que el usuario exista en la base de datos
+    user = User.query.get(user_id)
+    if not user:
+        raise APIException("User not found", status_code=404)
+
+    # Obtiene la cantidad y la cantidad mínima del cuerpo de la solicitud o establece 0 como valor predeterminado
+    cantidad = body.get("cantidad", 0)
+    cantidad_minima = body.get("cantidad_minima", 0)
+
+    new_user_materia_prima = UserMateriasPrimas(
+        user_id=user_id,
+        cantidad_stock=cantidad,
+        minimo_stock=cantidad_minima
+    )
+
+    # Crea una nueva instancia de MateriasPrimas y establece la relación con UserMateriasPrimas
+    new_materia_prima = MateriasPrimas(
+        user_materias_primas=new_user_materia_prima,
+        nombre=body.get("nombre"),
+        clasificacion=body.get("clasificacion"),
+        unidad_medida=body.get("unidad_medida")
+    )
+
+    # Agrega las nuevas instancias a la base de datos
+    db.session.add(new_user_materia_prima)
+    db.session.add(new_materia_prima)
+    db.session.commit()
+
+    return jsonify({"msg": "Materia Prima creada con éxito"}), 201
+
+
+
+
 # ENDPOINT | PRODUCTOS DEL USUARIO
 
-@app.route('/<int:user_id>/dashboard/products', methods=['GET'])
-# @jwt_required()
+@app.route('/dashboard/products', methods=['GET'])
+@jwt_required()
 def get_user_products(user_id):
+    user_id=get_jwt_identity()
     user_products = UserProductoFinal.query.filter_by(user_id=user_id).all()
 
     products_list = []
@@ -178,9 +226,10 @@ def get_user_products(user_id):
 
 # ENDPOINT | RECETAS DEL USUARIO
 
-@app.route('/<int:user_id>/dashboard/recipes', methods=['GET'])
-# @jwt_required()
-def get_user_recipes(user_id):
+@app.route('/dashboard/recipes', methods=['GET'])
+@jwt_required()
+def get_user_recipes():
+    user_id=get_jwt_identity()
     user_recetas = UserReceta.query.filter_by(user_id=user_id).all()
 
     recipes_list = []
@@ -196,9 +245,10 @@ def get_user_recipes(user_id):
 
 # ENDPOINT | SINGLE RECIPE DE UN USUARIO
 
-@app.route('/<int:user_id>/dashboard/recipes/<int:recipe_id>', methods=['GET'])
-# @jwt_required()
-def get_user_recipe(user_id, recipe_id):
+@app.route('/dashboard/recipes/<int:recipe_id>', methods=['GET'])
+@jwt_required()
+def get_user_recipe(recipe_id):
+    user_id=get_jwt_identity()
     user_receta = UserReceta.query.filter_by(user_id=user_id, receta_id=recipe_id).first()
 
     if user_receta is None:
@@ -228,9 +278,10 @@ def get_user_recipe(user_id, recipe_id):
 
  # ENDPOINT | DASHBOARD DE UN USUARIO
 
-@app.route('/<int:user_id>/dashboard', methods=['GET'])
-# @jwt_required()
-def get_user_dashboard(user_id):
+@app.route('/dashboard', methods=['GET'])
+@jwt_required()
+def get_user_dashboard():
+    user_id=get_jwt_identity()
     user_ingredientes = UserMateriasPrimas.query.filter_by(user_id=user_id).all()
     user_productos = UserProductoFinal.query.filter_by(user_id=user_id).all()
 
@@ -271,3 +322,4 @@ def get_user_dashboard(user_id):
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 3001))
     app.run(host='0.0.0.0', port=PORT, debug=True)
+    

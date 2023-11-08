@@ -16,111 +16,111 @@ export const Home = () => {
 
 	return (
 		// contenedor principal home
-		<div class="contenedor-fluid">
+		<div className="contenedor-fluid">
 
 			{/* contenedor presentación */}
-			<div class="start">
-				<div class="row fondo" style={{ backgroundImage: `url(${carne})` }}>
-					<div class="col intro">
+			<div className="start">
+				<div className="row fondo" style={{ backgroundImage: `url(${carne})` }}>
+					<div className="col intro">
 						<h1>Keep track of < br />your stuff like < br /> never before</h1>
-						<p class="blanco">Lorem ipsum dolor sit amet, consectetur <br />adipiscing elit. Neque congue arcu</p>
+						<p className="blanco">Lorem ipsum dolor sit amet, consectetur <br />adipiscing elit. Neque congue arcu</p>
 					</div>
 				</div>
-				<div class="row especias">
-					<div class="col"></div>
-					<div class="col"><img class="spices" src={spices1} /></div>
-					<div class="col"><img class="spices" src={spices2} /></div>
-					<div class="col"><img class="spices" src={spices3} /></div>
-					<div class="col"></div>
+				<div className="row especias">
+					<div className="col"></div>
+					<div className="col"><img className="spices" src={spices1} /></div>
+					<div className="col"><img className="spices" src={spices2} /></div>
+					<div className="col"><img className="spices" src={spices3} /></div>
+					<div className="col"></div>
 				</div>
-				<div class="row">
-					<div class="col-6">
-						<img class="imagen" src={imagen} />
+				<div className="row">
+					<div className="col-6">
+						<img className="imagen" src={imagen} />
 						<h3>Create your < br /> recipe now!</h3>
-						<p class="blanco">Lorem ipsum dolor sit amet consectetur adipiscing elit. <br />Neque congue arcu amet consectetur adipiscing.</p>
+						<p className="blanco">Lorem ipsum dolor sit amet consectetur adipiscing elit. <br />Neque congue arcu amet consectetur adipiscing.</p>
 					</div>
-					<div class="col-2">
+					<div className="col-2">
 
 					</div>
-					<div class="col-4">
-						<p class="blanco">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Neque congue arcu</p>
-						<img class="sal" src={sal} />
+					<div className="col-4">
+						<p className="blanco">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Neque congue arcu</p>
+						<img className="sal" src={sal} />
 					</div>
 				</div>
 			</div>
 
 			{/* contenedor recetas */}
-			<div class="recipes container-fluid" style={{ backgroundImage: `url(${hojas})` }}>
+			<div className="recipes container-fluid" style={{ backgroundImage: `url(${hojas})` }}>
 				{/* style={{ backgroundImage: `url(${process.env.PUBLIC_URL + '/hojas.png'})` }} */}
-				<div class="texto_uno">
+				<div className="texto_uno">
 					<h2>Save your <br /> recipes</h2>
 					<p>This is a section of your menu. <br />
 						Give your section a brief description</p>
 				</div>
 
 				{/* primera fila recetas */}
-				<div class="row fila_receta_uno">
-					<div class="col receta_uno">
-						<div class="row interior_receta">
-							<div class="col">
+				<div className="row fila_receta_uno">
+					<div className="col receta_uno">
+						<div className="row interior_receta">
+							<div className="col">
 								<p>Starters</p>
 							</div>
-							<div class="col">
-								<i class="fa-solid fa-arrow-right"></i>
+							<div className="col">
+								<i className="fa-solid fa-arrow-right"></i>
 							</div>
 						</div>
 					</div>
-					<div class="col receta_dos">
-						<div class="row interior_receta">
-							<div class="col">
+					<div className="col receta_dos">
+						<div className="row interior_receta">
+							<div className="col">
 							<p>Main</p>
 							</div>
-							<div class="col">
-								<i class="fa-solid fa-arrow-right"></i>
+							<div className="col">
+								<i className="fa-solid fa-arrow-right"></i>
 							</div>
 						</div>
 					</div>
-					<div class="col receta_tres">
-						<div class="row interior_receta">
-							<div class="col">
+					<div className="col receta_tres">
+						<div className="row interior_receta">
+							<div className="col">
 							<p>Dessert</p>
 							</div>
-							<div class="col">
-								<i class="fa-solid fa-arrow-right"></i>
+							<div className="col">
+								<i className="fa-solid fa-arrow-right"></i>
 							</div>
 						</div>
 					</div>
 				</div>
 
 				{/* segunda fila recetas */}
-				<div class="row fila_receta_dos">
-					<div class="col receta_uno">
-						<div class="row interior_receta">
-							<div class="col">
+				<div className="row fila_receta_dos">
+					<div className="col receta_uno">
+						<div className="row interior_receta">
+							<div className="col">
 							<p>Starters</p>
 							</div>
-							<div class="col">
-								<i class="fa-solid fa-arrow-right"></i>
+							<div className="col">
+								<i className="fa-solid fa-arrow-right"></i>
 							</div>
 						</div>
 					</div>
-					<div class="col receta_dos">
-						<div class="row interior_receta">
-							<div class="col">
+					<div className="col receta_dos">
+						<div className="row interior_receta">
+							<div className="col">
 							<p>Main</p>
 							</div>
-							<div class="col">
-								<i class="fa-solid fa-arrow-right"></i>
+							<div className="col">
+								<i className="fa-solid fa-arrow-right"></i>
 							</div>
 						</div>
 					</div>
-					<div class="col receta_tres">
-						<div class="row interior_receta">
-							<div class="col">
+					<div className="col receta_tres">
+						<div className="row interior_receta">
+							<div className="col">
 							<p>Dessert</p>
 							</div>
-							<div class="col">
-								<i class="fa-solid fa-arrow-right"></i>
+							<div className="col">
+								<i className="fa-solid fa-arrow-right"></i>
 							</div>
 						</div>
 					</div>
@@ -130,17 +130,17 @@ export const Home = () => {
 
 
 			{/* contenedor inventory */}
-			<div class="inventory container-fluid">
-				<div class="texto_uno">
-					<div class="row">
-					<div class="col-1">
+			<div className="inventory container-fluid">
+				<div className="texto_uno">
+					<div className="row">
+					<div className="col-1">
 						</div>
-						<div class="col-4">
-							<img class="leaf" src={Leaf} />
+						<div className="col-4">
+							<img className="leaf" src={Leaf} />
 						</div>
-						<div class="col-2">
+						<div className="col-2">
 						</div>
-						<div class="col-5">
+						<div className="col-5">
 							<h2>Keep your inventory up to date </h2>
 							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 								Purus lorem id penatibus imperdiet. Turpis egestas ultricies
@@ -151,21 +151,21 @@ export const Home = () => {
 				</div>
 
 				{/* primera fila recetas */}
-				<div class="row fila_receta_uno">
-					<div class="col">
-						<div class="row interior_receta">
-						<img class="esparrago" src={Esparrago} />	
+				<div className="row fila_receta_uno">
+					<div className="col">
+						<div className="row interior_receta">
+						<img className="esparrago" src={Esparrago} />	
 							
 						</div>
 					</div>
-					<div class="col">
-						<div class="row interior_receta">
-						<img class="esparrago" src={Esparrago} />
+					<div className="col">
+						<div className="row interior_receta">
+						<img className="esparrago" src={Esparrago} />
 						</div>
 					</div>
-					<div class="col">
-						<div class="row interior_receta">
-						<img class="esparrago" src={Esparrago} />
+					<div className="col">
+						<div className="row interior_receta">
+						<img className="esparrago" src={Esparrago} />
 						
 						</div>
 					</div>

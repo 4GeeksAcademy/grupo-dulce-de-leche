@@ -14,7 +14,7 @@ const LogoutButton = ({ actions }) => {
     }
   };
 
-  return <Button variant="danger" onClick={handleLogout}>Logout</Button>;
+  return <Button variant="outline-light" className="logoutbutton" onClick={handleLogout}>Logout</Button>;
 };
 
 export default LogoutButton;

@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Navbar, Nav, Button } from 'react-bootstrap';
+import { Navbar, Nav } from 'react-bootstrap';
 import SignUpButton from "./SignUpButton";
 import LoginButton from "./LoginButton";
 import logo from "../../img/logoalmacena.png";
@@ -9,7 +9,7 @@ import LogoutButton from "./LogoutButton";
 
 export const AlmaCenaNavbar = () => {
 	const { store, actions } = useContext(Context);
-	// const [userLoggedIn, setUserLoggedIn] = useState(store.userLoggedIn); (esto es por si queremos poner un nombre en la navbar)
+	const [userLoggedIn, setUserLoggedIn] = useState(store.userLoggedIn);
   
 	useEffect(() => {
 	  setUserLoggedIn(store.userLoggedIn);

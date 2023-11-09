@@ -33,7 +33,7 @@ export const Login = () => {
   
     } catch (error) {
       // Manejo de errores, muestra un mensaje de error si el usuario no está registrado
-      setError("Usuario no registrado");
+      setError(`Error during login: ${error.message}`);
       console.error("Error al iniciar sesión", error);
     }
   };
@@ -65,6 +65,7 @@ export const Login = () => {
     <label for="exampleInputEmail1" class="form-label">Email</label>
   
 <input
+className="form-control"
             type="text"
             id="email"
             placeholder="Email"
@@ -74,19 +75,24 @@ export const Login = () => {
 
 
   </div>
-  <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Password</label>
+  <div className="mb-3 position-relative">
+  <label htmlFor="password" className="form-label">
+    Password
+  </label>
+  <div className="input-group">
     <input
-            type={showPassword ? "text" : "password"}
-            id="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <span className="toggle-password" onClick={toggleShowPassword}>
-            <i className={`fa ${showPassword ? "fa-eye-slash" : "fa-eye"}`}></i>
-          </span>
+      type={showPassword ? "text" : "password"}
+      className="form-control"
+      id="password"
+      placeholder="Password"
+      value={password}
+      onChange={(e) => setPassword(e.target.value)}
+    />
+    <span className="input-group-text toggle-password" onClick={toggleShowPassword}>
+      <i className={`fa ${showPassword ? "fa-eye-slash" : "fa-eye"}`}></i>
+    </span>
   </div>
+</div>
   <div class="mb-3 form-check">
     <input type="checkbox" class="form-check-input" id="exampleCheck1"/>
     <label class="form-check-label" for="exampleCheck1">Keep me logged in</label>

@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap';
 
 const LoginButton = () => {
   return (
-    <Button variant="light" className="login-button text-white fs-5">
+    <Button variant="light" className="login-button text-white">
       Login
     </Button>
   );

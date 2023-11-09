@@ -1,63 +1,156 @@
-import React, { useState, useEffect, useContext } from "react";
-import "../../styles/login.css";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Context } from "../store/appContext";
 import recipes from "../../img/recipes.png";
-
 export const Signup = () => {
-
-	return (
-		<div className="container-fluid">
-		<div className="row principal">
-			{/* Columna izquierda */}
-    <div className="col formulario-signup">
-	
-	<form>
-
-  <h3 className="titulo-login">Sign up</h3>
-	<p className="parrafo-login">Register to create your restaurant or personal account.</p>
-  <div class="mb-3">
-  <div class="row">
-    <div class="col-6 mb-3">
-    <label for="exampleInputEmail1" class="form-label">Name</label>
-    <input type="Name" class="form-control" id="name" placeholder="Your Name" aria-describedby="emailHelp"/>
-  </div>
-    <div class="col-6 mb-3">
-    <label for="exampleInputEmail1" class="form-label">Last Name</label>
-    <input type="Last Name" class="form-control" id="Last Name" placeholder="Your Last Name" aria-describedby="emailHelp"/>
+  const { actions } = useContext(Context);
+  const [user, setUser] = useState({
+    name: "",
+    last_name: "",
+    email: "",
+    password: "",
+    address: "",
+  });
+  const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const enviarFormulario = async (event) => {
+    event.preventDefault();
+    if (
+      user.name.trim() === "" ||
+      user.last_name.trim() === "" ||
+      user.email.trim() === "" ||
+      user.address.trim() === "" ||
+      user.password.trim() === ""
+    ) {
+      setError("Por favor completa todos los campos requeridos.");
+      return;
+    }
+    try {
+      // Realizar la solicitud de registro utilizando el método signup del contexto
+      await actions.signup(
+        user.name,
+        user.last_name,
+        user.email,
+        user.password,
+        user.address
+      );
+      // Registro exitoso, podrías redirigir si es necesario
+      // navigate("/");
+    } catch (error) {
+      setError(`El usuario ${user.email} ya existe. Por favor inicia sesión.`);
+      console.error(error);
+    }
+  };
+  return (
+    <div className="container-fluid">
+      <div className="row principal">
+        {/* Columna izquierda */}
+        <div className="col formulario-signup">
+          <form onSubmit={enviarFormulario}>
+            <h3 className="titulo-login">Sign up</h3>
+            <p className="parrafo-login">
+              Register to create your restaurant or personal account.
+            </p>
+            {error && <div className="alert alert-danger">{error}</div>}
+            <div className="mb-3">
+              <div className="row">
+                <div className="col-6 mb-3">
+                  <label htmlFor="name" className="form-label">
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="name"
+                    placeholder="Your Name"
+                    value={user.name}
+                    onChange={(e) => setUser({ ...user, name: e.target.value })}
+                  />
+                </div>
+                <div className="col-6 mb-3">
+                  <label htmlFor="last_name" className="form-label">
+                    Last Name
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="last_name"
+                    placeholder="Your Last Name"
+                    value={user.last_name}
+                    onChange={(e) =>
+                      setUser({ ...user, last_name: e.target.value })
+                    }
+                  />
+                </div>
+                <div className="col-6 mb-3">
+                  <label htmlFor="email" className="form-label">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    className="form-control"
+                    id="email"
+                    placeholder="name@example.com"
+                    value={user.email}
+                    onChange={(e) => setUser({ ...user, email: e.target.value })}
+                  />
+                </div>
+                <div className="col-6 mb-3">
+                  <label htmlFor="address" className="form-label">
+                    Address
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="address"
+                    placeholder="Address"
+                    value={user.address}
+                    onChange={(e) =>
+                      setUser({ ...user, address: e.target.value })
+                    }
+                  />
+                </div>
+                <div className="col-12 mb-3 position-relative">
+                  <label htmlFor="password" className="form-label">
+                    Password
+                  </label>
+                  <div className="input-group">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      className="form-control"
+                      id="password"
+                      placeholder="Password"
+                      value={user.password}
+                      onChange={(e) =>
+                        setUser({ ...user, password: e.target.value })
+                      }
+                    />
+                    <span
+                      className="input-group-text toggle-password"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      <i
+                        className={`fa ${
+                          showPassword ? "fa-eye-slash" : "fa-eye"
+                        }`}
+                      ></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button type="submit" className="btn btn-primary">
+              Create account
+            </button>
+          </form>
+        </div>
+        {/* Columna derecha */}
+        <div
+          className="col muestra"
+          style={{ backgroundImage: `url(${recipes})` }}
+        >
+          {/* Contenido de la columna derecha */}
+        </div>
+      </div>
     </div>
-    
-    <div class="col-6 mb-3">
-    <label for="exampleInputEmail1" class="form-label">Email</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="name@example.com" aria-describedby="emailHelp"/>
-  </div>
-    <div class="col-6 mb-3">
-    <label for="exampleInputEmail1" class="form-label">Address</label>
-    <input type="phone number" class="form-control" id="exampleInputEmail1" placeholder="address" aria-describedby="emailHelp"/>
-   </div>
-
-   <div class="col-12 mb-3">
-   <label for="exampleInputPassword1" class="form-label">Password</label>
-    <input type="password" class="form-control" placeholder="min. 8 characters" id="exampleInputPassword1"/>
- 
-   </div>
-
-    </div>
-
-
-
-  </div>
-  <button type="submit" class="btn btn-primary">Create account</button>
-</form>
-
-	</div>
-	{/* Columna derecha */}
-    <div className="col muestra" style={{ backgroundImage: `url(${recipes})` }}>
-    {/* <img className="cucharas" src={recipes} />
-    <h4>Keep track of all your inventory.</h4>
-    <p className="p-login">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p> */}
-    </div>
-	
-		</div>
-		</div>
-	);
+  );
 };

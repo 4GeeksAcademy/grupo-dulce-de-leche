@@ -76,33 +76,29 @@ const getState = ({ getStore, getActions, setStore }) => {
 					throw new Error(`Error during login: ${error.message}`);
 				}
 			},
-			
-
-
-			//   logout: async () => {
-			//     try {
-			//       const resp = await fetch(process.env.BACKEND_URL + "/logout", {
-			//         method: "POST",
-			//         headers: {
-			//           "Content-Type": "application/json",
-			//           Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
-			//         },
-			//       });
-
-			//       if (!resp.ok) {
-			//         throw new Error("Error during logout request");
-			//       }
-
-			//       localStorage.removeItem("jwt-token");
-			//       setStore({userLoggedIn: null})
-
-			//       return true;
-			//     } catch (error) {
-			//       throw new Error(`Error during logout: ${error.message}`);
-			//     }
-			//   },
-
-
+			logout: async () => {
+				try {
+				  const resp = await fetch(process.env.BACKEND_URL + "/logout", {
+					method: "POST",
+					headers: {
+					  "Content-Type": "application/json",
+					  Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
+					},
+				  });
+			  
+				  if (!resp.ok) {
+					throw new Error("Error during logout request");
+				  }
+			  
+				  localStorage.removeItem("jwt-token");
+			  
+				  setStore({ userLoggedIn: null });
+			  
+				  return true;
+				} catch (error) {
+				  throw new Error(`Error during logout: ${error.message}`);
+				}
+			  },
 			getMessage: async () => {
 				try {
 					// fetching data from the backend

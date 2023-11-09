@@ -54,7 +54,7 @@ const Dashboard = () => {
               <CardFooter>And that's all</CardFooter>
             </Card>
           ) : (
-            <Alert variant="info">Nothing low for now.</Alert>
+            <Alert variant="success">Ingredients looking good for now.</Alert>
           )}
         </Col>
         <Col md={6}>
@@ -76,7 +76,7 @@ const Dashboard = () => {
               <CardFooter>And that's all</CardFooter>
             </Card>
           ) : (
-            <Alert variant="info">Nothing low for now.</Alert>
+            <Alert variant="success">Products looking good for now.</Alert>
           )}
         </Col>
       </Row>

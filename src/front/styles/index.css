@@ -37,3 +37,8 @@
   border: 1px white dashed;
   margin: 20px 0 40px 0;
 }
+
+
+img.logo {
+  width: 35%;
+}

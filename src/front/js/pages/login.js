@@ -29,7 +29,7 @@ export const Login = () => {
       // actions.areaPrivadaUsuario(email, password);
   
       // Redirige a la ruta '/private'
-      navigate("/");
+      navigate("/dashboard");
   
     } catch (error) {
       // Manejo de errores, muestra un mensaje de error si el usuario no está registrado

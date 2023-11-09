@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap';
 
 const SignUpButton = () => {
   return (
-    <Button variant="outline-light" className='signupbutton text-white fs-5'>
+    <Button variant="outline-light" className='signupbutton text-white'>
       Sign up
     </Button>
   );

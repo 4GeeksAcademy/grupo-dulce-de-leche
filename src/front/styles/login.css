@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600&display=swap');
 
 
+
 .titulo-login {
     color: #000;
     padding-top: 0px;
@@ -31,6 +32,10 @@ a {
 .muestra {
     padding: 120px 80px;
     background: #415E4C;
+}
+
+span.toggle-password {
+    color: grey;
 }
 
 .mb-3 {

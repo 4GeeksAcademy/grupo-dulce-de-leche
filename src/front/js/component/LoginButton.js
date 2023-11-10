@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const LoginButton = () => {
   return (
     <Button variant="light" className="login-button text-white">
-      <Link to="/login" className='text-white'>Login</Link>
+      <Link to="/login" className='text-white text-decoration-none'>Login</Link>
     </Button>
   );
 };

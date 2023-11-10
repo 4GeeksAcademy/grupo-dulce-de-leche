@@ -26,6 +26,20 @@
   --bs-btn-hover-border-color: #ffffff;
 }
 
+.logoutbutton {
+  font-size: 15px;
+  padding: 23px 60px;
+  background-color: #343a40;
+  box-shadow: 0px 4px 10px rgb(88 115 96);
+  border: 2px #587360 solid;
+  padding: 23px 73px;
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+  --bs-btn-hover-bg: #783a3a;
+  --bs-btn-hover-border-color: #ffffff;
+  --bs-btn-hover-color: #ffffff;
+}
+
 
 
 

@@ -6,9 +6,9 @@ import { Link } from "react-router-dom";
 
 const SignUpButton = () => {
   return (
-    <Button variant="outline-light" className='signupbutton text-white'>
-      <Link to="/signup" className='text-white text-decoration-none'>Sign up</Link>
-    </Button>
+    <Link to="/signup" className='text-white text-decoration-none'><Button variant="outline-light" className='signupbutton text-white'>
+      Sign up
+    </Button></Link>
   );
 };
 

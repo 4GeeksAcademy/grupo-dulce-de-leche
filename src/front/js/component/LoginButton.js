@@ -4,9 +4,8 @@ import { Link } from 'react-router-dom';
 
 const LoginButton = () => {
   return (
-    <Button variant="light" className="login-button text-white">
-      <Link to="/login" className='text-white text-decoration-none'>Login</Link>
-    </Button>
+    <Link to="/login" className='text-white text-decoration-none'><Button variant="light" className="login-button text-white">Login
+    </Button></Link>
   );
 };
 

@@ -59,7 +59,7 @@ const Dashboard = () => {
         </Col>
         <Col md={6}>
           {productosFinales.length > 0 ? (
-            <Card className="rounded">
+            <Card className="rounded mb-5">
               <CardTitle className="p-4">You are low on these products:</CardTitle>
               <ListGroup variant="flush">
                 {productosFinales.map(producto => (

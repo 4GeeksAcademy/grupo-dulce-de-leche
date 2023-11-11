@@ -43,10 +43,32 @@
 .footer {
   font-family: "Nunito", sans-serif;
 }
+
+
 .line2 {
   width: 100%;
   border: 1px white dashed;
-  margin: 20px 0 40px 0;
+  margin: 20px 0px;
+}
+
+.bgfooter{
+  background-color: #415e4c;
+    padding-top: 40px;
+}
+
+p.copyright {
+  padding-bottom: 20px;
+  text-align: center;
+  font-weight: 300;
+  color: white;
+  font-size: 13px;
+}
+
+p.contacto {
+  padding-bottom: 20px;
+  text-align: left;
+  font-weight: 300;
+  color: white;
 }
 
 

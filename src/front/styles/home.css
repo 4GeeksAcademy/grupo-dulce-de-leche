@@ -68,7 +68,7 @@ img.started {
     padding-top: 80px;
 }
 
-.fondo {
+.fondo-carne {
     background-position: right;
     height: 630px;
     background-size: contain;
@@ -95,7 +95,7 @@ img.sal {
 }
 
 .receta_uno {
-    background-size: cover;
+    background-size: auto;
     background-position: top;
     background-repeat: no-repeat;
     height: 460px;
@@ -103,7 +103,7 @@ img.sal {
 }
 
 .receta_dos {
-    background-size: cover;
+    background-size: auto;
     background-position: top;
     background-repeat: no-repeat;
     height: 460px;
@@ -111,8 +111,7 @@ img.sal {
 }
 
 .receta_tres {
-    /*background: content-box;*/
-    background-size: cover;
+    background-size: auto;
     background-position: top;
     background-repeat: no-repeat;
     height: 460px;
@@ -168,3 +167,91 @@ img.leaf {
     display: block;
     width: 64%;
 }
+
+
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+
+    .start {
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-bottom: 80px;
+        padding-top: 0px;
+        background: #415E4C;
+    }
+
+    h1 {  
+        margin-top: 34px;
+        font-size: 3em;
+        margin-bottom: 34px;
+    }
+    h2 {
+        font-size: 2.5em;
+    }
+
+    .vacia {display:none;}
+
+    .intro {
+        padding-bottom: 0px;
+        padding-top: 0px;
+    }
+
+    .fondo-carne {
+        background-image: none !important;
+        background: #415E4C;
+    }
+
+    img.carne-movil {
+        width: 100%;
+    }
+
+    .row.especias {
+        padding-bottom: 34px;
+        margin-top: 34px;
+    }
+
+    .recipes {
+        margin: 0 auto;
+        background: no-repeat;
+        background-position-x: center;
+        padding: 34px 30px;
+    }
+
+
+    img.spices {
+        width: 100%;
+    }
+
+
+    .receta_uno, .receta_dos, .receta_tres {
+        /* margin: 13px; */
+        margin: 10px auto;
+        border-radius: 14px;
+    }
+
+    .inventory {
+        padding: 60px 30px;
+        background: #EBF0E4;
+    }
+
+    .texto_uno {
+        padding-bottom: 0px;
+        text-align: left;
+    }
+
+}
+
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .carne-movil {
+        display:none;
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) { 
+    .carne-movil {
+    display:none;
+}}

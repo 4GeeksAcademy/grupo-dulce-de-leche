@@ -16,6 +16,7 @@ import Ingredients from "./pages/Ingredients";
 import { Profile } from "./pages/profile";
 import { MyProducts } from "./pages/myproducts";
 import { MyRecipes } from "./pages/myrecipes";
+import { SingleRecipe } from "./pages/singlerecipe";
 
 //create your first component
 const Layout = () => {
@@ -40,6 +41,7 @@ const Layout = () => {
                         <Route element={<Profile />} path="/dashboard/profile" />
                         <Route element={<MyProducts />} path="/dashboard/products" />
                         <Route element={<MyRecipes />} path="/dashboard/recipes" />
+                        <Route element={<SingleRecipe />} path="/dashboard/recipes/single-recipe" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />

@@ -32,6 +32,8 @@ a {
 .muestra {
     padding: 120px 80px;
     background: #415E4C;
+    background-position-x: 100%;
+    background-size: cover;
 }
 
 span.toggle-password {

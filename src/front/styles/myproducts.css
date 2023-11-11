@@ -1,0 +1,79 @@
+.btn-primary-product {
+    width: 50%;
+    float: right;
+    --bs-btn-padding-y: 0.650rem;
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #415e4c;
+    --bs-btn-border-color: #415e4c;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #587360;
+    --bs-btn-hover-border-color: #587360;
+    --bs-btn-focus-shadow-rgb: 49, 132, 253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #587360;
+    --bs-btn-active-border-color: #587360;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #587360;
+    --bs-btn-disabled-border-color: #587360;
+}
+
+.boton-categories {
+    align-items: center;
+    display: flex;
+    padding-bottom: 60px;
+}
+
+
+.myproducts.bg-white {
+    display: flex;
+    border-radius: 12px;
+    padding: 50px;
+}
+
+.row.row-cols-1.row-cols-md-3.g-4 {
+    margin: 0 auto;
+    width: 100%;
+}
+
+p.card-text {
+    color: grey;
+}
+
+.fa-solid.fa-plus {
+    color: white;
+    background: #415e4c;
+    padding: 8px 10px;
+}
+
+.unidades-add {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.row.principal-recipes {
+    margin: 0 auto;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+
+    .gris {
+        padding: 60px 10px 90px 10px;
+    }
+
+    .myproducts.bg-white {
+        padding: 30px;
+    }
+
+    .unidades-add {
+        width: 100%;
+    }
+    
+    .btn-primary-product {
+        float: left;
+    }
+  
+
+}

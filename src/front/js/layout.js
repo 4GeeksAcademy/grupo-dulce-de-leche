@@ -15,6 +15,8 @@ import { Forgot } from "./pages/forgot";
 import { Signup } from "./pages/signup";
 import Dashboard from "./pages/Dashboard";
 import { Profile } from "./pages/profile";
+import { MyProducts } from "./pages/myproducts";
+import { MyRecipes } from "./pages/myrecipes";
 
 //create your first component
 const Layout = () => {
@@ -37,6 +39,8 @@ const Layout = () => {
                         <Route element={<Signup />} path="/signup" />
                         <Route element={<Dashboard />} path="/dashboard" />
                         <Route element={<Profile />} path="/profile" />
+                        <Route element={<MyProducts />} path="/myproducts" />
+                        <Route element={<MyRecipes />} path="/myrecipes" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>

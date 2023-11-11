@@ -4,8 +4,6 @@ import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
 
 import { Home } from "./pages/home";
-import { Demo } from "./pages/demo";
-import { Single } from "./pages/single";
 import injectContext from "./store/appContext";
 
 import { AlmaCenaNavbar } from "./component/AlmaCenaNavBar";
@@ -34,16 +32,14 @@ const Layout = () => {
                     <AlmaCenaNavbar />
                     <Routes>
                         <Route element={<Home />} path="/" />
-                        <Route element={<Demo />} path="/demo" />
                         <Route element={<Login />} path="/login" />
                         <Route element={<Forgot />} path="/forgot" />
                         <Route element={<Signup />} path="/signup" />
                         <Route element={<Dashboard />} path="/dashboard" />
                         <Route element={<Ingredients />} path="/dashboard/ingredients" />
-                        <Route element={<Profile />} path="/profile" />
-                        <Route element={<MyProducts />} path="/myproducts" />
-                        <Route element={<MyRecipes />} path="/myrecipes" />
-                        <Route element={<Single />} path="/single/:theid" />
+                        <Route element={<Profile />} path="/dashboard/profile" />
+                        <Route element={<MyProducts />} path="/dashboard/products" />
+                        <Route element={<MyRecipes />} path="/dashboard/recipes" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />

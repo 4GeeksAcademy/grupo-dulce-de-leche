@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import { Context } from "../store/appContext";
 import "../../styles/profile.css";
 import perfil from "../../img/perfil.png";
 
@@ -14,7 +13,7 @@ export const Profile = () => {
         <div className="col gris">
         <h3 className="titulo-account">Account</h3>
           <form className="profile-user bg-white">
-            <h3 className="personal">Personal Account</h3>
+            <h4 className="personal">Personal information</h4>
 
 
 

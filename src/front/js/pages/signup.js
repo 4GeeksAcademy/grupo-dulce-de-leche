@@ -1,8 +1,13 @@
 import React, { useContext, useState } from "react";
+import { navigate } from "react-router-dom"; // Asegúrate de importar la función navigate
 import { Context } from "../store/appContext";
+import { useNavigate } from "react-router-dom";
 import recipes from "../../img/recipes.png";
+import "../../styles/login.css";
+
 export const Signup = () => {
   const { actions } = useContext(Context);
+  const navigate = useNavigate();
   const [user, setUser] = useState({
     name: "",
     last_name: "",
@@ -12,8 +17,13 @@ export const Signup = () => {
   });
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [registrationSuccess, setRegistrationSuccess] = useState(false);
+
   const enviarFormulario = async (event) => {
     event.preventDefault();
+    setError(""); // Limpiar errores al intentar registrar nuevamente
+    setRegistrationSuccess(false);
+
     if (
       user.name.trim() === "" ||
       user.last_name.trim() === "" ||
@@ -24,6 +34,7 @@ export const Signup = () => {
       setError("Por favor completa todos los campos requeridos.");
       return;
     }
+
     try {
       // Realizar la solicitud de registro utilizando el método signup del contexto
       await actions.signup(
@@ -33,13 +44,23 @@ export const Signup = () => {
         user.password,
         user.address
       );
-      // Registro exitoso, podrías redirigir si es necesario
-      // navigate("/");
+
+      // Registro exitoso
+      setRegistrationSuccess(true);
+
+     // Redirección despues de 3 segundos
+      setTimeout(() => {
+        navigate("/login"); // Redirige a la página
+      }, 3000);
     } catch (error) {
-      setError(`El usuario ${user.email} ya existe. Por favor inicia sesión.`);
+      setError(
+        `El usuario ${user.email} ya existe. Por favor inicia sesión.`
+      );
       console.error(error);
     }
   };
+
+
   return (
     <div className="container-fluid">
       <div className="row principal">
@@ -51,6 +72,11 @@ export const Signup = () => {
               Register to create your restaurant or personal account.
             </p>
             {error && <div className="alert alert-danger">{error}</div>}
+            {registrationSuccess && (
+              <div className="alert alert-success">
+                Registration successful! You can now log in... Redirecting to Login
+              </div>
+            )}
             <div className="mb-3">
               <div className="row">
                 <div className="col-6 mb-3">

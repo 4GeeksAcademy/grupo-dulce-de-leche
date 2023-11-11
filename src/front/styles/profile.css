@@ -1,0 +1,50 @@
+
+
+.profile-user.bg-white {
+    border-radius: 12px;
+    padding: 50px;
+}
+
+.gris {
+    padding: 60px 80px 90px 80px;
+
+}
+.perfil {
+    width: 100%;
+}
+
+.row.foto {
+    padding-bottom: 36px;
+}
+
+.fa-solid.fa-user-pen {
+    display: table;
+    color: #aeb4b7;
+}
+
+.fa-solid.fa-trash{
+    display: table;
+    color: #aeb4b7;
+
+}
+
+.titulo-account {
+    padding-bottom: 40px;
+    padding-top: 0px;
+    font-weight: bold;
+    font-family: 'Nunito', sans-serif;
+    font-size: 3em;
+    line-height: 1;
+    color: black;
+}
+
+.personal {
+    text-align: left;
+    padding-bottom: 36px;
+    padding-top: 36px;
+    font-weight: bold;
+    font-family: 'Nunito', sans-serif;
+    color: black;
+    font-size: 1.5em;
+    line-height: 1;
+}

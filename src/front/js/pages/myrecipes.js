@@ -10,13 +10,13 @@ export const MyRecipes = () => {
   
   return (
     <div className="container-fluid">
-      <div className="row principal">
+      <div className="row principal-recipes">
         <div className="col gris">
         <div class="row boton-categories">
-    <div class="col">
+    <div class="col-sm-12 col-md-6">
       <p>Categories: <span>All</span> </p>
     </div>
-    <div class="col">
+    <div class="col-sm-12 col-md-6">
     <button class="btn btn-primary-product">Add new recipe</button>
     </div>
     </div>

@@ -10,14 +10,17 @@
 }
 
 .formulario {
+    background-color: white;
     padding: 120px 80px;
 }
 
 .formulario-forgot {
+    background-color: white;
     padding: 240px 80px;
 }
 
 .formulario-signup {
+    background-color: white;
     padding: 150px 80px;
 }
 

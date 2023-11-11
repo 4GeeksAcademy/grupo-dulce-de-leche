@@ -31,6 +31,11 @@
     padding: 50px;
 }
 
+.row.row-cols-1.row-cols-md-3.g-4 {
+    margin: 0 auto;
+    width: 100%;
+}
+
 p.card-text {
     color: grey;
 }
@@ -45,4 +50,30 @@ p.card-text {
     margin-top: 20px;
     display: flex;
     align-items: center;
+}
+
+.row.principal-recipes {
+    margin: 0 auto;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+
+    .gris {
+        padding: 60px 10px 90px 10px;
+    }
+
+    .myproducts.bg-white {
+        padding: 30px;
+    }
+
+    .unidades-add {
+        width: 100%;
+    }
+    
+    .btn-primary-product {
+        float: left;
+    }
+  
+
 }

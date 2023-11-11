@@ -32,8 +32,6 @@ a {
 .muestra {
     padding: 120px 80px;
     background: #415E4C;
-    background-position-x: 100%;
-    background-size: cover;
 }
 
 span.toggle-password {
@@ -116,13 +114,3 @@ h4 {
     font-family: 'Montserrat', sans-serif;
     color: white;
 }
-
-
-.alert-success{
-    --bs-alert-color: #415e4c;
-    --bs-alert-bg: #c3c8c5;
-    --bs-alert-border-color: #415e4c;
-    --bs-alert-link-color: #415e4c;
-    }
-
-    

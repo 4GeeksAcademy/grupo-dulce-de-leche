@@ -18,6 +18,8 @@
 }
 
 .fa-solid.fa-user-pen {
+    padding-top: 10px;
+    padding-bottom: 10px;
     display: table;
     color: #aeb4b7;
 }

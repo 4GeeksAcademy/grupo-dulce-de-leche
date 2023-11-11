@@ -1,28 +1,21 @@
 import React from "react";
-import { Col, Row } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faInstagram,
-  faTwitter,
-  faFacebook,
-  faYoutube,
-} from "@fortawesome/free-brands-svg-icons";
 
 export const Footer = () => (
-  <footer className="footer" style={{ backgroundColor: "rgba(65, 94, 76, 1)" }}>
-    <Row className="p-5">
-      <Col>
-        <img
+
+<div class="container-fluid bgfooter" style={{ backgroundColor: "rgba(65, 94, 76, 1)" }}>
+  <div class="row">
+    <div class="col-4">
+    <img
           src="https://i.ibb.co/16FC60X/logoalmacena.png"
           alt="logoalmacena"
           width="200"
           className="d-inline-block align-top ms-5"
         />
-      </Col>
-      <Col>
-        <div className="contactfooter d-flex flex-column">
+    </div>
+    <div class="col-4">
+    <div className="contactfooter d-flex flex-column">
           <p className="fs-3 text-white fw-bolder">Contact</p>
-          <p className="fs-6 text-white">
+          <p className="p contacto">
             +1+86 852 346 000
             <br />
             info@foodzero.com
@@ -33,28 +26,27 @@ export const Footer = () => (
             Culver City, CA, 90230
           </p>
         </div>
-      </Col>
-      <Col></Col>
-    </Row>
-    <div className="line2"></div>
-	<Row>
-      <Col lg="4">
-        <p className="text-white fs-6">2023 AlmaCena All rights Reserved.</p>
-      </Col>
-      <Col lg="8">
+    </div>
+    <div class="col-4">
+    <p className="fs-3 text-white fw-bolder">Síguenos</p>
         <a href="https://www.instagram.com" className="text-white p-2">
-          <FontAwesomeIcon icon={faInstagram} size="2x" />
+        <i class="fa-brands fa-instagram"></i>
         </a>
         <a href="https://www.twitter.com" className="text-white p-2">
-          <FontAwesomeIcon icon={faTwitter} size="2x" />
+        <i class="fa-brands fa-x-twitter"></i>
         </a>
         <a href="https://www.facebook.com" className="text-white p-2">
-          <FontAwesomeIcon icon={faFacebook} size="2x" />
+        <i class="fa-brands fa-facebook-f"></i>
         </a>
         <a href="https://www.youtube.com" className="text-white p-2">
-          <FontAwesomeIcon icon={faYoutube} size="2x" />
+        <i class="fa-brands fa-youtube"></i>
         </a>
-      </Col>
-    </Row>
-  </footer>
+    </div>
+  </div>
+  <div className="line2"></div>
+  <div> <p className="copyright">2023 AlmaCena All rights Reserved.</p></div>
+
+</div>
+
+
 );

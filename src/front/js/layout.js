@@ -14,6 +14,7 @@ import { Login } from "./pages/login";
 import { Forgot } from "./pages/forgot";
 import { Signup } from "./pages/signup";
 import Dashboard from "./pages/Dashboard";
+import Ingredients from "./pages/Ingredients";
 import { Profile } from "./pages/profile";
 import { MyProducts } from "./pages/myproducts";
 import { MyRecipes } from "./pages/myrecipes";
@@ -38,6 +39,7 @@ const Layout = () => {
                         <Route element={<Forgot />} path="/forgot" />
                         <Route element={<Signup />} path="/signup" />
                         <Route element={<Dashboard />} path="/dashboard" />
+                        <Route element={<Ingredients />} path="/dashboard/ingredients" />
                         <Route element={<Profile />} path="/profile" />
                         <Route element={<MyProducts />} path="/myproducts" />
                         <Route element={<MyRecipes />} path="/myrecipes" />

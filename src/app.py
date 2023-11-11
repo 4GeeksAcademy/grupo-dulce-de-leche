@@ -152,11 +152,12 @@ def get_user_ingredients():
             ingredient_data = {
                 "materia_prima_id": user_materia_prima.materias_primas_id,
                 "nombre": materia_prima.nombre,
-                "cantidad_stock": user_materia_prima.cantidad_stock
+                "cantidad_stock": user_materia_prima.cantidad_stock,
+                "cantidad_stock_minimo": user_materia_prima.minimo_stock,
+                "clasificacion": materia_prima.clasificacion
             }
             ingredients_list.append(ingredient_data)
     return jsonify(ingredients_list), 200
-
 
 
 # ENDPOINT | CREAR NUEVO INGREDIENTE CON USUARIO

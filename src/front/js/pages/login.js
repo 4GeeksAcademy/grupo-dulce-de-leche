@@ -33,8 +33,7 @@ export const Login = () => {
   
     } catch (error) {
       // Manejo de errores, muestra un mensaje de error si el usuario no está registrado
-      setError(`Error during login: ${error.message}`);
-      console.error("Error al iniciar sesión", error);
+      setError(`Incorrect User or Password.`);
     }
   };
 

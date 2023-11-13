@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import "../../styles/myproducts.css";
 import croissant from "../../img/croissant.png";
+import Sidebar from "../component/sidebar";
 
 
 
@@ -9,7 +10,10 @@ export const MyProducts = () => {
 
   
   return (
+
+   
     <div className="container-fluid">
+       <Sidebar/>
       <div className="row principal-recipes">
         <div className="col gris">
         <div class="row boton-categories">

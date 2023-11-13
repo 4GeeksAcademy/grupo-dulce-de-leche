@@ -12,11 +12,14 @@ export const MyProducts = () => {
   
   return (
 
-    <> <AlmaCenaSidebar />
-    <div className="container-fluid">
-    
  
-      <div className="row principal-recipes">
+    <div className="contain">
+    <div class="row">
+    <div class="col-2">
+    <AlmaCenaSidebar />
+    </div>
+    <div class="col-10">
+    <div className="row principal-recipes">
         <div className="col gris">
         <div class="row boton-categories">
     <div class="col-sm-12 col-md-6">
@@ -112,6 +115,9 @@ export const MyProducts = () => {
       
       </div>
     </div>
-    </>
+ 
+   
+    </div>
+    </div>
   );
 };

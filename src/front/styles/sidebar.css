@@ -1,4 +1,6 @@
-
+.contain {
+    width: 100%;
+}
 
 span.item-content {
     color: white;

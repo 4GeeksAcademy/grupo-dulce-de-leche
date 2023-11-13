@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import { Card, Container, Table } from "react-bootstrap";
 import LoginButton from "../component/LoginButton";
+import AlmaCenaSidebar from "../component/AlmaCenaSidebar";
 
 const Ingredients = () => {
   const { actions, store } = useContext(Context);
@@ -37,6 +38,7 @@ const Ingredients = () => {
   const token = localStorage.getItem('jwt-token');
 
   return (
+    <> <AlmaCenaSidebar/>
     <Container>
       {token && token !== null && token !== undefined ? (
         <Card className="rounded my-5">
@@ -75,6 +77,7 @@ const Ingredients = () => {
         </Container>
       )} 
     </Container>
+    </>
   );
 };
 

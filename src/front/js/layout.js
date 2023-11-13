@@ -5,8 +5,6 @@ import { BackendURL } from "./component/backendURL";
 
 import { Home } from "./pages/home";
 import injectContext from "./store/appContext";
-
-import { AlmaCenaNavbar } from "./component/AlmaCenaNavBar";
 import { Footer } from "./component/footer";
 import { Login } from "./pages/login";
 import { Forgot } from "./pages/forgot";
@@ -30,7 +28,6 @@ const Layout = () => {
         <div>
             <BrowserRouter basename={basename}>
                 <ScrollToTop>
-                    <AlmaCenaNavbar />
                     <Routes>
                         <Route element={<Home />} path="/" />
                         <Route element={<Login />} path="/login" />

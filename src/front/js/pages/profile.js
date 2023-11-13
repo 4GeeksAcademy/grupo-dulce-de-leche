@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import "../../styles/profile.css";
 import perfil from "../../img/perfil.png";
+import AlmaCenaSidebar from "../component/AlmaCenaSidebar";
 
 
 
@@ -8,6 +9,7 @@ export const Profile = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
+    <> <AlmaCenaSidebar />
     <div className="container-fluid">
       <div className="row principal">
         <div className="col gris">
@@ -108,5 +110,6 @@ export const Profile = () => {
 
       </div>
     </div>
+    </>
   );
 };

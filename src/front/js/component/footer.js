@@ -2,9 +2,9 @@ import React from "react";
 
 export const Footer = () => (
 
-<div class="container-fluid bgfooter" style={{ backgroundColor: "rgba(65, 94, 76, 1)" }}>
-  <div class="row">
-    <div class="col-4">
+<div className="container-fluid bgfooter" style={{ backgroundColor: "rgba(65, 94, 76, 1)" }}>
+  <div className="row">
+    <div className="col-4">
     <img
           src="https://i.ibb.co/16FC60X/logoalmacena.png"
           alt="logoalmacena"
@@ -12,7 +12,7 @@ export const Footer = () => (
           className="d-inline-block align-top ms-5"
         />
     </div>
-    <div class="col-4">
+    <div className="col-4">
     <div className="contactfooter d-flex flex-column">
           <p className="fs-3 text-white fw-bolder">Contact</p>
           <p className="p contacto">
@@ -27,7 +27,7 @@ export const Footer = () => (
           </p>
         </div>
     </div>
-    <div class="col-4">
+    <div className="col-4">
     <p className="fs-3 text-white fw-bolder">Síguenos</p>
         <a href="https://www.instagram.com" className="text-white p-2">
         <i class="fa-brands fa-instagram"></i>

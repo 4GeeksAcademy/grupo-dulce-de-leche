@@ -1,13 +1,14 @@
 import React, { useContext, useState } from "react";
 import "../../styles/singlerecipe.css";
 import singlerecipe from "../../img/singlerecipe.png";
-
+import AlmaCenaSidebar from "../component/AlmaCenaSidebar";
 
 
 export const SingleRecipe = () => {
 
 
   return (
+    <> <AlmaCenaSidebar/>
     <div className="container-fluid">
       <div className="row principal">
         <div className="col gris">
@@ -82,5 +83,6 @@ export const SingleRecipe = () => {
 
       </div>
     </div>
+    </>
   );
 };

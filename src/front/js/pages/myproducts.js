@@ -1,7 +1,8 @@
 import React, { useContext, useState } from "react";
 import "../../styles/myproducts.css";
 import croissant from "../../img/croissant.png";
-import Sidebar from "../component/sidebar";
+import { Row } from "react-bootstrap";
+import AlmaCenaSidebar from "../component/AlmaCenaSidebar";
 
 
 
@@ -11,9 +12,10 @@ export const MyProducts = () => {
   
   return (
 
-   
+    <> <AlmaCenaSidebar />
     <div className="container-fluid">
-       <Sidebar/>
+    
+ 
       <div className="row principal-recipes">
         <div className="col gris">
         <div class="row boton-categories">
@@ -110,5 +112,6 @@ export const MyProducts = () => {
       
       </div>
     </div>
+    </>
   );
 };

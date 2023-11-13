@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import "../../styles/myproducts.css";
 import redvelvet from "../../img/redvelvet.png"
+import AlmaCenaSidebar from "../component/AlmaCenaSidebar";
 
 
 
@@ -9,6 +10,7 @@ export const MyRecipes = () => {
 
   
   return (
+    <>         <AlmaCenaSidebar/>
     <div className="container-fluid">
       <div className="row principal-recipes">
         <div className="col gris">
@@ -106,5 +108,6 @@ export const MyRecipes = () => {
       
       </div>
     </div>
+    </>
   );
 };

@@ -3,6 +3,7 @@ import { Context } from "../store/appContext";
 import { Card, ListGroup, Container, Row, Col, Alert, CardTitle, CardFooter } from "react-bootstrap";
 import "../../styles/dashboard.css";
 import LoginButton from "../component/LoginButton";
+import AlmaCenaSidebar from "../component/AlmaCenaSidebar";
 
 const Dashboard = () => {
   const { actions, store } = useContext(Context);
@@ -35,6 +36,7 @@ const Dashboard = () => {
   const token = localStorage.getItem("jwt-token");
 
   return (
+    <> <AlmaCenaSidebar />
     <Container className="mt-5">
       {token ? (
         <>
@@ -95,6 +97,7 @@ const Dashboard = () => {
         </Container>
       )}
     </Container>
+    </>
   );
 };
 

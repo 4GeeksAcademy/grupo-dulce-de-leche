@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../../styles/profile.css";
 import perfil from "../../img/perfil.png";
 import AlmaCenaSidebar from "../component/AlmaCenaSidebar";
@@ -7,7 +8,11 @@ import AlmaCenaSidebar from "../component/AlmaCenaSidebar";
 
 export const Profile = () => {
   const [showPassword, setShowPassword] = useState(false);
-
+  const navigate = useNavigate();
+  const token = localStorage.getItem("jwt-token");
+  if (!token) {
+  navigate("/login");
+  }
   return (
     <> <AlmaCenaSidebar />
     <div className="container-fluid">

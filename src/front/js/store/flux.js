@@ -3,7 +3,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			message: null,
 			user: null,
-			userLoggedIn: localStorage.getItem('jwt-token'),
+			userLoggedIn: null,
 		},
 
 		actions: {
@@ -52,11 +52,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 						headers: { "Content-Type": "application/json" },
 						body: JSON.stringify({ email: email, password: password }),
 					});
-			
+
 					if (!resp.ok) {
 						console.log("Response status:", resp.status);
 						console.log("Response status text:", resp.statusText);
-			
+
 						if (resp.status === 401) {
 							throw new Error("Invalid credentials");
 						} else if (resp.status === 400) {
@@ -65,12 +65,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 							throw new Error("Error during login request");
 						}
 					}
-			
+
 					const data = await resp.json();
-			
+
 					localStorage.setItem("jwt-token", data.token);
 					setStore({ userLoggedIn: localStorage.getItem("jwt-token") })
-			
+
 					return data;
 				} catch (error) {
 					throw new Error(`Error during login: ${error.message}`);
@@ -78,27 +78,27 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			logout: async () => {
 				try {
-				  const resp = await fetch(process.env.BACKEND_URL + "/logout", {
-					method: "POST",
-					headers: {
-					  "Content-Type": "application/json",
-					  Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
-					},
-				  });
-			  
-				  if (!resp.ok) {
-					throw new Error("Error during logout request");
-				  }
-			  
-				  localStorage.removeItem("jwt-token");
-			  
-				  setStore({ userLoggedIn: null });
-			  
-				  return true;
+					const resp = await fetch(process.env.BACKEND_URL + "/logout", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
+						},
+					});
+
+					if (!resp.ok) {
+						throw new Error("Error during logout request");
+					}
+
+					localStorage.removeItem("jwt-token");
+
+					setStore({ userLoggedIn: null });
+
+					return true;
 				} catch (error) {
-				  throw new Error(`Error during logout: ${error.message}`);
+					throw new Error(`Error during logout: ${error.message}`);
 				}
-			  },
+			},
 			getMessage: async () => {
 				try {
 					// fetching data from the backend

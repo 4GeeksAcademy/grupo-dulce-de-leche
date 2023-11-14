@@ -3,18 +3,18 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
 
-import { Home } from "./pages/home";
+import { Home } from "./pages/Home";
 import injectContext from "./store/appContext";
 import { Footer } from "./component/footer";
-import { Login } from "./pages/login";
-import { Forgot } from "./pages/forgot";
-import { Signup } from "./pages/signup";
+import { Login } from "./pages/Login";
+import { Forgot } from "./pages/Forgot";
+import { Signup } from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import Ingredients from "./pages/Ingredients";
-import { Profile } from "./pages/profile";
-import { MyProducts } from "./pages/myproducts";
-import { MyRecipes } from "./pages/myrecipes";
-import { SingleRecipe } from "./pages/singlerecipe";
+import { Profile } from "./pages/Profile";
+import { Products } from "./pages/Products";
+import { Recipes } from "./pages/Recipes";
+import { SingleRecipe } from "./pages/SingleRecipe";
 
 //create your first component
 const Layout = () => {
@@ -22,7 +22,7 @@ const Layout = () => {
     // you can set the basename on the .env file located at the root of this project, E.g: BASENAME=/react-hello-webapp/
     const basename = process.env.BASENAME || "";
 
-    if(!process.env.BACKEND_URL || process.env.BACKEND_URL == "") return <BackendURL/ >;
+    if (!process.env.BACKEND_URL || process.env.BACKEND_URL == "") return <BackendURL />;
 
     return (
         <div>
@@ -36,8 +36,8 @@ const Layout = () => {
                         <Route element={<Dashboard />} path="/dashboard" />
                         <Route element={<Ingredients />} path="/dashboard/ingredients" />
                         <Route element={<Profile />} path="/dashboard/profile" />
-                        <Route element={<MyProducts />} path="/dashboard/products" />
-                        <Route element={<MyRecipes />} path="/dashboard/recipes" />
+                        <Route element={<Products />} path="/dashboard/products" />
+                        <Route element={<Recipes />} path="/dashboard/recipes" />
                         <Route element={<SingleRecipe />} path="/dashboard/recipes/single-recipe" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from "react";
 import "../../styles/sidebar.css";
 import logo from "../../img/logoalmacena.png";
 import {
@@ -11,20 +11,22 @@ import {
 } from 'cdbreact';
 import { NavLink } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+import LogoutButton from './LogoutButton';
+import { Context } from "../store/appContext";
 
 
 const AlmaCenaSidebar = () => {
+  const { store, actions } = useContext(Context);
   return (
-    <div style={{ display: 'flex', height: '100vh', overflow: 'scroll initial' }}>
+    <div style={{ display: 'flex', height: '100%', overflow: 'scroll initial' }}>
       <CDBSidebar textColor="#fff" backgroundColor="#415e4c">
-      <CDBSidebarHeader prefix={<i className="fa fa-bars" />}>
+        <CDBSidebarHeader prefix={<i className="fa-solid fa-arrow-left text-white"/>}>
           <div className="container" style={{ display: 'flex', alignItems: 'center' }}>
             <img
               src={logo}
               alt=""
               style={{ width: '100%' }}
             />
-            <h6 className="ms-2">BABYCARE ™</h6>
           </div>
         </CDBSidebarHeader>
 
@@ -42,22 +44,19 @@ const AlmaCenaSidebar = () => {
             <NavLink exact to="/dashboard/products" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="cake-candles fa-xl" >My Products</CDBSidebarMenuItem>
             </NavLink>
+            <LogoutButton actions={actions}/>
           </CDBSidebarMenu>
         </CDBSidebarContent>
-
         <CDBSidebarFooter style={{ textAlign: 'center' }}>
-
-            
           <div
             style={{
               padding: '20px 5px',
             }}
           >
-<Button>
-Donate
-                
-</Button>
-            
+            <Button>
+              Donate
+            </Button>
+
           </div>
         </CDBSidebarFooter>
       </CDBSidebar>

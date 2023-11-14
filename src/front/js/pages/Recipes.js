@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../../styles/myproducts.css";
 import redvelvet from "../../img/redvelvet.png"
 import AlmaCenaSidebar from "../component/AlmaCenaSidebar";
@@ -6,13 +7,21 @@ import AlmaCenaSidebar from "../component/AlmaCenaSidebar";
 
 
 
-export const MyRecipes = () => {
-
-  
+export const Recipes = () => {
+const navigate = useNavigate();
+const token = localStorage.getItem("jwt-token");
+  if (!token) {
+  navigate("/login");
+  }  
   return (
-    <>         <AlmaCenaSidebar/>
-    <div className="container-fluid">
-      <div className="row principal-recipes">
+         
+    <div className="contain">
+    <div class="row">
+    <div class="col-2">
+    <AlmaCenaSidebar/>
+    </div>
+    <div class="col-10">
+    <div className="row principal-recipes">
         <div className="col gris">
         <div class="row boton-categories">
     <div class="col-sm-12 col-md-6">
@@ -108,6 +117,11 @@ export const MyRecipes = () => {
       
       </div>
     </div>
-    </>
+    </div>
+
+
+
+    </div>
+
   );
 };

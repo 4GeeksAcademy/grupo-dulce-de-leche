@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
-import { Card, Container, Table } from "react-bootstrap";
+import { Card, Container, Table, Row, Col } from "react-bootstrap";
 import LoginButton from "../component/LoginButton";
 import AlmaCenaSidebar from "../component/AlmaCenaSidebar";
 
 const Ingredients = () => {
   const { actions, store } = useContext(Context);
   const [materiasPrimas, setMateriasPrimas] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchIngredientsData = async () => {
@@ -34,40 +36,49 @@ const Ingredients = () => {
 
     fetchIngredientsData();
   }, []);
-  
-  const token = localStorage.getItem('jwt-token');
+
+  const token = localStorage.getItem("jwt-token");
+  if (!token) {
+  navigate("/login");
+  }
 
   return (
-    <> <AlmaCenaSidebar/>
-    <Container>
+    <Container fluid>
       {token && token !== null && token !== undefined ? (
-        <Card className="rounded my-5">
-          <Card.Header>
-            <Card.Title className="mb-0">Materias Primas</Card.Title>
-          </Card.Header>
-          <Card.Body>
-            <Table striped bordered hover responsive>
-              <thead>
-                <tr>
-                  <th>Nombre</th>
-                  <th>Clasificación</th>
-                  <th>Cantidad en Stock</th>
-                  <th>Cantidad Stock Mínimo</th>
-                </tr>
-              </thead>
-              <tbody>
-                {materiasPrimas && materiasPrimas.map(materiaPrima => (
-                  <tr key={materiaPrima.materia_prima_id}>
-                    <td>{materiaPrima.nombre}</td>
-                    <td>{materiaPrima.clasificacion}</td>
-                    <td>{materiaPrima.cantidad_stock}</td>
-                    <td>{materiaPrima.cantidad_stock_minimo}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
-          </Card.Body>
-        </Card >
+        <Row>
+          <Col md={3} className="p-0 m-0">
+            <AlmaCenaSidebar />
+          </Col>
+          <Col md={9}>
+            <Card className="rounded m-5">
+              <Card.Header>
+                <Card.Title className="mb-0">Materias Primas</Card.Title>
+              </Card.Header>
+              <Card.Body>
+                <Table striped bordered hover responsive>
+                  <thead>
+                    <tr>
+                      <th>Nombre</th>
+                      <th>Clasificación</th>
+                      <th>Cantidad en Stock</th>
+                      <th>Cantidad Stock Mínimo</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {materiasPrimas && materiasPrimas.map(materiaPrima => (
+                      <tr key={materiaPrima.materia_prima_id}>
+                        <td>{materiaPrima.nombre}</td>
+                        <td>{materiaPrima.clasificacion}</td>
+                        <td>{materiaPrima.cantidad_stock}</td>
+                        <td>{materiaPrima.cantidad_stock_minimo}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
       ) : (
         <Container className="gris">
           <div className="fs-4 fw-bold text-center p-4">Tienes que iniciar sesión para acceder</div>
@@ -75,13 +86,14 @@ const Ingredients = () => {
             <LoginButton />
           </div>
         </Container>
-      )} 
+      )}
     </Container>
-    </>
   );
 };
 
 export default Ingredients;
+
+
 
 
 

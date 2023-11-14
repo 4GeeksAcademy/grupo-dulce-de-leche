@@ -1,12 +1,16 @@
 import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../../styles/singlerecipe.css";
 import singlerecipe from "../../img/singlerecipe.png";
 import AlmaCenaSidebar from "../component/AlmaCenaSidebar";
 
 
 export const SingleRecipe = () => {
-
-
+const navigate = useNavigate();
+const token = localStorage.getItem("jwt-token");
+  if (!token) {
+  navigate("/login");
+  }
   return (
     <> <AlmaCenaSidebar/>
     <div className="container-fluid">

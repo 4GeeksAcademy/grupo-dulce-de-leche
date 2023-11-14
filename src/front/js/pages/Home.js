@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Context } from "../store/appContext";
+import { Context } from "../store/appContext.js";
 import "../../styles/home.css";
 import carne from "../../img/carne.png";
 import spices1 from "../../img/spices1.png";
@@ -10,7 +10,7 @@ import sal from "../../img/sal.png";
 import hojas from "../../img/hojas.png";
 import Leaf from "../../img/Leaf.png";
 import Esparrago from "../../img/esparrago.png";
-import {AlmaCenaNavbar} from "../../js/component/AlmaCenaNavBar.js";
+import {AlmaCenaNavbar} from "../component/AlmaCenaNavBar.js";
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);

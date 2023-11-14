@@ -1,22 +1,24 @@
 import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../../styles/myproducts.css";
-import croissant from "../../img/croissant.png";
-import { Row } from "react-bootstrap";
+import redvelvet from "../../img/redvelvet.png"
 import AlmaCenaSidebar from "../component/AlmaCenaSidebar";
 
 
 
 
-export const MyProducts = () => {
-
-  
+export const Recipes = () => {
+const navigate = useNavigate();
+const token = localStorage.getItem("jwt-token");
+  if (!token) {
+  navigate("/login");
+  }  
   return (
-
- 
+         
     <div className="contain">
     <div class="row">
     <div class="col-2">
-    <AlmaCenaSidebar />
+    <AlmaCenaSidebar/>
     </div>
     <div class="col-10">
     <div className="row principal-recipes">
@@ -26,7 +28,7 @@ export const MyProducts = () => {
       <p>Categories: <span>All</span> </p>
     </div>
     <div class="col-sm-12 col-md-6">
-    <button class="btn btn-primary-product">Add new product</button>
+    <button class="btn btn-primary-product">Add new recipe</button>
     </div>
     </div>
 
@@ -36,9 +38,9 @@ export const MyProducts = () => {
   {/* Card 1 */}
   <div class="col">
   <div className="card">
-    <img className="croissant" src={croissant} />
+    <img className="redvelvet" src={redvelvet} />
   <div className="card-body">
-    <h5 className="card-title">Croissant</h5>
+    <h5 className="card-title">Receta Red Velvet</h5>
     <div class="row unidades-add">
     <div class="col-10">
     <p className="card-text">1120 ud</p>
@@ -53,9 +55,9 @@ export const MyProducts = () => {
   {/* Card 2 */}
   <div class="col">
   <div className="card">
-    <img className="croissant" src={croissant} />
+    <img className="redvelvet" src={redvelvet} />
   <div className="card-body">
-    <h5 className="card-title">Croissant</h5>
+    <h5 className="card-title">Receta Red Velvet</h5>
     <div class="row unidades-add">
     <div class="col-10">
     <p className="card-text">1120 ud</p>
@@ -70,9 +72,9 @@ export const MyProducts = () => {
   {/* Card 3 */}
   <div class="col">
   <div className="card">
-    <img className="croissant" src={croissant} />
+    <img className="redvelvet" src={redvelvet} />
   <div className="card-body">
-    <h5 className="card-title">Croissant</h5>
+    <h5 className="card-title">Receta Red Velvet</h5>
     <div class="row unidades-add">
     <div class="col-10">
     <p className="card-text">1120 ud</p>
@@ -88,9 +90,9 @@ export const MyProducts = () => {
   {/* Card 4 */}
   <div class="col">
   <div className="card">
-    <img className="croissant" src={croissant} />
+    <img className="redvelvet" src={redvelvet} />
   <div className="card-body">
-    <h5 className="card-title">Croissant</h5>
+    <h5 className="card-title">Receta Red Velvet</h5>
     <div class="row unidades-add">
     <div class="col-10">
     <p className="card-text">1120 ud</p>
@@ -115,9 +117,11 @@ export const MyProducts = () => {
       
       </div>
     </div>
- 
-   
     </div>
+
+
+
     </div>
+
   );
 };

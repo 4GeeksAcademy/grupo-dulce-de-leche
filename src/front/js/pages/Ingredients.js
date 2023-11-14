@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { Card, Container, Table, Row, Col } from "react-bootstrap";
 import LoginButton from "../component/LoginButton";
@@ -7,6 +8,7 @@ import AlmaCenaSidebar from "../component/AlmaCenaSidebar";
 const Ingredients = () => {
   const { actions, store } = useContext(Context);
   const [materiasPrimas, setMateriasPrimas] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchIngredientsData = async () => {
@@ -35,7 +37,10 @@ const Ingredients = () => {
     fetchIngredientsData();
   }, []);
 
-  const token = localStorage.getItem('jwt-token');
+  const token = localStorage.getItem("jwt-token");
+  if (!token) {
+  navigate("/login");
+  }
 
   return (
     <Container fluid>

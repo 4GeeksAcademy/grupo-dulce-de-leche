@@ -268,9 +268,12 @@ def get_user_recipe(recipe_id):
 @jwt_required()
 def get_user_dashboard():
     user_id = get_jwt_identity()
+    user = User.query.get(user_id)
+
     user_ingredientes = UserMateriasPrimas.query.filter_by(
         user_id=user_id).all()
     user_productos = UserProductoFinal.query.filter_by(user_id=user_id).all()
+
     ingredientes_list = []
     for user_ingrediente in user_ingredientes:
         if user_ingrediente.cantidad_stock <= user_ingrediente.minimo_stock:
@@ -285,6 +288,7 @@ def get_user_dashboard():
                     "minimo_stock": user_ingrediente.minimo_stock
                 }
                 ingredientes_list.append(ingrediente_data)
+
     productos_list = []
     for user_producto in user_productos:
         if user_producto.cantidad_inventario <= user_producto.cantidad_inventario_minimo:
@@ -301,7 +305,15 @@ def get_user_dashboard():
                         "cantidad_inventario_minimo": user_producto.cantidad_inventario_minimo
                     }
                     productos_list.append(producto_data)
-    return jsonify({"ingredientes": ingredientes_list, "productos_finales": productos_list}), 200
+
+    response_data = {
+        "name": user.name,
+        "ingredientes": ingredientes_list,
+        "productos_finales": productos_list
+    }
+
+    return jsonify(response_data), 200
+
 ##################################################################################################################################
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 3001))

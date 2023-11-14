@@ -7,6 +7,7 @@ import AlmaCenaSidebar from "../component/AlmaCenaSidebar";
 
 const Dashboard = () => {
   const { actions, store } = useContext(Context);
+  const [user, setUser] = useState({ name: "" });
   const [ingredientes, setIngredientes] = useState([]);
   const [productosFinales, setProductosFinales] = useState([]);
 
@@ -23,6 +24,7 @@ const Dashboard = () => {
           throw new Error("Error fetching dashboard data");
         }
         const data = await response.json();
+        setUser({ name: data.name });
         setIngredientes(data.ingredientes);
         setProductosFinales(data.productos_finales);
       } catch (error) {
@@ -44,7 +46,7 @@ const Dashboard = () => {
               <AlmaCenaSidebar />
             </Col>
             <Col md={9}>
-              <h4 className="mb-4 text-black text-start">Welcome</h4>
+              <h4 className="my-5 text-black text-start">Welcome, {user.name}</h4>
               <Row>
                 <Col md={4}>
                   {ingredientes.length > 0 ? (

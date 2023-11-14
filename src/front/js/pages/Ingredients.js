@@ -34,17 +34,17 @@ const Ingredients = () => {
 
     fetchIngredientsData();
   }, []);
-  
+
   const token = localStorage.getItem('jwt-token');
 
   return (
     <Container fluid>
-      <Row>
-        <Col md={3} className="p-0 m-0">
-          <AlmaCenaSidebar />
-        </Col>
-        <Col md={9}>
-          {token && token !== null && token !== undefined ? (
+      {token && token !== null && token !== undefined ? (
+        <Row>
+          <Col md={3} className="p-0 m-0">
+            <AlmaCenaSidebar />
+          </Col>
+          <Col md={9}>
             <Card className="rounded m-5">
               <Card.Header>
                 <Card.Title className="mb-0">Materias Primas</Card.Title>
@@ -72,21 +72,22 @@ const Ingredients = () => {
                 </Table>
               </Card.Body>
             </Card>
-          ) : (
-            <Container className="gris">
-              <div className="fs-4 fw-bold text-center p-4">Tienes que iniciar sesión para acceder</div>
-              <div className="d-flex justify-content-center">
-                <LoginButton />
-              </div>
-            </Container>
-          )} 
-        </Col>
-      </Row>
+          </Col>
+        </Row>
+      ) : (
+        <Container className="gris">
+          <div className="fs-4 fw-bold text-center p-4">Tienes que iniciar sesión para acceder</div>
+          <div className="d-flex justify-content-center">
+            <LoginButton />
+          </div>
+        </Container>
+      )}
     </Container>
   );
 };
 
 export default Ingredients;
+
 
 
 

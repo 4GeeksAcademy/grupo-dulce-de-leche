@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { Card, ListGroup, Container, Row, Col, Alert, CardTitle, CardFooter } from "react-bootstrap";
 import "../../styles/dashboard.css";
@@ -10,6 +11,7 @@ const Dashboard = () => {
   const [user, setUser] = useState({ name: "" });
   const [ingredientes, setIngredientes] = useState([]);
   const [productosFinales, setProductosFinales] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchDashboardData = async () => {
@@ -36,6 +38,9 @@ const Dashboard = () => {
   }, []);
 
   const token = localStorage.getItem("jwt-token");
+  if (!token) {
+  navigate("/login");
+  }
 
   return (
     <Container fluid>

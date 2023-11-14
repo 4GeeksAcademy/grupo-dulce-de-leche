@@ -15,16 +15,15 @@ import { Button } from 'react-bootstrap';
 
 const AlmaCenaSidebar = () => {
   return (
-    <div style={{ display: 'flex', height: '100vh', overflow: 'scroll initial' }}>
+    <div style={{ display: 'flex', height: '100%', overflow: 'scroll initial' }}>
       <CDBSidebar textColor="#fff" backgroundColor="#415e4c">
-      <CDBSidebarHeader prefix={<i className="fa fa-bars" />}>
+        <CDBSidebarHeader prefix={<i className="fa-solid fa-arrow-left text-white"/>}>
           <div className="container" style={{ display: 'flex', alignItems: 'center' }}>
             <img
               src={logo}
               alt=""
               style={{ width: '100%' }}
             />
-            <h6 className="ms-2">BABYCARE ™</h6>
           </div>
         </CDBSidebarHeader>
 
@@ -44,20 +43,16 @@ const AlmaCenaSidebar = () => {
             </NavLink>
           </CDBSidebarMenu>
         </CDBSidebarContent>
-
         <CDBSidebarFooter style={{ textAlign: 'center' }}>
-
-            
           <div
             style={{
               padding: '20px 5px',
             }}
           >
-<Button>
-Donate
-                
-</Button>
-            
+            <Button>
+              Donate
+            </Button>
+
           </div>
         </CDBSidebarFooter>
       </CDBSidebar>

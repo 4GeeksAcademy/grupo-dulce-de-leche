@@ -1,6 +1,6 @@
 """
 
-ALMACENA SERVER v4.0
+ALMACENA SERVER v5.0
 
 """
 
@@ -189,7 +189,7 @@ def create_ingredient():
         unidad_medida=body.get("unidad_medida")
     )
 
-    new_user_materia_prima.materias_primas_relationship = new_materia_prima  # Establecer la relación
+    new_user_materia_prima.materias_primas_relationship = new_materia_prima  # Relacion
 
     db.session.add(new_user_materia_prima)
     db.session.commit()
@@ -264,6 +264,62 @@ def get_user_recipe(recipe_id):
             receta_info["ingredientes"].append(ingrediente_data)
     return jsonify(receta_info), 200
 
+# ENDPOINT | CREAR NUEVA RECETA PARA UN USUARIO
+@app.route('/dashboard/recipes', methods=['POST'])
+@jwt_required()
+def create_recipe():
+    user_id = get_jwt_identity()
+    body = request.get_json()
+
+    if body is None:
+        raise APIException("Request body is missing", status_code=400)
+
+    user = User.query.get(user_id)
+    if not user:
+        raise APIException("User not found", status_code=404)
+
+    new_recipe = Receta(
+        nombre=body.get("nombre"),
+        rinde=body.get("rinde"),
+        unidad_medida=body.get("unidad_medida")
+    )
+
+    # Obtener las materias primas del usuario para mostrar en las opciones de la receta
+    user_materias_primas = UserMateriasPrimas.query.filter_by(user_id=user_id).all()
+
+    # Asociar ingredientes a la receta
+    for ingrediente in body.get("ingredientes", []):
+        materia_prima_id = ingrediente.get("materia_prima_id")
+        cantidad_necesaria = ingrediente.get("cantidad_necesaria")
+
+        # Verificar que la materia prima pertenezca al usuario
+        matching_materias_primas = [mp for mp in user_materias_primas if mp.materias_primas_id == materia_prima_id]
+
+        if not matching_materias_primas:
+            raise APIException("Invalid ingredient: Materia prima not found for the user", status_code=400)
+
+        # Tomar la primera coincidencia (podrías ajustar esto si hay múltiples coincidencias)
+        materia_prima_id = matching_materias_primas[0].materias_primas_id
+
+        # Crear la relación entre la receta y la materia prima como ingrediente
+        new_ingrediente = IngredientesReceta(
+            receta_relationship=new_recipe,
+            materias_primas_id=materia_prima_id,
+            cantidad_necesaria=cantidad_necesaria
+        )
+        db.session.add(new_ingrediente)
+
+    # Crear la relación entre el usuario y la receta
+    user_receta = UserReceta(
+        user_relationship=user,
+        receta_relationship=new_recipe
+    )
+    db.session.add(user_receta)
+
+    db.session.add(new_recipe)
+    db.session.commit()
+
+    return jsonify({"msg": "Receta creada con éxito"}), 201
 
 
  # ENDPOINT | DASHBOARD DE UN USUARIO

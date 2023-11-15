@@ -160,37 +160,40 @@ def get_user_ingredients():
     return jsonify(ingredients_list), 200
 
 
-# ENDPOINT | CREAR NUEVO INGREDIENTE CON USUARIO
+# ENDPOINT | CREAR NUEVA MATERIA PRIMA PARA UN USUARIO
 @app.route('/dashboard/ingredients', methods=['POST'])
 @jwt_required()
 def create_ingredient():
     user_id = get_jwt_identity()
     body = request.get_json()
+
     if body is None:
         raise APIException("Request body is missing", status_code=400)
-    # Verifica que el usuario exista en la base de datos
+
     user = User.query.get(user_id)
     if not user:
         raise APIException("User not found", status_code=404)
-    # Obtiene la cantidad y la cantidad mínima del cuerpo de la solicitud o establece 0 como valor predeterminado
+
     cantidad = body.get("cantidad", 0)
-    cantidad_minima = body.get("cantidad_minima", 0)
+    minimo_stock = body.get("minimo_stock", 0)
+
     new_user_materia_prima = UserMateriasPrimas(
         user_id=user_id,
         cantidad_stock=cantidad,
-        minimo_stock=cantidad_minima
+        minimo_stock=minimo_stock
     )
-    # Crea una nueva instancia de MateriasPrimas y establece la relación con UserMateriasPrimas
+
     new_materia_prima = MateriasPrimas(
-        user_materias_primas=new_user_materia_prima,
         nombre=body.get("nombre"),
         clasificacion=body.get("clasificacion"),
         unidad_medida=body.get("unidad_medida")
     )
-    # Agrega las nuevas instancias a la base de datos
+
+    new_user_materia_prima.materias_primas_relationship = new_materia_prima  # Establecer la relación
+
     db.session.add(new_user_materia_prima)
-    db.session.add(new_materia_prima)
     db.session.commit()
+
     return jsonify({"msg": "Materia Prima creada con éxito"}), 201
 
 

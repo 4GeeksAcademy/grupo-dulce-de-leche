@@ -1,79 +1,41 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/profile.css";
 import perfil from "../../img/perfil.png";
 import AlmaCenaSidebar from "../component/AlmaCenaSidebar";
 
-export const Profile = () => {
+
+
+export const EditProfile = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  const [user, setUser] = useState({ 
-    name: "",
-    last_name: "",
-    email: "",
-    password: "",
-    address: "",
-    password: "",
-   });
-
   const token = localStorage.getItem("jwt-token");
   if (!token) {
-    navigate("/login");
+  navigate("/login");
   }
-
-
-  useEffect(() => {
-    const fetchDashboardData = async () => {
-      try {
-        const response = await fetch(process.env.BACKEND_URL + "/profile", {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt-token")}`
-          }
-        });
-        if (!response.ok) {
-          throw new Error("Error fetching dashboard data");
-        }
-        const data = await response.json();
-        setUser({ 
-          name: data.name,
-          last_name: data.last_name,
-          email: data.email,
-          address: data.address,
-          password: data.password,
-        });
-      } catch (error) {
-        console.error("Error fetching dashboard data:", error);
-      }
-    };
-
-    fetchDashboardData();
-  }, []);
-
-
   return (
+
     <div className="contain">
-      <div className="row">
-        <div className="col-2">
-          <AlmaCenaSidebar />
-        </div>
-        <div className="col-10">
-          <div className="row principal">
-            <div className="col gris">
-              <h3 className="titulo-account">Cuenta</h3>
-            
-                <form className="profile-user bg-white">
-                  <h4 className="personal">Información personal</h4>
+      <div class="row">
+    <div class="col-2">
+    <AlmaCenaSidebar/>
+    </div>
+    <div class="col-10">
+      <div className="row principal">
+        <div className="col gris">
+          <h3 className="titulo-account">Account</h3>
+          <form className="profile-user bg-white">
+            <h4 className="personal">Personal information</h4>
 
 
 
-            <div className="row foto">
-              <div className="col-sm-12 col-md-2">
+            <div class="row foto">
+              <div class="col-sm-12 col-md-2">
                 <img className="perfil" src={perfil} />
               </div>
-              <div className="col-sm-12 col-md-10">
-                <i className="fa-solid fa-user-pen"></i>
-                <i className="fa-solid fa-trash"></i>
+              <div class="col-sm-12 col-md-10">
+                <i class="fa-solid fa-user-pen"></i>
+                <i class="fa-solid fa-trash"></i>
               </div>
             </div>
 
@@ -90,7 +52,6 @@ export const Profile = () => {
                     className="form-control"
                     id="name"
                     placeholder="Your Name"
-                    value={user.name}
                   />
                 </div>
                 <div className="col-sm-12 col-md-6 mb-3">
@@ -102,7 +63,6 @@ export const Profile = () => {
                     className="form-control"
                     id="last_name"
                     placeholder="Your Last Name"
-                    value={user.last_name}
                   />
                 </div>
                 <div className="col-sm-12 col-md-6 mb-3">
@@ -114,7 +74,6 @@ export const Profile = () => {
                     className="form-control"
                     id="email"
                     placeholder="name@example.com"
-                    value={user.email}
 
                   />
                 </div>
@@ -127,7 +86,6 @@ export const Profile = () => {
                     className="form-control"
                     id="address"
                     placeholder="Address"
-                    value={user.address}
 
                   />
                 </div>
@@ -141,7 +99,6 @@ export const Profile = () => {
                       className="form-control"
                       id="password"
                       placeholder="Password"
-                      value={user.password}
                     />
                     <span
                       className="input-group-text toggle-password"
@@ -156,12 +113,12 @@ export const Profile = () => {
                 </div>
               </div>
             </div>
-            </form>
-           
-            </div>
-          </div>
+          </form>
+        </div>
+        </div>
         </div>
       </div>
     </div>
+
   );
 };

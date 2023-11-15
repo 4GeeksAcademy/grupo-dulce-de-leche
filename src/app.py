@@ -298,7 +298,7 @@ def create_recipe():
         if not matching_materias_primas:
             raise APIException("Invalid ingredient: Materia prima not found for the user", status_code=400)
 
-        # Tomar la primera coincidencia (podrías ajustar esto si hay múltiples coincidencias)
+        # Tomar la primera coincidencia
         materia_prima_id = matching_materias_primas[0].materias_primas_id
 
         # Crear la relación entre la receta y la materia prima como ingrediente

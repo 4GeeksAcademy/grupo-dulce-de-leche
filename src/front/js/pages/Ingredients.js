@@ -30,18 +30,18 @@ const Ingredients = () => {
           setMateriasPrimas(data);
         }
       } catch (error) {
+        
         console.error("Error fetching ingredients data:", error);
       }
     };
-
+    
+    if (!token) {
+      navigate("/login");
+    }
     fetchIngredientsData();
   }, []);
 
   const token = localStorage.getItem("jwt-token");
-  if (!token) {
-  navigate("/login");
-  }
-
   return (
     <Container fluid>
       {token && token !== null && token !== undefined ? (
@@ -81,10 +81,7 @@ const Ingredients = () => {
         </Row>
       ) : (
         <Container className="gris">
-          <div className="fs-4 fw-bold text-center p-4">Tienes que iniciar sesión para acceder</div>
-          <div className="d-flex justify-content-center">
-            <LoginButton />
-          </div>
+          <div></div>
         </Container>
       )}
     </Container>

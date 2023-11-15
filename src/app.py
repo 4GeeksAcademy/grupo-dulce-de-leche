@@ -196,6 +196,19 @@ def create_ingredient():
 
     return jsonify({"msg": "Materia Prima creada con éxito"}), 201
 
+# ENDPOINT | CREAR NUEVO PRODUCTO DE UN USUARIO
+@app.route('/dashboard/products', methods=['POST'])
+@jwt_required()
+def create_product():
+    user_id = get_jwt_identity()
+    body = request.get_json()
+
+    if body is None:
+        raise APIException("Request body is missing", status_code=400)
+
+    user = User.query.get(user_id)
+    if not user:
+        raise APIException("User not found", status_code=404)
 
 
 # ENDPOINT | PRODUCTOS DEL USUARIO

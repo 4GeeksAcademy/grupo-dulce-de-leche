@@ -33,15 +33,14 @@ const Dashboard = () => {
         console.error("Error fetching dashboard data:", error);
       }
     };
-
+    if (!token) {
+      navigate("/login");
+      }
     fetchDashboardData();
   }, []);
 
   const token = localStorage.getItem("jwt-token");
-  if (!token) {
-  navigate("/login");
-  }
-
+  
   return (
     <Container fluid>
       {token ? (
@@ -103,10 +102,6 @@ const Dashboard = () => {
         </>
       ) : (
         <Container className="gris">
-          <div className="fs-4 fw-bold text-center p-4">Tienes que iniciar sesión para acceder</div>
-          <div className="d-flex justify-content-center">
-            <LoginButton />
-          </div>
         </Container>
       )}
     </Container>

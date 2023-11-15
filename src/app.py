@@ -196,7 +196,7 @@ def create_ingredient():
 
     return jsonify({"msg": "Materia Prima creada con éxito"}), 201
 
-# ENDPOINT | CREAR NUEVO PRODUCTO DE UN USUARIO
+# ENDPOINT | CREAR NUEVO PRODUCTO FINAL PARA UN USUARIO
 @app.route('/dashboard/products', methods=['POST'])
 @jwt_required()
 def create_product():
@@ -209,6 +209,30 @@ def create_product():
     user = User.query.get(user_id)
     if not user:
         raise APIException("User not found", status_code=404)
+
+    receta_nombre = body.get("receta_nombre")
+    receta = Receta.query.filter_by(nombre=receta_nombre).first()
+
+    if not receta:
+        raise APIException("Receta not found", status_code=404)
+
+    cantidad_inventario = body.get("cantidad_inventario", 0)
+    clasificacion = body.get("clasificacion", "")
+    cantidad_inventario_minimo = body.get("cantidad_inventario_minimo", 0)
+
+    new_user_producto_final = UserProductoFinal(
+        user_id=user_id,
+        receta_id=receta.id,
+        cantidad_inventario=cantidad_inventario,
+        clasificacion=clasificacion,
+        cantidad_inventario_minimo=cantidad_inventario_minimo
+    )
+
+    db.session.add(new_user_producto_final)
+    db.session.commit()
+
+    return jsonify({"msg": "Producto Final creado con éxito"}), 201
+
 
 
 # ENDPOINT | PRODUCTOS DEL USUARIO

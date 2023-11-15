@@ -160,7 +160,7 @@ def get_user_ingredients():
     return jsonify(ingredients_list), 200
 
 
-# ENDPOINT | CREAR NUEVA MATERIA PRIMA PARA UN USUARIO
+# CREATE | NUEVA MATERIA PRIMA DE UN USER
 @app.route('/dashboard/ingredients', methods=['POST'])
 @jwt_required()
 def create_ingredient():
@@ -196,7 +196,31 @@ def create_ingredient():
 
     return jsonify({"msg": "Materia Prima creada con éxito"}), 201
 
-# ENDPOINT | CREAR NUEVO PRODUCTO FINAL PARA UN USUARIO
+# UPDATE | MATERIA PRIMA DE UN USER
+@app.route('/dashboard/ingredients', methods=['PUT'])
+@jwt_required()
+def update_ingredient():
+    user_id = get_jwt_identity()
+    body = request.get_json()
+
+    if body is None:
+        raise APIException("Request body is missing", status_code=400)
+
+    materia_prima_id = body.get("materia_prima_id")
+    user_materia_prima = UserMateriasPrimas.query.filter_by(
+        user_id=user_id, materias_primas_id=materia_prima_id).first()
+
+    if not user_materia_prima:
+        raise APIException("Materia prima not found for the user", status_code=404)
+
+    user_materia_prima.cantidad_stock = body.get("cantidad_stock", user_materia_prima.cantidad_stock)
+    user_materia_prima.minimo_stock = body.get("minimo_stock", user_materia_prima.minimo_stock)
+
+    db.session.commit()
+
+    return jsonify({"msg": "Materia Prima actualizada con éxito"}), 200
+
+# CREATE | NUEVO PRODUCTO DE UN USER
 @app.route('/dashboard/products', methods=['POST'])
 @jwt_required()
 def create_product():
@@ -235,7 +259,7 @@ def create_product():
 
 
 
-# ENDPOINT | PRODUCTOS DEL USUARIO
+# READ | PRODUCTOS DEL USUARIO
 @app.route('/dashboard/products', methods=['GET'])
 @jwt_required()
 def get_user_products():
@@ -253,7 +277,7 @@ def get_user_products():
 
 
 
-# ENDPOINT | RECETAS DEL USUARIO
+# READ | RECETAS DEL USUARIO
 @app.route('/dashboard/recipes', methods=['GET'])
 @jwt_required()
 def get_user_recipes():
@@ -271,7 +295,7 @@ def get_user_recipes():
 
 
 
-# ENDPOINT | SINGLE RECIPE DE UN USUARIO
+# READ | SINGLE RECIPE DE UN USUARIO
 @app.route('/dashboard/recipes/<int:recipe_id>', methods=['GET'])
 @jwt_required()
 def get_user_recipe(recipe_id):
@@ -301,7 +325,7 @@ def get_user_recipe(recipe_id):
             receta_info["ingredientes"].append(ingrediente_data)
     return jsonify(receta_info), 200
 
-# ENDPOINT | CREAR NUEVA RECETA PARA UN USUARIO
+# CREATE | NUEVA RECETA PARA UN USUARIO
 @app.route('/dashboard/recipes', methods=['POST'])
 @jwt_required()
 def create_recipe():
@@ -359,7 +383,7 @@ def create_recipe():
     return jsonify({"msg": "Receta creada con éxito"}), 201
 
 
- # ENDPOINT | DASHBOARD DE UN USUARIO
+ # READ | DASHBOARD DE UN USUARIO
 @app.route('/dashboard', methods=['GET'])
 @jwt_required()
 def get_user_dashboard():

@@ -1,127 +1,91 @@
-import React, { useContext, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "../../styles/myproducts.css";
-import croissant from "../../img/croissant.png";
-import { Row } from "react-bootstrap";
+import { Row, Card, Button } from "react-bootstrap";
 import AlmaCenaSidebar from "../component/AlmaCenaSidebar";
-
-
-
+import CreateProductButton from "../component/CreateProductButton";
 
 export const Products = () => {
-const navigate = useNavigate();
-const token = localStorage.getItem("jwt-token");
-if (!token) {
-navigate("/login");
-}
+  const navigate = useNavigate();
+  const token = localStorage.getItem("jwt-token");
+
+  const [products, setProducts] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch(process.env.BACKEND_URL + "/dashboard/products", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Error fetching products");
+      }
+
+      const data = await response.json();
+      setProducts(data);
+      setError(null); // Limpiar el estado de error si la solicitud es exitosa
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      setError("Error fetching products. Please try again."); // Establecer el estado de error en caso de problemas
+    }
+  };
+
+  const handleProductCreated = (newProduct) => {
+    setProducts([...products, newProduct]);
+  };
+
   return (
-
- 
     <div className="contain">
-    <div class="row">
-    <div class="col-2">
-    <AlmaCenaSidebar />
-    </div>
-    <div class="col-10">
-    <div className="row principal-recipes">
-        <div className="col gris">
-        <div class="row boton-categories">
-    <div class="col-sm-12 col-md-6">
-      <p>Categories: <span>All</span> </p>
-    </div>
-    <div class="col-sm-12 col-md-6">
-    <button class="btn btn-primary-product">Add new product</button>
-    </div>
-    </div>
-
-    <div className="myproducts bg-white">
-
-<div class="row row-cols-1 row-cols-md-3 g-4">
-  {/* Card 1 */}
-  <div class="col">
-  <div className="card">
-    <img className="croissant" src={croissant} />
-  <div className="card-body">
-    <h5 className="card-title">Croissant</h5>
-    <div class="row unidades-add">
-    <div class="col-10">
-    <p className="card-text">1120 ud</p>
-    </div>
-    <div class="col-2">
-    <i class="fa-solid fa-plus"></i>
-    </div>
-    </div>
-  </div>
-</div>
-  </div>
-  {/* Card 2 */}
-  <div class="col">
-  <div className="card">
-    <img className="croissant" src={croissant} />
-  <div className="card-body">
-    <h5 className="card-title">Croissant</h5>
-    <div class="row unidades-add">
-    <div class="col-10">
-    <p className="card-text">1120 ud</p>
-    </div>
-    <div class="col-2">
-    <i class="fa-solid fa-plus"></i>
-    </div>
-    </div>
-  </div>
-</div>
-  </div>
-  {/* Card 3 */}
-  <div class="col">
-  <div className="card">
-    <img className="croissant" src={croissant} />
-  <div className="card-body">
-    <h5 className="card-title">Croissant</h5>
-    <div class="row unidades-add">
-    <div class="col-10">
-    <p className="card-text">1120 ud</p>
-    </div>
-    <div class="col-2">
-    <i class="fa-solid fa-plus"></i>
-    </div>
-    </div>
-  </div>
-</div>
-    
-  </div>
-  {/* Card 4 */}
-  <div class="col">
-  <div className="card">
-    <img className="croissant" src={croissant} />
-  <div className="card-body">
-    <h5 className="card-title">Croissant</h5>
-    <div class="row unidades-add">
-    <div class="col-10">
-    <p className="card-text">1120 ud</p>
-    </div>
-    <div class="col-2">
-    <i class="fa-solid fa-plus"></i>
-    </div>
-    </div>
-  </div>
-</div>
-  </div>
-
-
-</div>
-
-
-
-
-    </div>
-        
+      <div className="row">
+        <div className="col-2">
+          <AlmaCenaSidebar />
         </div>
-      
+        <div className="col-10">
+          <div className="row principal-recipes">
+            <div className="col gris">
+              <div className="row boton-categories">
+                <div className="col-sm-12 col-md-6">
+                  <p>
+                    Categories: <span>All</span>{" "}
+                  </p>
+                </div>
+                <div className="col-sm-12 col-md-6">
+                  <CreateProductButton onProductCreated={handleProductCreated} />
+                </div>
+              </div>
+
+              <div className="myproducts bg-white">
+                {error && <p className="error-message">{error}</p>}
+                <div className="row row-cols-1 row-cols-md-3 g-4">
+                  {products.map((product) => (
+                    <div className="col" key={product.receta_id}>
+                      <Card>
+                        <Card.Img variant="top" src={product.imagen_url} alt={product.receta_nombre} />
+                        <Card.Body>
+                          <Card.Title>{product.receta_nombre}</Card.Title>
+                          <Card.Text>
+                            Cantidad en Inventario: {product.cantidad_inventario}
+                          </Card.Text>
+                          <Button variant="primary">Detalles</Button>
+                        </Card.Body>
+                      </Card>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
- 
-   
-    </div>
     </div>
   );
 };
+
+export default Products;

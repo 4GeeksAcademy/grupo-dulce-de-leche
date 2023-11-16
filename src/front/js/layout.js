@@ -15,6 +15,7 @@ import { Profile } from "./pages/Profile";
 import { Products } from "./pages/Products";
 import { Recipes } from "./pages/Recipes";
 import SingleRecipe from "./pages/SingleRecipe";
+import { EditProfile } from "./pages/EditProfile";
 
 
 const Layout = () => {
@@ -34,6 +35,7 @@ const Layout = () => {
                         <Route element={<Dashboard />} path="/dashboard" />
                         <Route element={<Ingredients />} path="/dashboard/ingredients" />
                         <Route element={<Profile />} path="/dashboard/profile" />
+                        <Route element={<EditProfile />} path="/dashboard/edit-profile" />
                         <Route element={<Products />} path="/dashboard/products" />
                         <Route element={<Recipes />} path="/dashboard/recipes" />
                         <Route element={<SingleRecipe />} path="/dashboard/recipes/:recipe_id" />

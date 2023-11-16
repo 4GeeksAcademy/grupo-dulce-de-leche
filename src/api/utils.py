@@ -1,5 +1,6 @@
 from flask import jsonify, url_for
 
+
 class APIException(Exception):
     status_code = 400
 
@@ -15,10 +16,12 @@ class APIException(Exception):
         rv['message'] = self.message
         return rv
 
+
 def has_no_empty_params(rule):
     defaults = rule.defaults if rule.defaults is not None else ()
     arguments = rule.arguments if rule.arguments is not None else ()
     return len(defaults) >= len(arguments)
+
 
 def generate_sitemap(app):
     unique_endpoints = set()
@@ -30,6 +33,117 @@ def generate_sitemap(app):
 
     links_html = "".join(["<li style='padding: 10px 0 5px 0;'><a style='text-decoration: none; color: white; text-transform: uppercase;' href='" + y +
                          "' onmouseover='this.style.color=\"darkred\"' onmouseout='this.style.color=\"white\"' onclick='this.style.color=\"blue\"'>" + y + '</a></li>' for y in unique_endpoints])
+
+    additional_data_html = """
+        <h2 style="margin: 20px 0px 10px 0px; font-size:40px;">ENDPOINTS REQUESTS GUIDE</h2>
+        <div style="text-align: left; padding: 40px; margin: 20px 100px; background-color: #333; border-radius: 10px;">
+            <p><strong>SIGNUP:</strong></p>
+            <pre style="background-color: #f5f5f5; padding: 10px; border-radius: 5px; overflow: auto; color: black;">
+                {
+                    "email":"pelado@gmail.com",
+                    "password":"123456",
+                    "name":"Esteban",
+                    "last_name":"Trebuq",
+                    "address":"Buenos Aires"
+                }
+            </pre>
+        </div>
+        <div style="text-align: left; padding: 40px; margin: 20px 100px; background-color: #333; border-radius: 10px;">
+            <p><strong>LOGIN:</strong></p>
+            <pre style="background-color: #f5f5f5; padding: 10px; border-radius: 5px; overflow: auto; color: black;">
+                {
+                    "email":"pelado@gmail.com",
+                    "password":"123456"
+                }
+            </pre>
+        </div>
+        </div>
+        <div style="text-align: left; padding: 40px; margin: 20px 100px; background-color: #333; border-radius: 10px;">
+            <p><strong>CREATE NEW INGREDIENT:</strong></p>
+            <pre style="background-color: #f5f5f5; padding: 10px; border-radius: 5px; overflow: auto; color: black;">
+                {
+                "nombre": "Harina",
+                "clasificacion": "Almacen",
+                "unidad_medida": "Kilos",
+                "cantidad": 100,          
+                "minimo_stock": 10        
+                }
+            </pre>
+        </div>
+        <div style="text-align: left; padding: 40px; margin: 20px 100px; background-color: #333; border-radius: 10px;">
+            <p><strong>CREATE RECETA:</strong></p>
+            <pre style="background-color: #f5f5f5; padding: 10px; border-radius: 5px; overflow: auto; color: black;">
+                {
+                "nombre": "Croissants",
+                "rinde": 100,
+                "unidad_medida": "unidades",
+                "ingredientes": [
+                    {
+                    "materia_prima_id": 1,
+                    "cantidad_necesaria": 200
+                    },
+                    {
+                    "materia_prima_id": 2,
+                    "cantidad_necesaria": 300
+                    }
+                    // ... 
+                ]
+                }
+            </pre>
+        </div>
+        <div style="text-align: left; padding: 40px; margin: 20px 100px; background-color: #333; border-radius: 10px;">
+            <p><strong>UPDATE INGREDIENT:</strong></p>
+            <pre style="background-color: #f5f5f5; padding: 10px; border-radius: 5px; overflow: auto; color: black;">
+                {
+                "materia_prima_id": 1,
+                "cantidad_stock": 150,  
+                "minimo_stock": 20      
+                }
+            </pre>
+        </div>
+        <div style="text-align: left; padding: 40px; margin: 20px 100px; background-color: #333; border-radius: 10px;">
+            <p><strong>UPDATE RECETA:</strong></p>
+            <pre style="background-color: #f5f5f5; padding: 10px; border-radius: 5px; overflow: auto; color: black;">
+                {
+                "nombre": "Nombre Actualizado de Receta",
+                "rinde": 150,
+                "unidad_medida": "Kg",
+                "ingredientes": [
+                    {"materia_prima_id": 1, "cantidad_necesaria": 200},
+                    {"materia_prima_id": 2, "cantidad_necesaria": 300},
+                    {"materia_prima_id": 3, "cantidad_necesaria": 150}
+                ]
+                }
+            </pre>
+        </div>
+        <div style="text-align: left; padding: 40px; margin: 20px 100px; background-color: #333; border-radius: 10px;">
+            <p><strong>UPDATE PRODUCTO:</strong></p>
+            <pre style="background-color: #f5f5f5; padding: 10px; border-radius: 5px; overflow: auto; color: black;">
+                {
+                "id": 123,
+                "cantidad_inventario": 50,
+                "clasificacion": "Algo",
+                "cantidad_inventario_minimo": 10
+                 }
+            </pre>
+        </div>
+        <div style="text-align: left; padding: 40px; margin: 20px 100px; background-color: #333; border-radius: 10px;">
+            <p><strong>DELETE PRODUCTO:</strong></p>
+            <pre style="background-color: #f5f5f5; padding: 10px; border-radius: 5px; overflow: auto; color: black;">
+            {
+            "product_id": 123
+            }
+            </pre>
+        </div>
+        <div style="text-align: left; padding: 40px; margin: 20px 100px; background-color: #333; border-radius: 10px;">
+            <p><strong>DELETE MATERIA PRIMA:</strong></p>
+            <pre style="background-color: #f5f5f5; padding: 10px; border-radius: 5px; overflow: auto; color: black;">
+            {
+            "materia_prima_id": 789
+            }
+            </pre>
+        </div>
+    """
     return f"""
         <!DOCTYPE html>
         <html lang="en">
@@ -53,9 +167,10 @@ def generate_sitemap(app):
          </div>
         <h1>Welcome to AlmaCena API</h1>
          <p style="font-size:25px;">API HOST <script>document.write('<input style="padding: 10px; margin-left: 20px; width: 300px" type="text" value="'+window.location.href+'" />');</script></p>
-        <h2 style="margin: 300px 0px 10px 0px; font-size:60px;">ENDPOINTS</h2>
+        <h2 style="margin: 320px 0px 10px 0px; font-size:60px;">ENDPOINTS</h2>
         <div>
-        <ul style="text-align: center; font-size: 45px; list-style-type: none; padding-right:30px; margin-bottom: 300px;">{links_html}</ul>
+        <ul style="text-align: center; font-size: 25px; list-style-type: none; padding-right:30px; margin-bottom: 150px;">{links_html}</ul>
+        {additional_data_html}
         </div>
         </body>
         </html>

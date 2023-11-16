@@ -55,6 +55,7 @@ def handle_invalid_usage(error):
 
 
 # ENDPOINTS | HOME
+
 @app.route('/')
 def sitemap():
     if ENV == "development":
@@ -64,8 +65,9 @@ def sitemap():
 ##############################################################################################################################
 ##############################################################################################################################
 
-# READ | TODOS LOS USUARIOS
+######################################################### USER DATA ############################################################
 
+# READ | TODOS LOS USUARIOS
 
 @app.route('/users', methods=['GET'])
 def get_users():
@@ -88,8 +90,9 @@ def get_user():
 ##############################################################################################################################
 ##############################################################################################################################
 
-# SIGNUP #
+################################################# GESTION DE USUARIO ##########################################################
 
+# SIGNUP #
 
 @app.route("/signup", methods=["POST"])
 def signup():
@@ -145,7 +148,6 @@ def logout():
 
 # READ | MATERIAS PRIMAS DEL USUARIO
 
-
 @app.route('/dashboard/ingredients', methods=['GET'])
 @jwt_required()
 def get_user_ingredients():
@@ -170,8 +172,9 @@ def get_user_ingredients():
 ##############################################################################################################################
 ##############################################################################################################################
 
-# CREATE | NUEVA MATERIA PRIMA DE UN USER
+########################################## MATERIAS PRIMAS o INGREDIENTES ###################################################
 
+# CREATE |
 
 @app.route('/dashboard/ingredients', methods=['POST'])
 @jwt_required()
@@ -208,8 +211,7 @@ def create_ingredient():
 
     return jsonify({"msg": "Materia Prima creada con éxito"}), 201
 
-# UPDATE | MATERIA PRIMA DE UN USER
-
+# UPDATE |
 
 @app.route('/dashboard/ingredients', methods=['PUT'])
 @jwt_required()
@@ -237,7 +239,7 @@ def update_ingredient():
 
     return jsonify({"msg": "Materia Prima actualizada con éxito"}), 200
 
-# DELETE | MATERIA PRIMA DE UN USUARIO
+# DELETE |
 
 @app.route('/dashboard/ingredients', methods=['DELETE'])
 @jwt_required()
@@ -268,8 +270,9 @@ def delete_ingredient():
 ##############################################################################################################################
 ##############################################################################################################################
 
-# CREATE | NUEVO PRODUCTO DE UN USER
+####################################################### PRODUCTOS ############################################################
 
+# CREATE |
 
 @app.route('/dashboard/products', methods=['POST'])
 @jwt_required()
@@ -307,8 +310,7 @@ def create_product():
 
     return jsonify({"msg": "Producto Final creado con éxito"}), 201
 
-# READ | PRODUCTOS DEL USUARIO
-
+# READ |
 
 @app.route('/dashboard/products', methods=['GET'])
 @jwt_required()
@@ -325,8 +327,7 @@ def get_user_products():
         products_list.append(product_data)
     return jsonify(products_list), 200
 
-# UPDATE | PRODUCTO DE UN USUARIO
-
+# UPDATE |
 
 @app.route('/dashboard/products', methods=['PUT'])
 @jwt_required()
@@ -359,8 +360,7 @@ def update_product():
 
     return jsonify({"msg": "Producto Final actualizado con éxito"}), 200
 
-# DELETE | PRODUCTO DE UN USUARIO
-
+# DELETE |
 
 @app.route('/dashboard/products', methods=['DELETE'])
 @jwt_required()
@@ -392,7 +392,10 @@ def delete_product():
 ##############################################################################################################################
 ##############################################################################################################################
 
-# READ | RECETAS DEL USUARIO
+################################################## TODAS LAS RECETAS #########################################################
+
+# READ |
+
 @app.route('/dashboard/recipes', methods=['GET'])
 @jwt_required()
 def get_user_recipes():
@@ -412,8 +415,10 @@ def get_user_recipes():
 ##############################################################################################################################
 ##############################################################################################################################
 
+######################################################### RECETA #############################################################
 
-# CREATE | NUEVA RECETA PARA UN USUARIO
+# CREATE |
+
 @app.route('/dashboard/recipes', methods=['POST'])
 @jwt_required()
 def create_recipe():
@@ -473,7 +478,7 @@ def create_recipe():
 
     return jsonify({"msg": "Receta creada con éxito"}), 201
 
-# READ | SINGLE RECIPE DE UN USUARIO
+# READ |
 
 
 @app.route('/dashboard/recipes/<int:recipe_id>', methods=['GET'])
@@ -505,7 +510,7 @@ def get_user_recipe(recipe_id):
             receta_info["ingredientes"].append(ingrediente_data)
     return jsonify(receta_info), 200
 
-# UPDATE |  RECETA E INGREDIENTES
+# UPDATE |
 
 
 @app.route('/dashboard/recipes/<int:recipe_id>', methods=['PUT'])
@@ -583,7 +588,7 @@ def update_recipe(recipe_id):
 
     return jsonify({"msg": "Receta y ingredientes actualizados con éxito"}), 200
 
-# DELETE | RECETA DE UN USUARIO
+# DELETE |
 
 
 @app.route('/dashboard/recipes/<int:recipe_id>', methods=['DELETE'])
@@ -611,10 +616,12 @@ def delete_recipe(recipe_id):
 
     return jsonify({"msg": "Receta eliminada con éxito"}), 200
 
-##############################################################################################################################
-##############################################################################################################################
+################################################################################################################################
+################################################################################################################################
 
- # READ | DASHBOARD DE UN USUARIO
+######################################################### DASHBOARD ############################################################
+
+ # READ |
 
 
 @app.route('/dashboard', methods=['GET'])

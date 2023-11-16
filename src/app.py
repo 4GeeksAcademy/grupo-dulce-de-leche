@@ -239,7 +239,6 @@ def update_ingredient():
 
 # DELETE | MATERIA PRIMA DE UN USUARIO
 
-
 @app.route('/dashboard/ingredients', methods=['DELETE'])
 @jwt_required()
 def delete_ingredient():

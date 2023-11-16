@@ -14,12 +14,10 @@ import Ingredients from "./pages/Ingredients";
 import { Profile } from "./pages/Profile";
 import { Products } from "./pages/Products";
 import { Recipes } from "./pages/Recipes";
-import { SingleRecipe } from "./pages/SingleRecipe";
+import SingleRecipe from "./pages/SingleRecipe";
 
-//create your first component
+
 const Layout = () => {
-    //the basename is used when your project is published in a subdirectory and not in the root of the domain
-    // you can set the basename on the .env file located at the root of this project, E.g: BASENAME=/react-hello-webapp/
     const basename = process.env.BASENAME || "";
 
     if (!process.env.BACKEND_URL || process.env.BACKEND_URL == "") return <BackendURL />;
@@ -38,7 +36,7 @@ const Layout = () => {
                         <Route element={<Profile />} path="/dashboard/profile" />
                         <Route element={<Products />} path="/dashboard/products" />
                         <Route element={<Recipes />} path="/dashboard/recipes" />
-                        <Route element={<SingleRecipe />} path="/dashboard/recipes/single-recipe" />
+                        <Route element={<SingleRecipe />} path="/dashboard/recipes/:recipe_id" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />

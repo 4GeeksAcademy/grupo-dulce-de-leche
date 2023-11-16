@@ -47,6 +47,18 @@ export const Login = () => {
 		<div className="row principal">
 			{/* Columna izquierda */}
     <div className="col formulario">
+    <div className="row pb-5">
+    <div className="col-1">
+    </div>
+    <div className="col-1">
+    <i className="fa-solid fa-chevron-left"></i>
+    </div>
+    <div className="col-10">
+    <div className="back-login"> <Link to="/">Back to Home</Link> </div> 
+    </div>
+    </div>
+
+
     {/* <h3 className="titulo-login">Login</h3>
 	<p className="parrafo-login">Sign in with your data that you entered during your registration.</p> */}
 	<form onSubmit={enviarFormulario}>
@@ -92,9 +104,9 @@ className="form-control"
     </span>
   </div>
 </div>
-  <div class="mb-3 form-check">
+  <div className="mb-3 form-check">
     <input type="checkbox" class="form-check-input" id="exampleCheck1"/>
-    <label class="form-check-label" for="exampleCheck1">Keep me logged in</label>
+    <label className="form-check-label" for="exampleCheck1">Keep me logged in</label>
   </div>
   <button type="submit" class="btn btn-primary">Login</button>
 </form>
@@ -106,14 +118,8 @@ className="form-control"
     </div>
 	<div className="no-account">
     
-	<p>Don’t have an account? <Link to="#"><span>Sign up!</span></Link></p>
+	<p>Don’t have an account? <Link to="/signup"><span>Sign up!</span></Link></p>
 	</div>
-
-
-
-
-
-
 	</div>
 	{/* Columna derecha */}
     <div className="col muestra" style={{ backgroundImage: `url(${recipes})` }}>

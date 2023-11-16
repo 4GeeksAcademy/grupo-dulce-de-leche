@@ -16,11 +16,11 @@ export const EditProfile = () => {
   return (
 
     <div className="contain">
-      <div class="row">
-    <div class="col-2">
+      <div className="row">
+    <div className="col-2">
     <AlmaCenaSidebar/>
     </div>
-    <div class="col-10">
+    <div className="col-10">
       <div className="row principal">
         <div className="col gris">
           <h3 className="titulo-account">Account</h3>
@@ -29,13 +29,13 @@ export const EditProfile = () => {
 
 
 
-            <div class="row foto">
-              <div class="col-sm-12 col-md-2">
+            <div className="row foto">
+              <div className="col-sm-12 col-md-2">
                 <img className="perfil" src={perfil} />
               </div>
-              <div class="col-sm-12 col-md-10">
-                <i class="fa-solid fa-user-pen"></i>
-                <i class="fa-solid fa-trash"></i>
+              <div className="col-sm-12 col-md-10">
+                <i className="fa-solid fa-user-pen"></i>
+                <i className="fa-solid fa-trash"></i>
               </div>
             </div>
 

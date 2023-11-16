@@ -59,26 +59,26 @@ export const Recipes = () => {
 
   return (
     <div className="contain">
-      <div class="row">
-        <div class="col-2">
+      <div className="row">
+        <div className="col-2">
           <AlmaCenaSidebar />
         </div>
-        <div class="col-10">
+        <div className="col-10">
           <div className="row principal-recipes">
             <div className="col gris">
-              <div class="row boton-categories">
-                <div class="col-sm-12 col-md-6">
+              <div className="row boton-categories">
+                <div className="col-sm-12 col-md-6">
                   <p>Categories: <span>All</span> </p>
                 </div>
 
-                <div class="col-sm-12 col-md-6">
+                <div className="col-sm-12 col-md-6">
                 <CreateRecipeButton onRecipeCreated={handleRecipeCreated} />
 
                 </div>
               </div>
 
               <div className="myproducts bg-white">
-                <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div className="row row-cols-1 row-cols-md-3 g-4">
                   {recipes.map((recipe) => (
                     <div key={recipe.receta_id} class="col">
                       <div className="card">

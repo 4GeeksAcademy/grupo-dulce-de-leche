@@ -4,6 +4,8 @@ import { Context } from "../store/appContext";
 import { Card, Container, Table, Row, Col } from "react-bootstrap";
 import LoginButton from "../component/LoginButton";
 import AlmaCenaSidebar from "../component/AlmaCenaSidebar";
+import CreateIngredientButton from "../component/CreateIngredientButton";
+
 
 const Ingredients = () => {
   const { actions, store } = useContext(Context);
@@ -46,10 +48,14 @@ const Ingredients = () => {
     <Container fluid>
       {token && token !== null && token !== undefined ? (
         <Row>
+
+
           <Col md={3} className="p-0 m-0">
             <AlmaCenaSidebar />
           </Col>
+
           <Col md={9}>
+            <CreateIngredientButton/>
             <Card className="rounded m-5">
               <Card.Header>
                 <Card.Title className="mb-0">Materias Primas</Card.Title>

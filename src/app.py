@@ -15,11 +15,13 @@ from api.models import db, User, MateriasPrimas, UserMateriasPrimas, Receta, Use
 from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
+from functools import wraps
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
 from flask_bcrypt import Bcrypt
+
 
 
 ENV = "development" if os.getenv("FLASK_DEBUG") == "1" else "production"
@@ -47,6 +49,23 @@ setup_commands(app)
 bcrypt = Bcrypt(app)
 app.register_blueprint(api, url_prefix='/api')
 
+def active_account_required(fn):
+    @wraps(fn)
+    def wrapper(*args, **kwargs):
+        user_id = get_jwt_identity()
+        if user_id is None:
+            raise APIException("User not found", status_code=404)
+
+        user = User.query.get(user_id)
+        if user is None:
+            raise APIException("User not found", status_code=404)
+
+        if not user.is_active:
+            return jsonify({"msg": "Account is deactivated"}), 403
+
+        return fn(*args, **kwargs)
+
+    return wrapper
 
 # HANDLE ERRORS
 @app.errorhandler(APIException)
@@ -75,9 +94,10 @@ def get_users():
     return jsonify([{"id": user.id, "username": user.name} for user in users]), 200
 
 
-# READ | INFO USER
+# READ |
 @app.route('/profile', methods=['GET'])
 @jwt_required()
+@active_account_required
 def get_user():
     user_id = get_jwt_identity()
     if user_id is None:
@@ -86,6 +106,73 @@ def get_user():
     if user is None:
         raise APIException("User not found", status_code=404)
     return jsonify(user.serialize()), 200
+
+# UPDATE |
+@app.route('/profile', methods=['PUT'])
+@jwt_required()
+@active_account_required
+def update_user():
+    user_id = get_jwt_identity()
+    user = User.query.get(user_id)
+
+    if user is None:
+        return jsonify({"error": "Usuario no encontrado"}), 404
+
+    body = request.get_json()
+
+    if body is None:
+        raise APIException("Request body is missing", status_code=400)
+
+    # Actualizar campos del usuario
+    user.name = body.get("name", user.name)
+    user.last_name = body.get("last_name", user.last_name)
+    user.address = body.get("address", user.address)
+
+    # Verificar si se proporcionó una nueva contraseña
+    new_password = body.get("new_password")
+
+    if new_password:
+        # Actualizar la contraseña si se proporcionó una nueva
+        user.password = bcrypt.generate_password_hash(new_password).decode('utf-8')
+
+    db.session.commit()
+
+    return jsonify({"msg": "Perfil de usuario actualizado con éxito"}), 200
+
+# DELETE | 
+@app.route('/profile', methods=['DELETE'])
+@jwt_required()
+@active_account_required
+def delete_user():
+    user_id = get_jwt_identity()
+    user_to_delete = User.query.get(user_id)
+
+    if user_to_delete is None:
+        raise APIException("User not found", status_code=404)
+    
+    user_to_delete.is_active = False
+    db.session.commit()
+
+    return jsonify({"msg": "User deactivated successfully"}), 200
+
+
+# PUT | REACTIVAR USUARIO POR EMAIL
+
+@app.route('/reactivate', methods=['PUT'])
+def reactivate_user():
+    data = request.get_json()
+    email_to_reactivate = data.get("email")
+
+    user_to_reactivate = User.query.filter_by(email=email_to_reactivate, is_active=False).first()
+
+    if user_to_reactivate is None:
+        return jsonify({"msg": "User not found or already active"}), 404
+
+    # Reactivar el usuario
+    user_to_reactivate.is_active = True
+    db.session.commit()
+
+    return jsonify({"msg": "User reactivated successfully"}), 200
 
 ##############################################################################################################################
 ##############################################################################################################################
@@ -140,6 +227,7 @@ def login():
 
 @app.route("/logout", methods=["POST"])
 @jwt_required()
+@active_account_required
 def logout():
     return jsonify({"msg": "Logout successful"}), 200
 
@@ -150,6 +238,7 @@ def logout():
 
 @app.route('/dashboard/ingredients', methods=['GET'])
 @jwt_required()
+@active_account_required
 def get_user_ingredients():
     user_id = get_jwt_identity()
     user_materias_primas = UserMateriasPrimas.query.filter_by(
@@ -178,6 +267,7 @@ def get_user_ingredients():
 
 @app.route('/dashboard/ingredients', methods=['POST'])
 @jwt_required()
+@active_account_required
 def create_ingredient():
     user_id = get_jwt_identity()
     body = request.get_json()
@@ -215,6 +305,7 @@ def create_ingredient():
 
 @app.route('/dashboard/ingredients', methods=['PUT'])
 @jwt_required()
+@active_account_required
 def update_ingredient():
     user_id = get_jwt_identity()
     body = request.get_json()
@@ -243,6 +334,7 @@ def update_ingredient():
 
 @app.route('/dashboard/ingredients', methods=['DELETE'])
 @jwt_required()
+@active_account_required
 def delete_ingredient():
     user_id = get_jwt_identity()
 
@@ -276,6 +368,7 @@ def delete_ingredient():
 
 @app.route('/dashboard/products', methods=['POST'])
 @jwt_required()
+@active_account_required
 def create_product():
     user_id = get_jwt_identity()
     body = request.get_json()
@@ -314,6 +407,7 @@ def create_product():
 
 @app.route('/dashboard/products', methods=['GET'])
 @jwt_required()
+@active_account_required
 def get_user_products():
     user_id = get_jwt_identity()
     user_products = UserProductoFinal.query.filter_by(user_id=user_id).all()
@@ -331,6 +425,7 @@ def get_user_products():
 
 @app.route('/dashboard/products', methods=['PUT'])
 @jwt_required()
+@active_account_required
 def update_product():
     user_id = get_jwt_identity()
 
@@ -364,6 +459,7 @@ def update_product():
 
 @app.route('/dashboard/products', methods=['DELETE'])
 @jwt_required()
+@active_account_required
 def delete_product():
     user_id = get_jwt_identity()
 
@@ -398,6 +494,7 @@ def delete_product():
 
 @app.route('/dashboard/recipes', methods=['GET'])
 @jwt_required()
+@active_account_required
 def get_user_recipes():
     user_id = get_jwt_identity()
     user_recetas = UserReceta.query.filter_by(user_id=user_id).all()
@@ -421,6 +518,7 @@ def get_user_recipes():
 
 @app.route('/dashboard/recipes', methods=['POST'])
 @jwt_required()
+@active_account_required
 def create_recipe():
     user_id = get_jwt_identity()
     body = request.get_json()
@@ -483,6 +581,7 @@ def create_recipe():
 
 @app.route('/dashboard/recipes/<int:recipe_id>', methods=['GET'])
 @jwt_required()
+@active_account_required
 def get_user_recipe(recipe_id):
     user_id = get_jwt_identity()
     user_receta = UserReceta.query.filter_by(
@@ -515,6 +614,7 @@ def get_user_recipe(recipe_id):
 
 @app.route('/dashboard/recipes/<int:recipe_id>', methods=['PUT'])
 @jwt_required()
+@active_account_required
 def update_recipe(recipe_id):
     user_id = get_jwt_identity()
     user_receta = UserReceta.query.filter_by(
@@ -593,6 +693,7 @@ def update_recipe(recipe_id):
 
 @app.route('/dashboard/recipes/<int:recipe_id>', methods=['DELETE'])
 @jwt_required()
+@active_account_required
 def delete_recipe(recipe_id):
     user_id = get_jwt_identity()
 
@@ -626,6 +727,7 @@ def delete_recipe(recipe_id):
 
 @app.route('/dashboard', methods=['GET'])
 @jwt_required()
+@active_account_required
 def get_user_dashboard():
     user_id = get_jwt_identity()
     user = User.query.get(user_id)

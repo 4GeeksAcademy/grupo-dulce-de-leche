@@ -38,6 +38,8 @@ def generate_sitemap(app):
         <h2 style="margin: 20px 0px 10px 0px; font-size:40px;">ENDPOINTS REQUESTS GUIDE</h2>
         <div style="text-align: left; padding: 40px; margin: 20px 100px; background-color: #333; border-radius: 10px;">
             <p><strong>SIGNUP:</strong></p>
+            <p><strong>method: POST</strong></p>
+            <p><strong>path request:</strong> /signup</p>
             <pre style="background-color: #f5f5f5; padding: 10px; border-radius: 5px; overflow: auto; color: black;">
                 {
                     "email":"pelado@gmail.com",
@@ -50,6 +52,8 @@ def generate_sitemap(app):
         </div>
         <div style="text-align: left; padding: 40px; margin: 20px 100px; background-color: #333; border-radius: 10px;">
             <p><strong>LOGIN:</strong></p>
+            <p><strong>method: POST</strong></p>
+            <p><strong>path request:</strong> /login</p>
             <pre style="background-color: #f5f5f5; padding: 10px; border-radius: 5px; overflow: auto; color: black;">
                 {
                     "email":"pelado@gmail.com",
@@ -59,7 +63,10 @@ def generate_sitemap(app):
         </div>
         </div>
         <div style="text-align: left; padding: 40px; margin: 20px 100px; background-color: #333; border-radius: 10px;">
-            <p><strong>CREATE NEW INGREDIENT:</strong></p>
+            <p><strong>CREATE INGREDIENT:</strong></p>
+            <p><strong>method: POST</strong></p>
+            <p style="color: red;"><strong>Token Required</strong></p>
+            <p><strong>path request:</strong> /dashboard/ingredients</p>
             <pre style="background-color: #f5f5f5; padding: 10px; border-radius: 5px; overflow: auto; color: black;">
                 {
                 "nombre": "Harina",
@@ -72,6 +79,9 @@ def generate_sitemap(app):
         </div>
         <div style="text-align: left; padding: 40px; margin: 20px 100px; background-color: #333; border-radius: 10px;">
             <p><strong>CREATE RECETA:</strong></p>
+            <p><strong>method: POST</strong></p>
+            <p style="color: red;"><strong>Token Required</strong></p>
+            <p><strong>path request:</strong> /dashboard/recipes</p>
             <pre style="background-color: #f5f5f5; padding: 10px; border-radius: 5px; overflow: auto; color: black;">
                 {
                 "nombre": "Croissants",
@@ -92,7 +102,24 @@ def generate_sitemap(app):
             </pre>
         </div>
         <div style="text-align: left; padding: 40px; margin: 20px 100px; background-color: #333; border-radius: 10px;">
+            <p><strong>CREATE PRODUCT:</strong></p>
+            <p><strong>method: POST</strong></p>
+            <p style="color: red;"><strong>Token Required</strong></p>
+            <p><strong>path request:</strong> /dashboard/products</p>
+            <pre style="background-color: #f5f5f5; padding: 10px; border-radius: 5px; overflow: auto; color: black;">
+                {
+                "receta_nombre": "Croissants",
+                "cantidad_inventario": 100,
+                "clasificacion": "Desayuno",
+                "cantidad_inventario_minimo": 10
+                }
+            </pre>
+        </div>
+        <div style="text-align: left; padding: 40px; margin: 20px 100px; background-color: #333; border-radius: 10px;">
             <p><strong>UPDATE INGREDIENT:</strong></p>
+            <p><strong>method: PUT</strong></p>
+            <p style="color: red;"><strong>Token Required</strong></p>
+            <p><strong>path request:</strong> /dashboard/ingredients</p>
             <pre style="background-color: #f5f5f5; padding: 10px; border-radius: 5px; overflow: auto; color: black;">
                 {
                 "materia_prima_id": 1,
@@ -103,6 +130,9 @@ def generate_sitemap(app):
         </div>
         <div style="text-align: left; padding: 40px; margin: 20px 100px; background-color: #333; border-radius: 10px;">
             <p><strong>UPDATE RECETA:</strong></p>
+            <p><strong>method: PUT</strong></p>
+            <p style="color: red;"><strong>Token Required</strong></p>
+            <p><strong>path request:</strong> /dashboard/recipes</p>
             <pre style="background-color: #f5f5f5; padding: 10px; border-radius: 5px; overflow: auto; color: black;">
                 {
                 "nombre": "Nombre Actualizado de Receta",
@@ -118,6 +148,9 @@ def generate_sitemap(app):
         </div>
         <div style="text-align: left; padding: 40px; margin: 20px 100px; background-color: #333; border-radius: 10px;">
             <p><strong>UPDATE PRODUCTO:</strong></p>
+            <p><strong>method: PUT</strong></p>
+            <p style="color: red;"><strong>Token Required</strong></p>
+            <p><strong>path request:</strong> /dashboard/products</p>
             <pre style="background-color: #f5f5f5; padding: 10px; border-radius: 5px; overflow: auto; color: black;">
                 {
                 "id": 123,
@@ -129,6 +162,9 @@ def generate_sitemap(app):
         </div>
         <div style="text-align: left; padding: 40px; margin: 20px 100px; background-color: #333; border-radius: 10px;">
             <p><strong>DELETE PRODUCTO:</strong></p>
+            <p><strong>method: DELETE</strong></p>
+            <p style="color: red;"><strong>Token Required</strong></p>
+            <p><strong>path request:</strong> /dashboard/products</p>
             <pre style="background-color: #f5f5f5; padding: 10px; border-radius: 5px; overflow: auto; color: black;">
             {
             "product_id": 123
@@ -137,9 +173,23 @@ def generate_sitemap(app):
         </div>
         <div style="text-align: left; padding: 40px; margin: 20px 100px; background-color: #333; border-radius: 10px;">
             <p><strong>DELETE MATERIA PRIMA:</strong></p>
+            <p><strong>method: DELETE</strong></p>
+            <p style="color: red;"><strong>Token Required</strong></p>
+            <p><strong>path request:</strong> /dashboard/ingredients</p>
             <pre style="background-color: #f5f5f5; padding: 10px; border-radius: 5px; overflow: auto; color: black;">
             {
             "materia_prima_id": 789
+            }
+            </pre>
+        </div>
+        <div style="text-align: left; padding: 40px; margin: 20px 100px; background-color: #333; border-radius: 10px;">
+            <p><strong>DELETE RECETA:</strong></p>
+            <p><strong>method: DELETE</strong></p>
+            <p style="color: red;"><strong>Token Required</strong></p>
+            <p><strong>path request:</strong> /dashboard/recipes/(id_recipe)</p>
+            <pre style="background-color: #f5f5f5; padding: 10px; border-radius: 5px; overflow: auto; color: black;">
+            {
+                No es necesario enviar nada dentro del body
             }
             </pre>
         </div>

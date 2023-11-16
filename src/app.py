@@ -22,7 +22,6 @@ from flask_jwt_extended import JWTManager
 from flask_bcrypt import Bcrypt
 
 
-
 ENV = "development" if os.getenv("FLASK_DEBUG") == "1" else "production"
 static_file_dir = os.path.join(os.path.dirname(
     os.path.realpath(__file__)), '../public/')
@@ -30,7 +29,6 @@ app = Flask(__name__)
 app.config["JWT_SECRET_KEY"] = "AlmaCena"
 jwt = JWTManager(app)
 app.url_map.strict_slashes = False
-
 
 
 # DATABASE Configuration
@@ -50,7 +48,6 @@ bcrypt = Bcrypt(app)
 app.register_blueprint(api, url_prefix='/api')
 
 
-
 # HANDLE ERRORS
 @app.errorhandler(APIException)
 def handle_invalid_usage(error):
@@ -68,11 +65,12 @@ def sitemap():
 ##############################################################################################################################
 
 # READ | TODOS LOS USUARIOS
+
+
 @app.route('/users', methods=['GET'])
 def get_users():
     users = User.query.all()
     return jsonify([{"id": user.id, "username": user.name} for user in users]), 200
-
 
 
 # READ | INFO USER
@@ -91,6 +89,7 @@ def get_user():
 ##############################################################################################################################
 
 # SIGNUP #
+
 
 @app.route("/signup", methods=["POST"])
 def signup():
@@ -145,6 +144,8 @@ def logout():
 ##############################################################################################################################
 
 # READ | MATERIAS PRIMAS DEL USUARIO
+
+
 @app.route('/dashboard/ingredients', methods=['GET'])
 @jwt_required()
 def get_user_ingredients():
@@ -170,6 +171,8 @@ def get_user_ingredients():
 ##############################################################################################################################
 
 # CREATE | NUEVA MATERIA PRIMA DE UN USER
+
+
 @app.route('/dashboard/ingredients', methods=['POST'])
 @jwt_required()
 def create_ingredient():
@@ -206,6 +209,8 @@ def create_ingredient():
     return jsonify({"msg": "Materia Prima creada con éxito"}), 201
 
 # UPDATE | MATERIA PRIMA DE UN USER
+
+
 @app.route('/dashboard/ingredients', methods=['PUT'])
 @jwt_required()
 def update_ingredient():
@@ -220,16 +225,53 @@ def update_ingredient():
         user_id=user_id, materias_primas_id=materia_prima_id).first()
 
     if not user_materia_prima:
-        raise APIException("Materia prima not found for the user", status_code=404)
+        raise APIException(
+            "Materia prima not found for the user", status_code=404)
 
-    user_materia_prima.cantidad_stock = body.get("cantidad_stock", user_materia_prima.cantidad_stock)
-    user_materia_prima.minimo_stock = body.get("minimo_stock", user_materia_prima.minimo_stock)
+    user_materia_prima.cantidad_stock = body.get(
+        "cantidad_stock", user_materia_prima.cantidad_stock)
+    user_materia_prima.minimo_stock = body.get(
+        "minimo_stock", user_materia_prima.minimo_stock)
 
     db.session.commit()
 
     return jsonify({"msg": "Materia Prima actualizada con éxito"}), 200
 
+# DELETE | MATERIA PRIMA DE UN USUARIO
+
+
+@app.route('/dashboard/ingredients', methods=['DELETE'])
+@jwt_required()
+def delete_ingredient():
+    user_id = get_jwt_identity()
+
+    # Obtener ID desde el cuerpo del request
+    body = request.get_json()
+    if body is None or "materia_prima_id" not in body:
+        raise APIException(
+            "Request body is missing materia_prima_id", status_code=400)
+
+    materia_prima_id = body["materia_prima_id"]
+
+    # Buscar la materia prima del usuario
+    user_materia_prima = UserMateriasPrimas.query.filter_by(
+        user_id=user_id, materias_primas_id=materia_prima_id).first()
+
+    if not user_materia_prima:
+        return jsonify({"error": "Materia prima no encontrada para el usuario especificado"}), 404
+
+    # Eliminar la materia prima del usuario
+    db.session.delete(user_materia_prima)
+    db.session.commit()
+
+    return jsonify({"msg": "Materia Prima eliminada con éxito"}), 200
+
+##############################################################################################################################
+##############################################################################################################################
+
 # CREATE | NUEVO PRODUCTO DE UN USER
+
+
 @app.route('/dashboard/products', methods=['POST'])
 @jwt_required()
 def create_product():
@@ -266,9 +308,9 @@ def create_product():
 
     return jsonify({"msg": "Producto Final creado con éxito"}), 201
 
-
-
 # READ | PRODUCTOS DEL USUARIO
+
+
 @app.route('/dashboard/products', methods=['GET'])
 @jwt_required()
 def get_user_products():
@@ -285,6 +327,8 @@ def get_user_products():
     return jsonify(products_list), 200
 
 # UPDATE | PRODUCTO DE UN USUARIO
+
+
 @app.route('/dashboard/products', methods=['PUT'])
 @jwt_required()
 def update_product():
@@ -315,6 +359,35 @@ def update_product():
     db.session.commit()
 
     return jsonify({"msg": "Producto Final actualizado con éxito"}), 200
+
+# DELETE | PRODUCTO DE UN USUARIO
+
+
+@app.route('/dashboard/products', methods=['DELETE'])
+@jwt_required()
+def delete_product():
+    user_id = get_jwt_identity()
+
+    # Obtener ID desde el cuerpo del request
+    body = request.get_json()
+    if body is None or "product_id" not in body:
+        raise APIException(
+            "Request body is missing product_id", status_code=400)
+
+    product_id = body["product_id"]
+
+    # Buscar el producto final del usuario
+    user_producto = UserProductoFinal.query.filter_by(
+        user_id=user_id, id=product_id).first()
+
+    if not user_producto:
+        return jsonify({"error": "Producto final no encontrado para el usuario especificado"}), 404
+
+    # Eliminar el producto final del usuario
+    db.session.delete(user_producto)
+    db.session.commit()
+
+    return jsonify({"msg": "Producto Final eliminado con éxito"}), 200
 
 
 ##############################################################################################################################
@@ -362,7 +435,8 @@ def create_recipe():
     )
 
     # Obtener las materias primas del usuario para mostrar en las opciones de la receta
-    user_materias_primas = UserMateriasPrimas.query.filter_by(user_id=user_id).all()
+    user_materias_primas = UserMateriasPrimas.query.filter_by(
+        user_id=user_id).all()
 
     # Asociar ingredientes a la receta
     for ingrediente in body.get("ingredientes", []):
@@ -370,10 +444,12 @@ def create_recipe():
         cantidad_necesaria = ingrediente.get("cantidad_necesaria")
 
         # Verificar que la materia prima pertenezca al usuario
-        matching_materias_primas = [mp for mp in user_materias_primas if mp.materias_primas_id == materia_prima_id]
+        matching_materias_primas = [
+            mp for mp in user_materias_primas if mp.materias_primas_id == materia_prima_id]
 
         if not matching_materias_primas:
-            raise APIException("Invalid ingredient: Materia prima not found for the user", status_code=400)
+            raise APIException(
+                "Invalid ingredient: Materia prima not found for the user", status_code=400)
 
         # Tomar la primera coincidencia
         materia_prima_id = matching_materias_primas[0].materias_primas_id
@@ -399,6 +475,7 @@ def create_recipe():
     return jsonify({"msg": "Receta creada con éxito"}), 201
 
 # READ | SINGLE RECIPE DE UN USUARIO
+
 
 @app.route('/dashboard/recipes/<int:recipe_id>', methods=['GET'])
 @jwt_required()
@@ -431,6 +508,7 @@ def get_user_recipe(recipe_id):
 
 # UPDATE |  RECETA E INGREDIENTES
 
+
 @app.route('/dashboard/recipes/<int:recipe_id>', methods=['PUT'])
 @jwt_required()
 def update_recipe(recipe_id):
@@ -446,9 +524,12 @@ def update_recipe(recipe_id):
         raise APIException("Request body is missing", status_code=400)
 
     # Actualizar campos de la receta
-    user_receta.receta_relationship.nombre = body.get("nombre", user_receta.receta_relationship.nombre)
-    user_receta.receta_relationship.rinde = body.get("rinde", user_receta.receta_relationship.rinde)
-    user_receta.receta_relationship.unidad_medida = body.get("unidad_medida", user_receta.receta_relationship.unidad_medida)
+    user_receta.receta_relationship.nombre = body.get(
+        "nombre", user_receta.receta_relationship.nombre)
+    user_receta.receta_relationship.rinde = body.get(
+        "rinde", user_receta.receta_relationship.rinde)
+    user_receta.receta_relationship.unidad_medida = body.get(
+        "unidad_medida", user_receta.receta_relationship.unidad_medida)
 
     # Actualizar ingredientes
     ingredientes_actualizados = body.get("ingredientes", [])
@@ -471,7 +552,8 @@ def update_recipe(recipe_id):
             user_id=user_id, materias_primas_id=materia_prima_id).first()
 
         if not matching_materias_primas:
-            raise APIException("Invalid ingredient: Materia prima not found for the user", status_code=400)
+            raise APIException(
+                "Invalid ingredient: Materia prima not found for the user", status_code=400)
 
         # Actualizar la cantidad necesaria si el ingrediente ya existe
         if materia_prima_id in ids_ingredientes_existentes:
@@ -490,7 +572,8 @@ def update_recipe(recipe_id):
     # Eliminar ingredientes que no están en la lista de ingredientes actualizados
     ids_ingredientes_actualizados = set(
         ingrediente.get("materia_prima_id") for ingrediente in ingredientes_actualizados)
-    ids_ingredientes_a_eliminar = ids_ingredientes_existentes - ids_ingredientes_actualizados
+    ids_ingredientes_a_eliminar = ids_ingredientes_existentes - \
+        ids_ingredientes_actualizados
 
     IngredientesReceta.query.filter(
         IngredientesReceta.materias_primas_id.in_(ids_ingredientes_a_eliminar),
@@ -501,10 +584,40 @@ def update_recipe(recipe_id):
 
     return jsonify({"msg": "Receta y ingredientes actualizados con éxito"}), 200
 
+# DELETE | RECETA DE UN USUARIO
+
+
+@app.route('/dashboard/recipes/<int:recipe_id>', methods=['DELETE'])
+@jwt_required()
+def delete_recipe(recipe_id):
+    user_id = get_jwt_identity()
+
+    # Buscar la receta del usuario
+    user_receta = UserReceta.query.filter_by(
+        user_id=user_id, receta_id=recipe_id).first()
+
+    if not user_receta:
+        return jsonify({"error": "Receta no encontrada para el usuario especificado"}), 404
+
+    # Eliminar la relación entre el usuario y la receta
+    db.session.delete(user_receta)
+
+    # Eliminar los ingredientes de la receta
+    IngredientesReceta.query.filter_by(receta_id=recipe_id).delete()
+
+    # Eliminar la receta
+    db.session.delete(user_receta.receta_relationship)
+
+    db.session.commit()
+
+    return jsonify({"msg": "Receta eliminada con éxito"}), 200
+
 ##############################################################################################################################
 ##############################################################################################################################
 
  # READ | DASHBOARD DE UN USUARIO
+
+
 @app.route('/dashboard', methods=['GET'])
 @jwt_required()
 def get_user_dashboard():
@@ -554,6 +667,7 @@ def get_user_dashboard():
     }
 
     return jsonify(response_data), 200
+
 
 ##################################################################################################################################
 if __name__ == '__main__':

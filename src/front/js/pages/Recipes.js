@@ -1,41 +1,47 @@
-import React, { useState, useEffect } from "react";
+
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../../styles/myproducts.css";
 import AlmaCenaSidebar from "../component/AlmaCenaSidebar";
+import { Container, Card, Button, Row, Col } from "react-bootstrap";
+import "../../styles/myproducts.css";
+import redvelvet from "../../img/redvelvet.png";
 import CreateRecipeButton from "../component/CreateRecipeButton";
 
-export const Recipes = () => {
+const Recipes = () => {
+
   const navigate = useNavigate();
-  const token = localStorage.getItem("jwt-token");
   const [recipes, setRecipes] = useState([]);
+  const token = localStorage.getItem("jwt-token");
+
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    const fetchRecipes = async () => {
+      try {
+        const response = await fetch(process.env.BACKEND_URL + "/dashboard/recipes", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-  if (!token) {
-    navigate("/login");
-  }
+        if (!response.ok) {
+          throw new Error("Failed to fetch recipes");
+        }
 
-  const fetchData = async () => {
-    try {
-      const response = await fetch(process.env.BACKEND_URL + "/dashboard/recipes", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error("Error fetching recipes");
+        const recipesData = await response.json();
+        setRecipes(recipesData);
+      } catch (error) {
+        console.error(error);
+        // Manejar el error, redireccionar, etc.
       }
+    };
 
-      const data = await response.json();
-      setRecipes(data);
-    } catch (error) {
-      console.error("Error fetching recipes:", error);
+    if (token) {
+      fetchRecipes();
+    } else {
+      navigate("/login");
     }
-  };
+  }, [token, navigate]);
 
   const handleRecipeCreated = async () => {
     try {
@@ -56,46 +62,58 @@ export const Recipes = () => {
       console.error("Error fetching updated recipes:", error);
     }
   };
-
+  
   return (
-    <div className="contain">
-      <div className="row">
-        <div className="col-2">
+    <Container fluid>
+      <Row className="principal-recipes">
+        <Col md={3} className="p-0 m-0">
           <AlmaCenaSidebar />
-        </div>
-        <div className="col-10">
-          <div className="row principal-recipes">
-            <div className="col gris">
-              <div className="row boton-categories">
-                <div className="col-sm-12 col-md-6">
-                  <p>Categories: <span>All</span> </p>
-                </div>
-
-                <div className="col-sm-12 col-md-6">
-                <CreateRecipeButton onRecipeCreated={handleRecipeCreated} />
-
-                </div>
-              </div>
-
-              <div className="myproducts bg-white">
-                <div className="row row-cols-1 row-cols-md-3 g-4">
-                  {recipes.map((recipe) => (
-                    <div key={recipe.receta_id} class="col">
-                      <div className="card">
-                        <div className="card-body">
-                          <h5 className="card-title">{recipe.nombre}</h5>
-                          <p className="card-text">Cantidad en inventario: {recipe.cantidad_inventario}</p>
-                          {/* Renderiza otros detalles de la receta según tu estructura de datos */}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+        </Col>
+        <Col md={9}>
+          <Row className="boton-categories">
+            <Col md={6}>
+              <p>
+                Categories: <span>All</span>{" "}
+              </p>
+            </Col>
+            <Col md={6}>
+               <CreateRecipeButton onRecipeCreated={handleRecipeCreated} />
+            </Col>
+          </Row>
+          <div className="myproducts bg-white">
+            <Row xs={1} md={3} className="g-4">
+              {recipes.map((recipe) => (
+                <Col key={recipe.receta_id}>
+                  <Card>
+                    <Card.Img variant="top" src={redvelvet} />
+                    <Card.Body>
+                      <Card.Title>{recipe.nombre}</Card.Title>
+                      <Row className="unidades-add">
+                        <Col md={10}>
+                          <p className="card-text">
+                            {recipe.rinde} ud
+                          </p>
+                        </Col>
+                        <Col md={2}>
+                          <Button
+                            variant="primary"
+                            onClick={() => navigate(`/dashboard/recipes/${recipe.receta_id}`)}
+                          >
+                            Details
+                          </Button>
+                        </Col>
+                      </Row>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              ))}
+            </Row>
           </div>
-        </div>
-      </div>
-    </div>
+        </Col>
+      </Row>
+    </Container>
   );
 };
+
+export default Recipes;
+

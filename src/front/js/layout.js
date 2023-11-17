@@ -13,7 +13,7 @@ import Dashboard from "./pages/Dashboard";
 import Ingredients from "./pages/Ingredients";
 import { Profile } from "./pages/Profile";
 import { Products } from "./pages/Products";
-import { Recipes } from "./pages/Recipes";
+import Recipes from "./pages/Recipes";
 import SingleRecipe from "./pages/SingleRecipe";
 import { EditProfile } from "./pages/EditProfile";
 

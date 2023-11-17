@@ -1,130 +1,94 @@
-import React, { useContext, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../../styles/myproducts.css";
-import redvelvet from "../../img/redvelvet.png"
 import AlmaCenaSidebar from "../component/AlmaCenaSidebar";
+import { Container, Card, Button, Row, Col } from "react-bootstrap";
+import "../../styles/myproducts.css";
+import redvelvet from "../../img/redvelvet.png";
 
-
-
-
-export const Recipes = () => {
+const Recipes = () => {
   const navigate = useNavigate();
+  const [recipes, setRecipes] = useState([]);
   const token = localStorage.getItem("jwt-token");
-  if (!token) {
-    navigate("/login");
-  }
+
+  useEffect(() => {
+    const fetchRecipes = async () => {
+      try {
+        const response = await fetch(process.env.BACKEND_URL + "/dashboard/recipes", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch recipes");
+        }
+
+        const recipesData = await response.json();
+        setRecipes(recipesData);
+      } catch (error) {
+        console.error(error);
+        // Manejar el error, redireccionar, etc.
+      }
+    };
+
+    if (token) {
+      fetchRecipes();
+    } else {
+      navigate("/login");
+    }
+  }, [token, navigate]);
+
   return (
-
-    <div className="contain">
-<div class="row">
-    <div class="col-2">
-    <AlmaCenaSidebar />
-    </div>
-    <div class="col-10">
-    <div className="row principal-recipes">
-            <div className="col gris">
-
-
-              <div class="row boton-categories">
-                <div class="col-sm-12 col-md-6">
-                  <p>Categories: <span>All</span> </p>
-                </div>
-
-                <div class="col-sm-12 col-md-6">
-                  <button class="btn btn-primary-product">Add new recipe</button>
-                </div>
-              </div>
-
-
-
-              <div className="myproducts bg-white">
-                <div class="row row-cols-1 row-cols-md-3 g-4">
-                  {/* Card 1 */}
-                  <div class="col">
-                    <div className="card">
-                      <img className="redvelvet" src={redvelvet} />
-                      <div className="card-body">
-                        <h5 className="card-title">Receta Red Velvet</h5>
-                        <div class="row unidades-add">
-                          <div class="col-10">
-                            <p className="card-text">1120 ud</p>
-                          </div>
-                          <div class="col-2">
-                            <i class="fa-solid fa-plus"></i>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  {/* Card 2 */}
-                  <div class="col">
-                    <div className="card">
-                      <img className="redvelvet" src={redvelvet} />
-                      <div className="card-body">
-                        <h5 className="card-title">Receta Red Velvet</h5>
-                        <div class="row unidades-add">
-                          <div class="col-10">
-                            <p className="card-text">1120 ud</p>
-                          </div>
-                          <div class="col-2">
-                            <i class="fa-solid fa-plus"></i>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Card 3 */}
-                  <div class="col">
-                    <div className="card">
-                      <img className="redvelvet" src={redvelvet} />
-                      <div className="card-body">
-                        <h5 className="card-title">Receta Red Velvet</h5>
-                        <div class="row unidades-add">
-                          <div class="col-10">
-                            <p className="card-text">1120 ud</p>
-                          </div>
-                          <div class="col-2">
-                            <i class="fa-solid fa-plus"></i>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-
-                  {/* Card 4 */}
-                  <div class="col">
-                    <div className="card">
-                      <img className="redvelvet" src={redvelvet} />
-                      <div className="card-body">
-                        <h5 className="card-title">Receta Red Velvet</h5>
-                        <div class="row unidades-add">
-                          <div class="col-10">
-                            <p className="card-text">1120 ud</p>
-                          </div>
-                          <div class="col-2">
-                            <i class="fa-solid fa-plus"></i>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  {/* Fin Carta */}
-
-                </div>
-              </div>
-
-
-            </div>
+    <Container fluid>
+      <Row className="principal-recipes">
+        <Col md={3} className="p-0 m-0">
+          <AlmaCenaSidebar />
+        </Col>
+        <Col md={9}>
+          <Row className="boton-categories">
+            <Col md={6}>
+              <p>
+                Categories: <span>All</span>{" "}
+              </p>
+            </Col>
+            <Col md={6}>
+              <Button variant="primary">Add new recipe</Button>
+            </Col>
+          </Row>
+          <div className="myproducts bg-white">
+            <Row xs={1} md={3} className="g-4">
+              {recipes.map((recipe) => (
+                <Col key={recipe.receta_id}>
+                  <Card>
+                    <Card.Img variant="top" src={redvelvet} />
+                    <Card.Body>
+                      <Card.Title>{recipe.nombre}</Card.Title>
+                      <Row className="unidades-add">
+                        <Col md={10}>
+                          <p className="card-text">
+                            {recipe.rinde} ud
+                          </p>
+                        </Col>
+                        <Col md={2}>
+                          <Button
+                            variant="primary"
+                            onClick={() => navigate(`/dashboard/recipes/${recipe.receta_id}`)}
+                          >
+                            Details
+                          </Button>
+                        </Col>
+                      </Row>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              ))}
+            </Row>
           </div>
-    </div>
-    </div>
-
-
-
-
-
-    </div>
+        </Col>
+      </Row>
+    </Container>
   );
 };
+
+export default Recipes;

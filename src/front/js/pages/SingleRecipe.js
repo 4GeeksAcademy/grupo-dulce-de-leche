@@ -66,12 +66,13 @@ const SingleRecipe = () => {
                       <thead>
                         <tr>
                           <th className="threcipe">Total Yield</th>
+                          <th className="threcipe">Unit</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr className="trsinglerecipe">
                           <td className="tdsinglerecipe">{recipe ? recipe.rinde : "Loading..."}</td>
-                          <td className="tdsinglerecipe">{recipe ? recipe.unidad_medida : "Loading..."}</td>
+                          <td className="tdsinglerecipe">{recipe ? recipe.unidad_medida_rinde : "Loading..."}</td>
                         </tr>
                       </tbody>
                     </Table>

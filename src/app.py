@@ -592,6 +592,7 @@ def get_user_recipe(recipe_id):
         "receta_id": user_receta.receta_id,
         "nombre": user_receta.receta_relationship.nombre,
         "rinde": user_receta.receta_relationship.rinde,
+        "unidad_medida_rinde": user_receta.receta_relationship.unidad_medida,
         "ingredientes": []
     }
     ingredientes_receta = IngredientesReceta.query.filter_by(

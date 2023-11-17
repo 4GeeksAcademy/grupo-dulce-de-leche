@@ -808,9 +808,9 @@ def make_recipe():
             quantity_needed = ingredient.cantidad_necesaria
 
             # Resta la cantidad necesaria de cada materia prima
-            user_material = MateriasPrimas.query.filter_by(user_id=user_id, id=material_id).first()
+            user_material = UserMateriasPrimas.query.filter_by(user_id=user_id, materias_primas_id=material_id).first()
             if user_material:
-                user_material.cantidad -= quantity_needed
+                user_material.cantidad_stock -= quantity_needed
                 db.session.commit()
 
         # Aumenta la cantidad de productos finales según el rendimiento de la receta
@@ -822,7 +822,7 @@ def make_recipe():
 
         return jsonify({"message": "Receta realizada con éxito"}), 200
 
-    except Exception as e:
+    except SQLAlchemyError as e:
         print(e)
         return jsonify({"error": "Error al realizar la receta"}), 500
 

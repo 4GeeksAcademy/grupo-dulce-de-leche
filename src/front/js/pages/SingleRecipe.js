@@ -56,13 +56,10 @@ const SingleRecipe = () => {
         throw new Error("Failed to make recipe");
       }
 
-      // Actualizar la receta después de hacerla (si es necesario)
-      // ...
-
       console.log("Recipe made successfully");
     } catch (error) {
       console.error(error);
-      // Manejar el error, mostrar un mensaje al usuario, etc.
+      // Manejar el error
     }
   };
 

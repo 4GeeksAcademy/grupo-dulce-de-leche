@@ -1,14 +1,18 @@
+
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AlmaCenaSidebar from "../component/AlmaCenaSidebar";
 import { Container, Card, Button, Row, Col } from "react-bootstrap";
 import "../../styles/myproducts.css";
 import redvelvet from "../../img/redvelvet.png";
+import CreateRecipeButton from "../component/CreateRecipeButton";
 
 const Recipes = () => {
+
   const navigate = useNavigate();
   const [recipes, setRecipes] = useState([]);
   const token = localStorage.getItem("jwt-token");
+
 
   useEffect(() => {
     const fetchRecipes = async () => {
@@ -39,6 +43,26 @@ const Recipes = () => {
     }
   }, [token, navigate]);
 
+  const handleRecipeCreated = async () => {
+    try {
+      const response = await fetch(process.env.BACKEND_URL + "/dashboard/recipes", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Error fetching updated recipes");
+      }
+
+      const data = await response.json();
+      setRecipes(data);
+    } catch (error) {
+      console.error("Error fetching updated recipes:", error);
+    }
+  };
+  
   return (
     <Container fluid>
       <Row className="principal-recipes">
@@ -53,7 +77,7 @@ const Recipes = () => {
               </p>
             </Col>
             <Col md={6}>
-              <Button variant="primary">Add new recipe</Button>
+               <CreateRecipeButton onRecipeCreated={handleRecipeCreated} />
             </Col>
           </Row>
           <div className="myproducts bg-white">
@@ -92,3 +116,4 @@ const Recipes = () => {
 };
 
 export default Recipes;
+

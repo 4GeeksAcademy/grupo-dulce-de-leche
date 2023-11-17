@@ -4,6 +4,7 @@ import { Container, Row, Col, Button, Card } from "react-bootstrap";
 import AlmaCenaSidebar from "../component/AlmaCenaSidebar";
 import "../../styles/myproducts.css";
 import croissant from "../../img/croissant.png";
+import CreateProductButton from "../component/CreateProductButton";
 
 const Products = () => {
   const navigate = useNavigate();
@@ -38,7 +39,11 @@ const Products = () => {
       navigate("/login");
     }
   }, [token, navigate]);
-
+  
+  const handleProductCreated = (newProduct) => {
+    setProducts([...products, newProduct]);
+  };
+  
   return (
     <Container fluid>
       <Row className="principal-products">
@@ -52,7 +57,7 @@ const Products = () => {
                 <p>Categories: <span>All</span></p>
               </Col>
               <Col sm={12} md={6}>
-                <Button variant="primary-product">Add new product</Button>
+                <CreateProductButton onProductCreated={handleProductCreated} />
               </Col>
             </Row>
 

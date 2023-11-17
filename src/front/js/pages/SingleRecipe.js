@@ -70,8 +70,8 @@ const SingleRecipe = () => {
                     </tr>
                   </table>
                   </div>
-                  <div class="table-ingredients">
-                  <table class="table single recipe ">
+                  <div className="table-ingredients">
+                  <table className="table single recipe ">
                     <tr>
                       <th className="threcipe" scope="col">Qty</th>
                       <th className="threcipe" scope="col">Unit</th>

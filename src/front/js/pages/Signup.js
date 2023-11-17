@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { navigate } from "react-router-dom"; // Asegúrate de importar la función navigate
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import recipes from "../../img/recipes.png";
 import "../../styles/login.css";
 
@@ -66,6 +67,17 @@ export const Signup = () => {
       <div className="row principal">
         {/* Columna izquierda */}
         <div className="col formulario-signup">
+        <div className="row pb-5">
+    <div className="col-1">
+    </div>
+    <div className="col-1">
+    <i className="fa-solid fa-chevron-left"></i>
+    </div>
+    <div className="col-10">
+    <div className="back-login"> <Link to="/">Back to Home</Link> </div> 
+    </div>
+    </div>
+
           <form onSubmit={enviarFormulario}>
             <h3 className="titulo-login">Sign up</h3>
             <p className="parrafo-login">

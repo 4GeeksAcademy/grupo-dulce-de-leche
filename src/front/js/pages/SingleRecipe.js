@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import AlmaCenaSidebar from "../component/AlmaCenaSidebar";
 import "../../styles/singlerecipe.css";
 import singlerecipe from "../../img/singlerecipe.png";
+import { Container, Table, Button } from "react-bootstrap";
 
 const SingleRecipe = () => {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ const SingleRecipe = () => {
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
-        const response = await fetch(`URL_DEL_BACKEND/api/recipe/${recipe_id}`, {
+        const response = await fetch(process.env.BACKEND_URL+ `/dashboard/recipes/${recipe_id}`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${localStorage.getItem("jwt-token")}`
@@ -23,15 +24,16 @@ const SingleRecipe = () => {
         if (!response.ok) {
           throw new Error("Failed to fetch recipe");
         }
-
+        
         const recipeData = await response.json();
+        console.log("Recipe Data:", recipeData);
         setRecipe(recipeData);
       } catch (error) {
         console.error(error);
         // Manejar el error, redireccionar, etc.!!!!!!
       }
     };
-    
+  
     fetchRecipe();
   }, [token, recipe_id]);
   
@@ -43,7 +45,7 @@ const SingleRecipe = () => {
   return (
     <>
       <AlmaCenaSidebar />
-      <div className="container-fluid">
+      <Container fluid>
         <div className="row principal">
           <div className="col gris">
             <div className="row boton-categories">
@@ -51,7 +53,7 @@ const SingleRecipe = () => {
                 <h3 className="titulo-single-recipe">{recipe ? recipe.nombre : "Loading..."}</h3>
               </div>
               <div className="col-sm-12 col-md-6">
-                <button className="btn btn-primary-product">Edit Recipe</button>
+                <Button variant="primary">Edit Recipe</Button>
               </div>
             </div>
             <div className="profile-user bg-white">
@@ -60,51 +62,46 @@ const SingleRecipe = () => {
                 <div className="col-sm-12 col-md-4 imgsinglerecipe" style={{ backgroundImage: `url(${singlerecipe})` }}></div>
                 <div className="col-sm-12 col-md-8">
                   <div className="table-totalyield">
-                    <table className="table single recipe">
-                    <tr>
-                      <th className="threcipe" scope="col"> Total Yield</th>
-                      </tr>
-                    <tr className="trsinglerecipe">
-                      <td className="tdsinglerecipe"> 100 </td>
-                      <td className="tdsinglerecipe"> Ud. </td>
-                    </tr>
-                  </table>
+                    <Table className="table single recipe">
+                      <thead>
+                        <tr>
+                          <th className="threcipe">Total Yield</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr className="trsinglerecipe">
+                          <td className="tdsinglerecipe">{recipe ? recipe.rinde : "Loading..."}</td>
+                          <td className="tdsinglerecipe">{recipe ? recipe.unidad_medida : "Loading..."}</td>
+                        </tr>
+                      </tbody>
+                    </Table>
                   </div>
-                  <div class="table-ingredients">
-                  <table class="table single recipe ">
-                    <tr>
-                      <th className="threcipe" scope="col">Qty</th>
-                      <th className="threcipe" scope="col">Unit</th>
-                      <th className="threcipe" scope="col">Ingredient</th>
-                    </tr>
-                    <tr className="trsinglerecipe">
-                      <td className="tdsinglerecipe"> 100 </td>
-                      <td className="tdsinglerecipe"> Ud. </td>
-                      <td className="tdsinglerecipe"> Manteca</td>
-                    </tr>
-                    <tr className="trsinglerecipe">
-                      <td className="tdsinglerecipe"> 100 </td>
-                      <td className="tdsinglerecipe"> Ud. </td>
-                      <td className="tdsinglerecipe"> Huevos</td>
-                    </tr>
-                    <tr className="trsinglerecipe">
-                      <td className="tdsinglerecipe"> 100 </td>
-                      <td className="tdsinglerecipe"> Ud. </td>
-                      <td className="tdsinglerecipe"> Leche</td>
-                    </tr>
-                    <tr className="trsinglerecipe">
-                      <td className="tdsinglerecipe"> 100 </td>
-                      <td className="tdsinglerecipe"> Ud. </td>
-                      <td className="tdsinglerecipe"> Harina</td>
-                    </tr>
-                  </table>
+                  <div className="table-ingredients">
+                    <Table className="table single recipe">
+                      <thead>
+                        <tr>
+                          <th className="threcipe">Qty</th>
+                          <th className="threcipe">Unit</th>
+                          <th className="threcipe">Ingredient</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {recipe && recipe.ingredientes.map((ingrediente, index) => (
+                          <tr key={index} className="trsinglerecipe">
+                            <td className="tdsinglerecipe">{ingrediente.cantidad_necesaria}</td>
+                            <td className="tdsinglerecipe">{ingrediente.unidad_medida}</td>
+                            <td className="tdsinglerecipe">{ingrediente.nombre}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </Table>
                   </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </Container>
     </>
   );
 };

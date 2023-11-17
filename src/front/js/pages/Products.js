@@ -66,6 +66,8 @@ const Products = () => {
                         <Card.Title>{product.nombre}</Card.Title>
                         <div className="unidades-add">
                           <p className="card-text">{product.cantidad_inventario} ud</p>
+                          <p className="card-text">Min: {product.cantidad_inventario_minimo} ud</p>
+                          <p className="card-text">Clasificación: {product.clasificacion}</p>
                           <i className="fa-solid fa-plus"></i>
                         </div>
                       </Card.Body>

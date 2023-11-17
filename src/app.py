@@ -416,7 +416,9 @@ def get_user_products():
         product_data = {
             "receta_id": user_product.receta_id,
             "nombre": user_product.receta_relationship.nombre,
-            "cantidad_inventario": user_product.cantidad_inventario
+            "cantidad_inventario": user_product.cantidad_inventario,
+            "clasificacion": user_product.clasificacion,
+            "cantidad_inventario_minimo": user_product.cantidad_inventario_minimo
         }
         products_list.append(product_data)
     return jsonify(products_list), 200

@@ -779,6 +779,53 @@ def get_user_dashboard():
 
     return jsonify(response_data), 200
 
+################################################################################################################################
+################################################################################################################################
+
+######################################################## MAKE RECIPE ############################################################
+
+
+@app.route('/dashboard/recipes/make', methods=['POST'])
+@jwt_required()
+def make_recipe():
+    try:
+        user_id = get_jwt_identity()
+
+        data = request.get_json()
+        recipe_id = data.get('recipe_id')
+
+        # Verifica que la receta exista para el usuario
+        user_recipe = UserReceta.query.filter_by(user_id=user_id, receta_id=recipe_id).first()
+        if not user_recipe:
+            return jsonify({"error": "Receta no encontrada para el usuario especificado"}), 404
+
+        # Obtén la lista de ingredientes de la receta
+        ingredients = IngredientesReceta.query.filter_by(receta_id=recipe_id).all()
+
+        # Actualiza las cantidades en las materias primas del usuario
+        for ingredient in ingredients:
+            material_id = ingredient.materias_primas_id
+            quantity_needed = ingredient.cantidad_necesaria
+
+            # Resta la cantidad necesaria de cada materia prima
+            user_material = MateriasPrimas.query.filter_by(user_id=user_id, id=material_id).first()
+            if user_material:
+                user_material.cantidad -= quantity_needed
+                db.session.commit()
+
+        # Aumenta la cantidad de productos finales según el rendimiento de la receta
+        total_yield = user_recipe.receta_relationship.rinde
+        user_product = UserProductoFinal.query.filter_by(user_id=user_id, receta_id=recipe_id).first()
+        if user_product:
+            user_product.cantidad_inventario += total_yield
+            db.session.commit()
+
+        return jsonify({"message": "Receta realizada con éxito"}), 200
+
+    except Exception as e:
+        print(e)
+        return jsonify({"error": "Error al realizar la receta"}), 500
+
 
 ##################################################################################################################################
 if __name__ == '__main__':

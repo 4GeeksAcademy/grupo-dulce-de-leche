@@ -1,45 +1,43 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, Row, Col, Button, Card } from "react-bootstrap";
+import { Row, Card, Button, Container, Col } from "react-bootstrap";
 import AlmaCenaSidebar from "../component/AlmaCenaSidebar";
-import "../../styles/myproducts.css";
-import croissant from "../../img/croissant.png";
 import CreateProductButton from "../component/CreateProductButton";
+import  croissant  from "../../img/croissant.png";
 
-const Products = () => {
+export const Products = () => {
   const navigate = useNavigate();
-  const [products, setProducts] = useState([]);
   const token = localStorage.getItem("jwt-token");
 
+  const [products, setProducts] = useState([]);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch(process.env.BACKEND_URL + "/dashboard/products", {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+    fetchProducts();
+  }, [products]);
 
-        if (!response.ok) {
-          throw new Error("Failed to fetch products");
-        }
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch(process.env.BACKEND_URL + "/dashboard/products", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-        const productsData = await response.json();
-        setProducts(productsData);
-      } catch (error) {
-        console.error(error);
-        // Manejar el error, redireccionar, etc.
+      if (!response.ok) {
+        throw new Error("Error fetching products");
       }
-    };
 
-    if (token) {
-      fetchProducts();
-    } else {
-      navigate("/login");
+      const data = await response.json();
+      setProducts(data);
+      setError(null);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      setError("Error fetching products. Please try again.");
     }
-  }, [token, navigate]);
-  
+  };
+
   const handleProductCreated = (newProduct) => {
     setProducts([...products, newProduct]);
   };
@@ -57,7 +55,7 @@ const Products = () => {
                 <p>Categories: <span>All</span></p>
               </Col>
               <Col sm={12} md={6}>
-                <CreateProductButton onProductCreated={handleProductCreated} />
+              <CreateProductButton onProductCreated={handleProductCreated} />
               </Col>
             </Row>
 

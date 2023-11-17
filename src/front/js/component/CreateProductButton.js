@@ -35,16 +35,13 @@ const CreateProductButton = ({ onProductCreated }) => {
 
       const productData = await response.json();
 
-      // Después de enviar los datos, cierra el modal
       handleClose();
 
-      // Almacena el nuevo producto en el estado local
       if (onProductCreated) {
-        onProductCreated(productData.product);
+        onProductCreated(productData); // Aquí se espera que productData contenga la información del nuevo producto
       }
     } catch (error) {
       console.error("Error creating product:", error);
-      // Maneja el error aquí según tus necesidades
     }
   };
 

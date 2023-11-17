@@ -12,8 +12,7 @@ export const Profile = () => {
     last_name: "",
     email: "",
     password: "",
-    address: "",
-    password: "",
+    address: ""
    });
 
   const token = localStorage.getItem("jwt-token");

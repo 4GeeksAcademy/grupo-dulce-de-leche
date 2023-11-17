@@ -16,6 +16,7 @@ from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
 from functools import wraps
+from datetime import timedelta
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
@@ -202,7 +203,8 @@ def signup():
     )
     db.session.add(new_user)
     db.session.commit()
-    access_token = create_access_token(identity=new_user.id)
+    expires = timedelta(minutes=15)
+    access_token = create_access_token(identity=new_user.id, expires_delta=expires)
     return jsonify({"El usuario": name, "fue creado con exito, su token es": access_token, "user_id": new_user.id}), 201
 
 
@@ -214,9 +216,11 @@ def login():
     email = data.get("email")
     password = data.get("password")
     user = User.query.filter_by(email=email).first()
+    if user.is_active == False: return jsonify({"msg": "Account is deactivated"}), 403
     if user and bcrypt.check_password_hash(user.password, password):
         # CORRECT PASS=> GENERATE TOKEN
-        access_token = create_access_token(identity=user.id)
+        expires = timedelta(minutes=15)
+        access_token = create_access_token(identity=user.id, expires_delta=expires)
         return jsonify({"token": access_token, "user_id": user.id}), 200
     else:
         # USER NOT FOUND OR INCORRECT PASS

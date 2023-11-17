@@ -26,7 +26,7 @@ const Ingredients = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-
+      if (response.status == 401) {navigate("/login")}
       if (!response.ok) {
         throw new Error("Error fetching ingredients data");
       }

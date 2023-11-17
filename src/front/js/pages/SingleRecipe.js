@@ -22,7 +22,7 @@ const SingleRecipe = () => {
             Authorization: `Bearer ${localStorage.getItem("jwt-token")}`
           },
         });
-
+        if (response.status == 401) {navigate("/login")}
         if (!response.ok) {
           throw new Error("Failed to fetch recipe");
         }

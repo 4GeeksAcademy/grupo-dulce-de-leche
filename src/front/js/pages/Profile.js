@@ -30,6 +30,7 @@ export const Profile = () => {
             Authorization: `Bearer ${localStorage.getItem("jwt-token")}`
           }
         });
+        if (response.status == 401) {navigate("/login")}
         if (!response.ok) {
           throw new Error("Error fetching dashboard data");
         }

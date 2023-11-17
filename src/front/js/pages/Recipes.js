@@ -23,7 +23,7 @@ const Recipes = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-
+        if (response.status == 401) {navigate("/login")}
         if (!response.ok) {
           throw new Error("Failed to fetch recipes");
         }

@@ -7,7 +7,7 @@ const CreateRecipeButton = ({ onRecipeCreated }) => {
     nombre: '',
     rinde: '',
     unidad_medida: '',
-    ingredientes: [], // Un array para almacenar los ingredientes de la receta
+    ingredientes: []
   });
   const [userMateriasPrimas, setUserMateriasPrimas] = useState([]);
 
@@ -55,10 +55,13 @@ const CreateRecipeButton = ({ onRecipeCreated }) => {
   };
 
   const handleAddIngredient = () => {
-    setFormData({
-      ...formData,
-      ingredientes: [...formData.ingredientes, { materia_prima_id: '', cantidad_necesaria: 0 }],
-    });
+    setFormData((prevData) => ({
+      ...prevData,
+      ingredientes: [
+        ...prevData.ingredientes,
+        { materia_prima_id: '', cantidad_necesaria: 0 },
+      ],
+    }));
   };
 
   const handleSubmit = async () => {
@@ -91,7 +94,7 @@ const CreateRecipeButton = ({ onRecipeCreated }) => {
 
   return (
     <>
-       <Button variant="primary" onClick={() => setShowModal(true)}>
+      <Button variant="primary" onClick={() => setShowModal(true)}>
         Crear Receta
       </Button>
 
@@ -153,23 +156,18 @@ const CreateRecipeButton = ({ onRecipeCreated }) => {
                     </Form.Control>
                   </Col>
                   <Col>
-                    <InputGroup>
-                      <Form.Control
-                        type="number"
-                        placeholder="Cantidad necesaria"
-                        value={ingrediente.cantidad_necesaria}
-                        onChange={(e) => handleIngredientChange(index, 'cantidad_necesaria', e.target.value)}
-                      />
-                      <InputGroup.Append>
-                        <InputGroup.Text>{/* Unidad de medida de la materia prima, si es necesario */}</InputGroup.Text>
-                      </InputGroup.Append>
-                    </InputGroup>
+                  <Form.Control
+                    type="number"
+                    placeholder="Cantidad necesaria"
+                    value={ingrediente.cantidad_necesaria}
+                    onChange={(e) => handleIngredientChange(index, 'cantidad_necesaria', e.target.value)}
+                  />
                   </Col>
                 </Form.Row>
               ))}
               <Button variant="outline-primary" onClick={handleAddIngredient}>
                 Agregar Ingrediente
-              </Button> 
+              </Button>
             </Form.Group>
           </Form>
         </Modal.Body>

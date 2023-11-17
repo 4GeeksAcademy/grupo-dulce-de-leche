@@ -22,7 +22,6 @@ const Dashboard = () => {
             Authorization: `Bearer ${localStorage.getItem("jwt-token")}`
           }
         });
-        console.log(response)
         if (response.status == 401) {navigate("/login")}
         if (!response.ok) {
           throw new Error("Error fetching dashboard data");

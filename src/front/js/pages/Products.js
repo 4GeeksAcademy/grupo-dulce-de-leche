@@ -1,127 +1,84 @@
-import React, { useContext, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Container, Row, Col, Button, Card } from "react-bootstrap";
+import AlmaCenaSidebar from "../component/AlmaCenaSidebar";
 import "../../styles/myproducts.css";
 import croissant from "../../img/croissant.png";
-import { Row } from "react-bootstrap";
-import AlmaCenaSidebar from "../component/AlmaCenaSidebar";
 
+const Products = () => {
+  const navigate = useNavigate();
+  const [products, setProducts] = useState([]);
+  const token = localStorage.getItem("jwt-token");
 
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch(process.env.BACKEND_URL + "/dashboard/products", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
+        if (!response.ok) {
+          throw new Error("Failed to fetch products");
+        }
 
-export const Products = () => {
-const navigate = useNavigate();
-const token = localStorage.getItem("jwt-token");
-if (!token) {
-navigate("/login");
-}
+        const productsData = await response.json();
+        setProducts(productsData);
+      } catch (error) {
+        console.error(error);
+        // Manejar el error, redireccionar, etc.
+      }
+    };
+
+    if (token) {
+      fetchProducts();
+    } else {
+      navigate("/login");
+    }
+  }, [token, navigate]);
+
   return (
+    <Container fluid>
+      <Row className="principal-products">
+        <Col xs={3} className="p-0 m-0">
+          <AlmaCenaSidebar />
+        </Col>
+        <Col xs={9}>
+          <div className="gris">
+            <Row className="boton-categories">
+              <Col sm={12} md={6}>
+                <p>Categories: <span>All</span></p>
+              </Col>
+              <Col sm={12} md={6}>
+                <Button variant="primary-product">Add new product</Button>
+              </Col>
+            </Row>
 
- 
-    <div className="contain">
-    <div class="row">
-    <div class="col-2">
-    <AlmaCenaSidebar />
-    </div>
-    <div class="col-10">
-    <div className="row principal-recipes">
-        <div className="col gris">
-        <div class="row boton-categories">
-    <div class="col-sm-12 col-md-6">
-      <p>Categories: <span>All</span> </p>
-    </div>
-    <div class="col-sm-12 col-md-6">
-    <button class="btn btn-primary-product">Add new product</button>
-    </div>
-    </div>
-
-    <div className="myproducts bg-white">
-
-<div class="row row-cols-1 row-cols-md-3 g-4">
-  {/* Card 1 */}
-  <div class="col">
-  <div className="card">
-    <img className="croissant" src={croissant} />
-  <div className="card-body">
-    <h5 className="card-title">Croissant</h5>
-    <div class="row unidades-add">
-    <div class="col-10">
-    <p className="card-text">1120 ud</p>
-    </div>
-    <div class="col-2">
-    <i class="fa-solid fa-plus"></i>
-    </div>
-    </div>
-  </div>
-</div>
-  </div>
-  {/* Card 2 */}
-  <div class="col">
-  <div className="card">
-    <img className="croissant" src={croissant} />
-  <div className="card-body">
-    <h5 className="card-title">Croissant</h5>
-    <div class="row unidades-add">
-    <div class="col-10">
-    <p className="card-text">1120 ud</p>
-    </div>
-    <div class="col-2">
-    <i class="fa-solid fa-plus"></i>
-    </div>
-    </div>
-  </div>
-</div>
-  </div>
-  {/* Card 3 */}
-  <div class="col">
-  <div className="card">
-    <img className="croissant" src={croissant} />
-  <div className="card-body">
-    <h5 className="card-title">Croissant</h5>
-    <div class="row unidades-add">
-    <div class="col-10">
-    <p className="card-text">1120 ud</p>
-    </div>
-    <div class="col-2">
-    <i class="fa-solid fa-plus"></i>
-    </div>
-    </div>
-  </div>
-</div>
-    
-  </div>
-  {/* Card 4 */}
-  <div class="col">
-  <div className="card">
-    <img className="croissant" src={croissant} />
-  <div className="card-body">
-    <h5 className="card-title">Croissant</h5>
-    <div class="row unidades-add">
-    <div class="col-10">
-    <p className="card-text">1120 ud</p>
-    </div>
-    <div class="col-2">
-    <i class="fa-solid fa-plus"></i>
-    </div>
-    </div>
-  </div>
-</div>
-  </div>
-
-
-</div>
-
-
-
-
-    </div>
-        
-        </div>
-      
-      </div>
-    </div>
- 
-   
-    </div>
-    </div>
+            <div className="myproducts bg-white">
+              <Row xs={1} md={3} className="g-4">
+                {products.map((product) => (
+                  <Col key={product.receta_id}>
+                    <Card>
+                      <Card.Img variant="top" src={croissant} />
+                      <Card.Body>
+                        <Card.Title>{product.nombre}</Card.Title>
+                        <div className="unidades-add">
+                          <p className="card-text">{product.cantidad_inventario} ud</p>
+                          <i className="fa-solid fa-plus"></i>
+                        </div>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                ))}
+              </Row>
+            </div>
+          </div>
+        </Col>
+      </Row>
+    </Container>
   );
 };
+
+export default Products;

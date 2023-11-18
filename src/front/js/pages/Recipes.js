@@ -64,7 +64,7 @@ const Recipes = () => {
       console.error("Error fetching updated recipes:", error);
     }
   };
-  
+
   return (
     <Container fluid>
       <Row className="principal-recipes">

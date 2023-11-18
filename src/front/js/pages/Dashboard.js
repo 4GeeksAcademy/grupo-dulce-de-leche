@@ -46,14 +46,17 @@ const Dashboard = () => {
     <Container fluid>
       {token ? (
         <>
-          <Row>
-            <Col md={3} className="p-0 m-0">
+          <Row className="principal-products">
+            <Col md={2} className="p-0 m-0 col-sm-12 col-md-2">
               <AlmaCenaSidebar />
             </Col>
-            <Col md={9}>
+            <Col md={10}>
+               <div className="gris">
               <h4 className="my-5 text-black text-start">Welcome, {user.name}</h4>
+
+
               <Row>
-                <Col md={4}>
+                <Col md={6}>
                   {ingredientes.length > 0 ? (
                     <Card className="rounded mb-5">
                       <CardTitle className="p-4">You are low on these ingredients:</CardTitle>
@@ -75,7 +78,7 @@ const Dashboard = () => {
                     <Alert variant="success">Ingredients looking good for now.</Alert>
                   )}
                 </Col>
-                <Col md={4}>
+                <Col md={6}>
                   {productosFinales.length > 0 ? (
                     <Card className="rounded mb-5">
                       <CardTitle className="p-4">You are low on these products:</CardTitle>
@@ -98,6 +101,7 @@ const Dashboard = () => {
                   )}
                 </Col>
               </Row>
+              </div>
             </Col>
           </Row>
         </>

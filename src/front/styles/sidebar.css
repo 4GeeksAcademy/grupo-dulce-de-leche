@@ -1,15 +1,90 @@
-.contain {
+
+span.item-content {
+  font-size: 14px;
+  font-weight: 300;
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+}
+
+.p-0.m-0 {
+    background: #415e4c;
+}
+
+li.nav-item.almacenasidebar {
+    padding: 20px 0px;
+    color: white;
+}
+
+span.menu-text {
+    font-size: 15px;
+    font-weight: 300;
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+}
+
+.menuvertical {
+    background: #415e4c;
+}
+
+.menuverticallogo {
+  
+    background: #415e4c;
+    border-bottom: 1px solid rgba(173, 173, 173, 0.2);
+    padding: 20px 10px;
+}
+
+.vertical {
+    padding-right: 10px;
+    color: white;
+}
+
+.menuverticalboton {
+    border-top: 1px solid rgba(173, 173, 173, 0.2);
+    padding: 26px 0px;
+}
+
+.menuvertical {
+    padding: 30px 0px;
+    background: #415e4c;
+}
+
+.logosidebar {
     width: 100%;
 }
 
-span.item-content {
-    color: white;
+.verticaluser {
+    color:white;
 }
 
-.lhYbII {
-    background: rgb(65 94 76);
+.iconosidebar {
+    margin-right: 30px;
+    width: 15%;
 }
 
-.text-decoration-none {
-    color: white;
+.fa-ul {
+    list-style-type: none;
+    margin-left: var(--fa-li-margin,1.7em) !important;
+    padding-left: 0;
+}
+
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+
+.nuevoside {
+    display: none;
+}
+    .logosidebar {
+        width: 46%;
+    }
+    .navbar-brand {
+        font-family: 'Montserrat', sans-serif;
+        color: rgb(255 255 255);
+     
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .menumovil {display:none;}
 }

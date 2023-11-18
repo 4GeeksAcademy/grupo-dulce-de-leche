@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Modal, Form, Dropdown, Row, Col } from "react-bootstrap";
 
-
-
 const CreateRecipeButton = ({ onRecipeCreated }) => {
   const [show, setShow] = useState(false);
   const [ingredients, setIngredients] = useState([]);
@@ -33,17 +31,18 @@ const CreateRecipeButton = ({ onRecipeCreated }) => {
           Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
         },
       });
-  
+
       if (!response.ok) {
         throw new Error("Error fetching ingredients");
       }
-  
+
       const data = await response.json();
       setIngredients(data);
     } catch (error) {
       console.error("Error fetching ingredients:", error);
     }
   };
+
   const handleShow = () => {
     fetchAvailableIngredients();
     setShow(true);
@@ -71,8 +70,8 @@ const CreateRecipeButton = ({ onRecipeCreated }) => {
         },
         body: JSON.stringify({
           nombre: recipeName,
-          rinde: parseInt(rinde, 10), 
-          unidad_medida: unidadMedida, 
+          rinde: parseInt(rinde, 10),
+          unidad_medida: unidadMedida,
           ingredientes: selectedIngredients.map((ingredient) => ({
             materia_prima_id: ingredient.materia_prima_id,
             cantidad_necesaria: parseInt(ingredientQuantities[ingredient.materia_prima_id], 10),
@@ -84,12 +83,12 @@ const CreateRecipeButton = ({ onRecipeCreated }) => {
         throw new Error("Error creating recipe");
       }
 
-      // Cierra el modal
+      const data = await response.json();
+
       handleClose();
 
-      // Llama a la función onRecipeCreated para actualizar la lista de recetas
       if (onRecipeCreated) {
-        onRecipeCreated();
+        onRecipeCreated(data.ingredientes);
       }
     } catch (error) {
       console.error("Error creating recipe:", error);
@@ -187,7 +186,8 @@ const CreateRecipeButton = ({ onRecipeCreated }) => {
                 <ul>
                   {selectedIngredients.map((ingredient) => (
                     <li key={ingredient.materia_prima_id}>
-                      {ingredient.nombre} - {ingredientQuantities[ingredient.materia_prima_id]}
+                      {ingredient.nombre} - {ingredientQuantities[ingredient.materia_prima_id]}{' '}
+                      {ingredient.unidad_medida}
                     </li>
                   ))}
                 </ul>
@@ -209,6 +209,9 @@ const CreateRecipeButton = ({ onRecipeCreated }) => {
 };
 
 export default CreateRecipeButton;
+
+
+
 
 
 

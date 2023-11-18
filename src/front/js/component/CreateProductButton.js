@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
 
 const CreateProductButton = ({ onProductCreated }) => {
@@ -9,6 +9,31 @@ const CreateProductButton = ({ onProductCreated }) => {
     clasificacion: '',
     cantidad_inventario_minimo: 0,
   });
+  const [recipeList, setRecipeList] = useState([]);
+
+  useEffect(() => {
+    fetchRecipes();
+  }, []); 
+
+  const fetchRecipes = async () => {
+    try {
+      const response = await fetch(process.env.BACKEND_URL + "/dashboard/recipes", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Error fetching recipes");
+      }
+
+      const recipes = await response.json();
+      setRecipeList(recipes);
+    } catch (error) {
+      console.error("Error fetching recipes:", error);
+    }
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -38,7 +63,7 @@ const CreateProductButton = ({ onProductCreated }) => {
       handleClose();
 
       if (onProductCreated) {
-        onProductCreated(productData); // Aquí se espera que productData contenga la información del nuevo producto
+        onProductCreated(productData);
       }
     } catch (error) {
       console.error("Error creating product:", error);
@@ -64,12 +89,20 @@ const CreateProductButton = ({ onProductCreated }) => {
             <Form.Group controlId="formRecetaNombre">
               <Form.Label>Nombre de la Receta</Form.Label>
               <Form.Control
-                type="text"
-                placeholder="Nombre de la receta"
+                as="select"
                 name="receta_nombre"
                 value={formData.receta_nombre}
                 onChange={handleInputChange}
-              />
+              >
+                <option value="" disabled>
+                  Select one Recipe Name
+                </option>
+                {recipeList.map((recipe) => (
+                  <option key={recipe.id} value={recipe.nombre}>
+                    {recipe.nombre}
+                  </option>
+                ))}
+              </Form.Control>
             </Form.Group>
             <Form.Group controlId="formCantidadInventario">
               <Form.Label>Cantidad en Inventario</Form.Label>
@@ -117,3 +150,4 @@ const CreateProductButton = ({ onProductCreated }) => {
 };
 
 export default CreateProductButton;
+

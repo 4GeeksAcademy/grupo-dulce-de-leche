@@ -1,70 +1,47 @@
-import React, { useState, useEffect } from 'react';
-import { Button, Modal, Form, Col, InputGroup } from 'react-bootstrap';
+// CreateRecipeButton.js
+
+import React, { useState, useEffect } from "react";
+import { Button, Modal, Form, Dropdown } from "react-bootstrap";
 
 const CreateRecipeButton = ({ onRecipeCreated }) => {
-  const [showModal, setShowModal] = useState(false);
-  const [formData, setFormData] = useState({
-    nombre: '',
-    rinde: '',
-    unidad_medida: '',
-    ingredientes: []
-  });
-  const [userMateriasPrimas, setUserMateriasPrimas] = useState([]);
+  const [show, setShow] = useState(false);
+  const [ingredients, setIngredients] = useState([]);
+  const [selectedIngredient, setSelectedIngredient] = useState(null);
+  const [quantity, setQuantity] = useState("");
+  
+  const handleClose = () => {
+    setShow(false);
+    setSelectedIngredient(null);
+    setQuantity("");
+  };
 
-  useEffect(() => {
-    // Aquí puedes realizar una solicitud para obtener las materias primas del usuario
-    const fetchUserMateriasPrimas = async () => {
-      try {
-        const response = await fetch(process.env.BACKEND_URL + "/user-materias-primas", {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
-          },
-        });
+  const handleShow = () => {
+    // Obtener las materias primas del usuario al abrir el modal
+    fetchAvailableIngredients();
+    setShow(true);
+  };
 
-        if (!response.ok) {
-          throw new Error("Error fetching user materias primas");
-        }
+  const fetchAvailableIngredients = async () => {
+    try {
+      const response = await fetch(process.env.BACKEND_URL + "/dashboard/ingredients", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
+        },
+      });
 
-        const data = await response.json();
-        setUserMateriasPrimas(data); // Actualiza el estado con las materias primas del usuario
-      } catch (error) {
-        console.error("Error fetching user materias primas:", error);
+      if (!response.ok) {
+        throw new Error("Error fetching ingredients");
       }
-    };
 
-    fetchUserMateriasPrimas();
-  }, []);
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+      const data = await response.json();
+      setIngredients(data);
+    } catch (error) {
+      console.error("Error fetching ingredients:", error);
+    }
   };
 
-  const handleIngredientChange = (index, property, value) => {
-    const updatedIngredients = [...formData.ingredientes];
-    updatedIngredients[index][property] = value;
-
-    setFormData({
-      ...formData,
-      ingredientes: updatedIngredients,
-    });
-  };
-
-  const handleAddIngredient = () => {
-    setFormData((prevData) => ({
-      ...prevData,
-      ingredientes: [
-        ...prevData.ingredientes,
-        { materia_prima_id: '', cantidad_necesaria: 0 },
-      ],
-    }));
-  };
-
-  const handleSubmit = async () => {
+  const handleCreateRecipe = async () => {
     try {
       const response = await fetch(process.env.BACKEND_URL + "/dashboard/recipes", {
         method: "POST",
@@ -72,111 +49,91 @@ const CreateRecipeButton = ({ onRecipeCreated }) => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          nombre: "Recipe Name",
+          rinde: 1, 
+          unidad_medida: "units", 
+          ingredientes: [
+            {
+              materia_prima_id: selectedIngredient.materia_prima_id,
+              cantidad_necesaria: parseInt(quantity, 10),
+            },
+          ],
+        }),
       });
 
       if (!response.ok) {
         throw new Error("Error creating recipe");
       }
 
-      // Después de enviar los datos, cierra el modal
-      setShowModal(false);
+ 
+      handleClose();
 
-      // Llama a la función de retorno de llamada para actualizar la lista de recetas
       if (onRecipeCreated) {
         onRecipeCreated();
       }
     } catch (error) {
       console.error("Error creating recipe:", error);
-      // Maneja el error aquí según tus necesidades
     }
   };
 
   return (
     <>
-      <Button variant="primary" onClick={() => setShowModal(true)}>
-        Crear Receta
+      <Button variant="primary" onClick={handleShow}>
+        Create Recipe
       </Button>
 
-      <Modal show={showModal} onHide={() => setShowModal(false)}>
+      <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Crear Receta</Modal.Title>
+          <Modal.Title>Create Recipe</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Group controlId="formNombre">
-              <Form.Label>Nombre de la Receta</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Nombre de la receta"
-                name="nombre"
-                value={formData.nombre}
-                onChange={handleInputChange}
-              />
+            {/* Campos del formulario para la receta */}
+            <Form.Group controlId="formRecipeName">
+              <Form.Label>Recipe Name</Form.Label>
+              <Form.Control type="text" placeholder="Enter recipe name" />
             </Form.Group>
-            <Form.Group controlId="formRinde">
-              <Form.Label>Rinde</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Rinde"
-                name="rinde"
-                value={formData.rinde}
-                onChange={handleInputChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="formUnidadMedida">
-              <Form.Label>Unidad de Medida</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Unidad de medida"
-                name="unidad_medida"
-                value={formData.unidad_medida}
-                onChange={handleInputChange}
-              />
+            {/* Otros campos del formulario ... */}
+
+            {/* Dropdown para seleccionar ingredientes */}
+            <Form.Group controlId="formIngredient">
+              <Form.Label>Ingredient</Form.Label>
+              <Dropdown>
+                <Dropdown.Toggle variant="success" id="dropdown-ingredient">
+                  {selectedIngredient ? selectedIngredient.nombre : "Select Ingredient"}
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  {ingredients.map((ingredient) => (
+                    <Dropdown.Item
+                      key={ingredient.materia_prima_id}
+                      onClick={() => setSelectedIngredient(ingredient)}
+                    >
+                      {ingredient.nombre}
+                    </Dropdown.Item>
+                  ))}
+                </Dropdown.Menu>
+              </Dropdown>
             </Form.Group>
 
-            <Form.Group controlId="formIngredientes">
-              <Form.Label>Ingredientes</Form.Label>
-              {formData.ingredientes.map((ingrediente, index) => (
-                <Form.Row key={index}>
-                  <Col>
-                    <Form.Control
-                      as="select"
-                      value={ingrediente.materia_prima_id}
-                      onChange={(e) => handleIngredientChange(index, 'materia_prima_id', e.target.value)}
-                    >
-                      <option value="" disabled>
-                        Seleccione una materia prima
-                      </option>
-                      {userMateriasPrimas.map((materiaPrima) => (
-                        <option key={materiaPrima.id} value={materiaPrima.id}>
-                          {materiaPrima.nombre}
-                        </option>
-                      ))}
-                    </Form.Control>
-                  </Col>
-                  <Col>
-                  <Form.Control
-                    type="number"
-                    placeholder="Cantidad necesaria"
-                    value={ingrediente.cantidad_necesaria}
-                    onChange={(e) => handleIngredientChange(index, 'cantidad_necesaria', e.target.value)}
-                  />
-                  </Col>
-                </Form.Row>
-              ))}
-              <Button variant="outline-primary" onClick={handleAddIngredient}>
-                Agregar Ingrediente
-              </Button>
+            {/* Campo para la cantidad necesaria */}
+            <Form.Group controlId="formQuantity">
+              <Form.Label>Quantity</Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="Enter quantity"
+                value={quantity}
+                onChange={(e) => setQuantity(e.target.value)}
+              />
             </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowModal(false)}>
-            Cerrar
+          <Button variant="secondary" onClick={handleClose}>
+            Close
           </Button>
-          <Button variant="primary" onClick={handleSubmit}>
-            Crear
+          <Button variant="primary" onClick={handleCreateRecipe}>
+            Create Recipe
           </Button>
         </Modal.Footer>
       </Modal>
@@ -185,3 +142,5 @@ const CreateRecipeButton = ({ onRecipeCreated }) => {
 };
 
 export default CreateRecipeButton;
+
+

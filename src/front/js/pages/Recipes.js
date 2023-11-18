@@ -7,6 +7,8 @@ import "../../styles/myproducts.css";
 import redvelvet from "../../img/redvelvet.png";
 import CreateRecipeButton from "../component/CreateRecipeButton";
 
+
+
 const Recipes = () => {
 
   const navigate = useNavigate();
@@ -70,7 +72,7 @@ const Recipes = () => {
           <AlmaCenaSidebar />
         </Col>
 
-        <Col xs={12} md={10}>
+          <Col xs={12} md={10}>
           <div className="gris">
             <Row className="boton-categories">
               <Col md={6}>
@@ -81,6 +83,34 @@ const Recipes = () => {
               <Col md={6}>
                 <CreateRecipeButton onRecipeCreated={handleRecipeCreated} />
               </Col>
+          </Row>
+          <div className="myproducts bg-white">
+            <Row xs={1} md={3} className="g-4">
+              {recipes.map((recipe) => (
+                <Col key={recipe.receta_id}>
+                  <Card>
+                    <Card.Img variant="top" src={redvelvet} />
+                    <Card.Body>
+                      <Card.Title>{recipe.nombre}</Card.Title>
+                      <Row className="unidades-add">
+                        <Col md={10}>
+                          <p className="card-text">
+                            {recipe.rinde} ud
+                          </p>
+                        </Col>
+                        <Col md={2}>
+                          <Button
+                            variant="primary"
+                            onClick={() => navigate(`/dashboard/recipes/${recipe.receta_id}`)}
+                          >
+                            Details
+                          </Button>
+                        </Col>
+                      </Row>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              ))}
             </Row>
             <div className="myproducts bg-white">
               <Row xs={1} md={3} className="g-4">

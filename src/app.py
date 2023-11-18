@@ -235,32 +235,6 @@ def login():
 def logout():
     return jsonify({"msg": "Logout successful"}), 200
 
-##############################################################################################################################
-##############################################################################################################################
-
-# READ | MATERIAS PRIMAS DEL USUARIO
-
-@app.route('/dashboard/ingredients', methods=['GET'])
-@jwt_required()
-@active_account_required
-def get_user_ingredients():
-    user_id = get_jwt_identity()
-    user_materias_primas = UserMateriasPrimas.query.filter_by(
-        user_id=user_id).all()
-    ingredients_list = []
-    for user_materia_prima in user_materias_primas:
-        materia_prima = MateriasPrimas.query.get(
-            user_materia_prima.materias_primas_id)
-        if materia_prima:
-            ingredient_data = {
-                "materia_prima_id": user_materia_prima.materias_primas_id,
-                "nombre": materia_prima.nombre,
-                "cantidad_stock": user_materia_prima.cantidad_stock,
-                "cantidad_stock_minimo": user_materia_prima.minimo_stock,
-                "clasificacion": materia_prima.clasificacion
-            }
-            ingredients_list.append(ingredient_data)
-    return jsonify(ingredients_list), 200
 
 ##############################################################################################################################
 ##############################################################################################################################
@@ -304,6 +278,30 @@ def create_ingredient():
     db.session.commit()
 
     return jsonify({"msg": "Materia Prima creada con éxito"}), 201
+
+# READ |
+
+@app.route('/dashboard/ingredients', methods=['GET'])
+@jwt_required()
+@active_account_required
+def get_user_ingredients():
+    user_id = get_jwt_identity()
+    user_materias_primas = UserMateriasPrimas.query.filter_by(
+        user_id=user_id).all()
+    ingredients_list = []
+    for user_materia_prima in user_materias_primas:
+        materia_prima = MateriasPrimas.query.get(
+            user_materia_prima.materias_primas_id)
+        if materia_prima:
+            ingredient_data = {
+                "materia_prima_id": user_materia_prima.materias_primas_id,
+                "nombre": materia_prima.nombre,
+                "cantidad_stock": user_materia_prima.cantidad_stock,
+                "cantidad_stock_minimo": user_materia_prima.minimo_stock,
+                "clasificacion": materia_prima.clasificacion
+            }
+            ingredients_list.append(ingredient_data)
+    return jsonify(ingredients_list), 200
 
 # UPDATE |
 

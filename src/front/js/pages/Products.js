@@ -45,10 +45,11 @@ export const Products = () => {
   return (
     <Container fluid>
       <Row className="principal-products">
-        <Col xs={3} className="p-0 m-0">
+        <Col className="p-0 m-0 col-sm-12 col-md-2">
           <AlmaCenaSidebar />
         </Col>
-        <Col xs={9}>
+        
+        <Col xs={12} md={10}>
           <div className="gris">
             <Row className="boton-categories">
               <Col sm={12} md={6}>

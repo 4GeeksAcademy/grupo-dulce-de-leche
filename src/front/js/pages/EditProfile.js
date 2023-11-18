@@ -15,12 +15,12 @@ export const EditProfile = () => {
   }
   return (
 
-    <div className="contain">
-      <div className="row">
-    <div className="col-2">
+    <div className="container-fluid">
+      <div className="row principal-recipes">
+      <div className="p-0 m-0 col-sm-12 col-md-2">
     <AlmaCenaSidebar/>
     </div>
-    <div className="col-10">
+    <div className="col-sm-12 col-md-10">
       <div className="row principal">
         <div className="col gris">
           <h3 className="titulo-account">Account</h3>

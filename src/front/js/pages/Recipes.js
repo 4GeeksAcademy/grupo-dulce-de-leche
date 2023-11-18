@@ -25,7 +25,7 @@ const Recipes = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        if (response.status == 401) {navigate("/login")}
+        if (response.status == 401) { navigate("/login") }
         if (!response.ok) {
           throw new Error("Failed to fetch recipes");
         }
@@ -64,23 +64,25 @@ const Recipes = () => {
       console.error("Error fetching updated recipes:", error);
     }
   };
-  
+
   return (
     <Container fluid>
       <Row className="principal-recipes">
-        <Col md={3} className="p-0 m-0">
+        <Col className="p-0 m-0 col-sm-12 col-md-2">
           <AlmaCenaSidebar />
         </Col>
-        <Col md={9}>
-          <Row className="boton-categories">
-            <Col md={6}>
-              <p>
-                Categories: <span>All</span>{" "}
-              </p>
-            </Col>
-            <Col md={6}>
-            <CreateRecipeButton onRecipeCreated={handleRecipeCreated} />
-            </Col>
+
+          <Col xs={12} md={10}>
+          <div className="gris">
+            <Row className="boton-categories">
+              <Col md={6}>
+                <p>
+                  Categories: <span>All</span>{" "}
+                </p>
+              </Col>
+              <Col md={6}>
+                <CreateRecipeButton onRecipeCreated={handleRecipeCreated} />
+              </Col>
           </Row>
           <div className="myproducts bg-white">
             <Row xs={1} md={3} className="g-4">
@@ -110,6 +112,35 @@ const Recipes = () => {
                 </Col>
               ))}
             </Row>
+            <div className="myproducts bg-white">
+              <Row xs={1} md={3} className="g-4">
+                {recipes.map((recipe) => (
+                  <Col key={recipe.receta_id}>
+                    <Card>
+                      <Card.Img variant="top" src={redvelvet} />
+                      <Card.Body>
+                        <Card.Title>{recipe.nombre}</Card.Title>
+                        <Row className="unidades-add">
+                          <Col md={12}>
+                            <p className="card-text">
+                              {recipe.rinde} ud
+                            </p>
+                          </Col>
+                          <Col md={12}>
+                            <Button
+                              variant="primary"
+                              onClick={() => navigate(`/dashboard/recipes/${recipe.receta_id}`)}
+                            >
+                              Details
+                            </Button>
+                          </Col>
+                        </Row>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                ))}
+              </Row>
+            </div>
           </div>
         </Col>
       </Row>

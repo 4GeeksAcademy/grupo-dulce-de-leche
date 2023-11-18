@@ -6,8 +6,10 @@ import { Link } from "react-router-dom";
 
 const SignUpButton = () => {
   return (
-    <Link to="/signup" className='text-white text-decoration-none'><Button variant="outline-light" className='signupbutton text-white'>
-      Sign up
+    <Link to="/signup" className='text-white text-decoration-none'>
+      <Button
+      className='signupbutton text-white'>
+      Sign Up
     </Button></Link>
   );
 };

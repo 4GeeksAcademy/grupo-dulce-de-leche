@@ -416,15 +416,19 @@ def get_user_products():
     user_products = UserProductoFinal.query.filter_by(user_id=user_id).all()
     products_list = []
     for user_product in user_products:
-        product_data = {
-            "receta_id": user_product.receta_id,
-            "nombre": user_product.receta_relationship.nombre,
-            "cantidad_inventario": user_product.cantidad_inventario,
-            "clasificacion": user_product.clasificacion,
-            "cantidad_inventario_minimo": user_product.cantidad_inventario_minimo
-        }
-        products_list.append(product_data)
+        receta = Receta.query.get(user_product.receta_id)
+        if receta:
+            product_data = {
+                "receta_id": user_product.receta_id,
+                "nombre": receta.nombre,
+                "cantidad_inventario": user_product.cantidad_inventario,
+                "clasificacion": user_product.clasificacion,
+                "cantidad_inventario_minimo": user_product.cantidad_inventario_minimo,
+                "unidad_medida": receta.unidad_medida
+            }
+            products_list.append(product_data)
     return jsonify(products_list), 200
+
 
 # UPDATE |
 
@@ -508,7 +512,8 @@ def get_user_recipes():
         recipe_data = {
             "receta_id": user_receta.receta_id,
             "nombre": user_receta.receta_relationship.nombre,
-            "rinde": user_receta.receta_relationship.rinde
+            "rinde": user_receta.receta_relationship.rinde,
+            "unidad_medida": user_receta.receta_relationship.unidad_medida,
         }
         recipes_list.append(recipe_data)
     return jsonify(recipes_list), 200

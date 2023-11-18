@@ -93,7 +93,7 @@ const Recipes = () => {
                       <Row className="unidades-add">
                         <Col md={10}>
                           <p className="card-text">
-                            {recipe.rinde} ud
+                            {recipe.rinde} {recipe.unidad_medida}
                           </p>
                         </Col>
                         <Col md={2}>

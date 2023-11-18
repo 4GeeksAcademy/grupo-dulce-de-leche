@@ -7,6 +7,8 @@ import "../../styles/myproducts.css";
 import redvelvet from "../../img/redvelvet.png";
 import CreateRecipeButton from "../component/CreateRecipeButton";
 
+
+
 const Recipes = () => {
 
   const navigate = useNavigate();
@@ -77,7 +79,7 @@ const Recipes = () => {
               </p>
             </Col>
             <Col md={6}>
-               <CreateRecipeButton onRecipeCreated={handleRecipeCreated} />
+            <CreateRecipeButton onRecipeCreated={handleRecipeCreated} />
             </Col>
           </Row>
           <div className="myproducts bg-white">

@@ -23,7 +23,11 @@ from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail, Message
-
+import cloudinary
+import cloudinary.api
+from cloudinary import uploader
+import cloudinary.utils
+import time
 
 ENV = "development" if os.getenv("FLASK_DEBUG") == "1" else "production"
 static_file_dir = os.path.join(os.path.dirname(
@@ -33,6 +37,12 @@ app.config["JWT_SECRET_KEY"] = "AlmaCena"
 jwt = JWTManager(app)
 app.url_map.strict_slashes = False
 
+# Cloudinary Configuration
+cloudinary.config( 
+  cloud_name = "AlmaCenaKey", 
+  api_key = "986996986378135", 
+  api_secret = "SaKGcFXWbHTqhKZB5U1Jn5oDYWE" 
+)
 
 # DATABASE Configuration
 db_url = os.getenv("DATABASE_URL")
@@ -81,6 +91,69 @@ def sitemap():
     if ENV == "development":
         return generate_sitemap(app)
     return send_from_directory(static_file_dir, 'index.html')
+
+##############################################################################################################################
+##############################################################################################################################
+
+####################################################### CLOUDINARY ########################################################### 
+
+# UPLOAD IMAGE
+
+@app.route('/upload', methods=['POST'])
+@jwt_required
+@active_account_required
+def upload_image():
+    try:
+        user_id = get_jwt_identity()
+
+        if 'file' not in request.files:
+            return jsonify({'error': 'No se proporcionó ningún archivo'}), 400
+
+        file = request.files['file']
+
+        if file.filename == '':
+            return jsonify({'error': 'Nombre de archivo no válido'}), 400
+
+        # Genera la firma
+        timestamp = int(time.time())
+        signature = cloudinary.utils.api_sign_request(
+            {'timestamp': timestamp, 'user_id': user_id},
+            api_secret="your_api_secret"
+        )
+
+        # Sube a Cloudinary
+        upload_result = uploader.upload(
+            file,
+            api_key="your_api_key",
+            timestamp=timestamp,
+            signature=signature,
+            public_id=f"user_{user_id}/profile_picture",
+            folder=f"user_{user_id}"
+        )
+
+        # Actualiza la URL de la imagen en la base de datos
+        user = User.query.get(user_id)
+        user.image_url = upload_result['secure_url']
+        db.session.commit()
+
+        return jsonify({'message': 'Imagen cargada exitosamente'}), 200
+
+    except Exception as e:
+        print(f'Error al subir la imagen: {str(e)}')
+        return jsonify({'error': f'Error al subir la imagen: {str(e)}'}), 500
+
+
+# GET IMAGE
+
+@app.route('/api/images/<filename>')
+@jwt_required()
+@active_account_required
+def get_image(filename):
+    user_id = get_jwt_identity()
+    user = User.query.get(user_id)
+    image_url = user.image_url
+
+    return jsonify({"image_url": image_url}), 200
 
 ##############################################################################################################################
 ##############################################################################################################################

@@ -21,7 +21,8 @@ export const EditProfile = () => {
     last_name: "",
     email: "",
     password: "",
-    address: ""
+    address: "",
+    profilePicture: null,
   });
 
   const [updateSuccess, setUpdateSuccess] = useState(false);
@@ -59,7 +60,7 @@ export const EditProfile = () => {
           last_name: data.last_name,
           email: data.email,
           address: data.address,
-          password: data.password
+          password: data.password,
         });
       } catch (error) {
         console.error("Error fetching dashboard data:", error);
@@ -77,7 +78,7 @@ export const EditProfile = () => {
     }));
   };
 
-  const handleSaveChanges = async () => {
+  const handleSaveProfile = async () => {
     try {
       const response = await fetch(process.env.BACKEND_URL + "/profile", {
         method: "PUT",
@@ -96,14 +97,48 @@ export const EditProfile = () => {
         throw new Error("Error updating user profile");
       }
 
-      // Actualizar la información del usuario después de la actualización
-      setUser(editableUser);
-
-      // Mostrar alerta de éxito
       setUpdateSuccess(true);
     } catch (error) {
       console.error("Error updating user profile:", error);
     }
+  };
+
+  const handleSaveImage = async () => {
+    try {
+      if (editableUser.profilePicture) {
+        const formData = new FormData();
+        formData.append("file", editableUser.profilePicture);
+
+        const uploadResponse = await fetch(
+          process.env.BACKEND_URL + "/upload",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "multipart/form-data",
+              "Authorization": `Bearer ${localStorage.getItem("jwt-token")}`,
+            },
+            body: formData,
+          }
+        );
+        
+        console.log("Upload Response:", uploadResponse);
+        
+        if (!uploadResponse.ok) {
+          console.error("Error uploading image:", uploadResponse.status, uploadResponse.statusText);
+          throw new Error("Error uploading image");
+        }
+      }
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setEditableUser((prevUser) => ({
+      ...prevUser,
+      profilePicture: file,
+    }));
   };
 
   return (
@@ -115,66 +150,69 @@ export const EditProfile = () => {
         <div className="col-sm-12 col-md-10">
           <div className="row principal">
             <div className="col gris">
-              
-
               <div className="row info">
-                  <div className="col-11">
-                    <h4 className="personal">Información personal</h4>
-                  </div>
-                  <div className="col-1">
-                    <Link to="/dashboard/profile">
-                      <i className="fa-solid fa-arrow-left icono-personal"></i>{" "}
-                    </Link>
-                  </div>
-                  <div className="col-12">
-                 
-                  </div>
+                <div className="col-11">
+                  <h4 className="personal">Información personal</h4>
                 </div>
+                <div className="col-1">
+                  <Link to="/dashboard/profile">
+                    <i className="fa-solid fa-arrow-left icono-personal"></i>{" "}
+                  </Link>
+                </div>
+                <div className="col-12"></div>
+              </div>
 
               <form className="profile-user bg-white">
-               
-
                 <div className="mb-3">
-                {updateSuccess && (
-                <div className="alert alert-success">
-                  Sus datos han sido actualizados correctamente
-                </div>
-              )}
-               
-
+                  {updateSuccess && (
+                    <div className="alert alert-success">
+                      Sus datos han sido actualizados correctamente
+                    </div>
+                  )}
                   <div className="row">
+                    <div className="mb-3">
+                      <label className="form-label">Profile Picture</label>
+                      <input
+                        type="file"
+                        className="form-control"
+                        accept="image/*"
+                        onChange={(e) => handleImageChange(e)}
+                      />
+                         <button
+                    type="button"
+                    className="btn btn-primary edit-profile-button"
+                    onClick={handleSaveImage}
+                  >
+                    Save Image
+                  </button>
+                    </div>
+                 
                     <div className="col-sm-12 col-md-6 mb-3">
-                      <label className="form-label">
-                        Name
-                      </label>
+                      <label className="form-label">Name</label>
                       <input
                         type="text"
                         className="form-control"
                         id="name"
                         placeholder="Your Name"
                         value={editableUser.name}
-                        onChange={handleInputChange} 
+                        onChange={handleInputChange}
                         name="name"
                       />
                     </div>
                     <div className="col-sm-12 col-md-6 mb-3">
-                      <label className="form-label">
-                        Last Name
-                      </label>
+                      <label className="form-label">Last Name</label>
                       <input
                         type="text"
                         className="form-control"
                         id="last_name"
                         placeholder="Your Last Name"
                         value={editableUser.last_name}
-                        onChange={handleInputChange} 
+                        onChange={handleInputChange}
                         name="last_name"
                       />
                     </div>
                     <div className="col-sm-12 col-md-6 mb-3">
-                      <label className="form-label">
-                        Email
-                      </label>
+                      <label className="form-label">Email</label>
                       <input
                         type="email"
                         className="form-control"
@@ -183,13 +221,10 @@ export const EditProfile = () => {
                         value={editableUser.email}
                         readOnly
                         disabled
-                      
                       />
                     </div>
                     <div className="col-sm-12 col-md-6 mb-3">
-                      <label className="form-label">
-                        Address
-                      </label>
+                      <label className="form-label">Address</label>
                       <input
                         type="text"
                         className="form-control"
@@ -200,45 +235,16 @@ export const EditProfile = () => {
                         name="address"
                       />
                     </div>
-                    {/* <div className="col-12 mb-3 position-relative">
-                      <label className="form-label">
-                        Password
-                      </label>
-                      <div className="input-group">
-                        <input
-                          type={showPassword ? "text" : "password"}
-                          className="form-control"
-                          id="password"
-                          placeholder="Password"
-                          value={editableUser.password}
-                          onChange={handleInputChange}
-                          name="password"
-                        />
-                        <span
-                          className="input-group-text toggle-password"
-                          onClick={() => setShowPassword(!showPassword)}
-                        >
-                          <i
-                            className={`fa ${
-                              showPassword ? "fa-eye-slash" : "fa-eye"
-                            }`}
-                          ></i>
-                        </span>
-                      </div>
-                    </div> */}
                   </div>
                   <button
                     type="button"
                     className="btn btn-primary edit-profile-button"
-                    onClick={handleSaveChanges}
+                    onClick={handleSaveProfile}
                   >
-                    Save Changes
+                    Save Profile
                   </button>
                 </div>
               </form>
-
-            
-
             </div>
           </div>
         </div>

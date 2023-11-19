@@ -11,6 +11,7 @@ class User(db.Model):
     password = db.Column(db.String(80), nullable=False)
     address = db.Column(db.String(80), unique=True, nullable=False)
     is_active = db.Column(db.Boolean, default=True, nullable=False)
+    image_url = db.Column(db.String(200))
 
     def __repr__(self):
          return '{}'.format (self.name)
@@ -21,7 +22,8 @@ class User(db.Model):
             "name" : self.name,
             "last_name" : self.last_name,
             "email": self.email,
-            "address": self.address
+            "address": self.address,
+            "image_url": self.image_url
         }
     
 class MateriasPrimas(db.Model):

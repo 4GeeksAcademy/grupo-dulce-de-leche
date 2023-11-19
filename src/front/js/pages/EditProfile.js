@@ -16,11 +16,20 @@ export const EditProfile = () => {
     address: ""
   });
 
+  const [editableUser, setEditableUser] = useState({
+    name: "",
+    last_name: "",
+    email: "",
+    password: "",
+    address: ""
+  });
+
+  const [updateSuccess, setUpdateSuccess] = useState(false);
+
   const token = localStorage.getItem("jwt-token");
   if (!token) {
     navigate("/login");
   }
-
 
   useEffect(() => {
     const fetchDashboardData = async () => {
@@ -31,7 +40,9 @@ export const EditProfile = () => {
             Authorization: `Bearer ${localStorage.getItem("jwt-token")}`
           }
         });
-        if (response.status == 401) { navigate("/login") }
+        if (response.status === 401) {
+          navigate("/login");
+        }
         if (!response.ok) {
           throw new Error("Error fetching dashboard data");
         }
@@ -41,7 +52,14 @@ export const EditProfile = () => {
           last_name: data.last_name,
           email: data.email,
           address: data.address,
-          password: data.password,
+          password: data.password
+        });
+        setEditableUser({
+          name: data.name,
+          last_name: data.last_name,
+          email: data.email,
+          address: data.address,
+          password: data.password
         });
       } catch (error) {
         console.error("Error fetching dashboard data:", error);
@@ -51,6 +69,42 @@ export const EditProfile = () => {
     fetchDashboardData();
   }, []);
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setEditableUser((prevUser) => ({
+      ...prevUser,
+      [name]: value
+    }));
+  };
+
+  const handleSaveChanges = async () => {
+    try {
+      const response = await fetch(process.env.BACKEND_URL + "/profile", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("jwt-token")}`
+        },
+        body: JSON.stringify(editableUser)
+      });
+
+      if (response.status === 401) {
+        navigate("/login");
+      }
+
+      if (!response.ok) {
+        throw new Error("Error updating user profile");
+      }
+
+      // Actualizar la información del usuario después de la actualización
+      setUser(editableUser);
+
+      // Mostrar alerta de éxito
+      setUpdateSuccess(true);
+    } catch (error) {
+      console.error("Error updating user profile:", error);
+    }
+  };
 
   return (
     <div className="container-fluid">
@@ -61,35 +115,36 @@ export const EditProfile = () => {
         <div className="col-sm-12 col-md-10">
           <div className="row principal">
             <div className="col gris">
-              <h3 className="titulo-account">Cuenta</h3>
+              
 
-              <form className="profile-user bg-white">
-                <div class="row info">
-                  <div class="col-11">
+              <div className="row info">
+                  <div className="col-11">
                     <h4 className="personal">Información personal</h4>
                   </div>
-                  <div class="col-1"><Link to="/dashboard/profile">
-                    <i class="fa-solid fa-arrow-left icono-personal"></i> </Link>
+                  <div className="col-1">
+                    <Link to="/dashboard/profile">
+                      <i className="fa-solid fa-arrow-left icono-personal"></i>{" "}
+                    </Link>
+                  </div>
+                  <div className="col-12">
+                 
                   </div>
                 </div>
 
-
-                {/* <div className="row foto">
-              <div className="col-sm-12 col-md-2">
-                <img className="perfil" src={perfil} />
-              </div>
-              <div className="col-sm-12 col-md-10">
-                <i className="fa-solid fa-user-pen"></i>
-                <i className="fa-solid fa-trash"></i>
-              </div>
-            </div> */}
-
-
+              <form className="profile-user bg-white">
+               
 
                 <div className="mb-3">
+                {updateSuccess && (
+                <div className="alert alert-success">
+                  Sus datos han sido actualizados correctamente
+                </div>
+              )}
+               
+
                   <div className="row">
                     <div className="col-sm-12 col-md-6 mb-3">
-                      <label htmlFor="name" className="form-label">
+                      <label className="form-label">
                         Name
                       </label>
                       <input
@@ -97,11 +152,13 @@ export const EditProfile = () => {
                         className="form-control"
                         id="name"
                         placeholder="Your Name"
-                        value={user.name}
+                        value={editableUser.name}
+                        onChange={handleInputChange} 
+                        name="name"
                       />
                     </div>
                     <div className="col-sm-12 col-md-6 mb-3">
-                      <label htmlFor="last_name" className="form-label">
+                      <label className="form-label">
                         Last Name
                       </label>
                       <input
@@ -109,11 +166,13 @@ export const EditProfile = () => {
                         className="form-control"
                         id="last_name"
                         placeholder="Your Last Name"
-                        value={user.last_name}
+                        value={editableUser.last_name}
+                        onChange={handleInputChange} 
+                        name="last_name"
                       />
                     </div>
                     <div className="col-sm-12 col-md-6 mb-3">
-                      <label htmlFor="email" className="form-label">
+                      <label className="form-label">
                         Email
                       </label>
                       <input
@@ -121,12 +180,13 @@ export const EditProfile = () => {
                         className="form-control"
                         id="email"
                         placeholder="name@example.com"
-                        value={user.email}
-
+                        value={editableUser.email}
+                        readOnly
+                      
                       />
                     </div>
                     <div className="col-sm-12 col-md-6 mb-3">
-                      <label htmlFor="address" className="form-label">
+                      <label className="form-label">
                         Address
                       </label>
                       <input
@@ -134,11 +194,12 @@ export const EditProfile = () => {
                         className="form-control"
                         id="address"
                         placeholder="Address"
-                        value={user.address}
-
+                        value={editableUser.address}
+                        onChange={handleInputChange}
+                        name="address"
                       />
                     </div>
-                    <div className="col-12 mb-3 position-relative">
+                    {/* <div className="col-12 mb-3 position-relative">
                       <label htmlFor="password" className="form-label">
                         Password
                       </label>
@@ -148,23 +209,35 @@ export const EditProfile = () => {
                           className="form-control"
                           id="password"
                           placeholder="Password"
-                          value={user.password}
+                          value={editableUser.password}
+                          onChange={handleInputChange}
+                          name="password"
                         />
                         <span
                           className="input-group-text toggle-password"
                           onClick={() => setShowPassword(!showPassword)}
                         >
                           <i
-                            className={`fa ${showPassword ? "fa-eye-slash" : "fa-eye"
-                              }`}
+                            className={`fa ${
+                              showPassword ? "fa-eye-slash" : "fa-eye"
+                            }`}
                           ></i>
                         </span>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
-                  <button type="submit" class="btn btn-primary edit-profile-button">Save Changes</button>
+                  <button
+                    type="button"
+                    className="btn btn-primary edit-profile-button"
+                    onClick={handleSaveChanges}
+                  >
+                    Save Changes
+                  </button>
                 </div>
               </form>
+
+            
+
             </div>
           </div>
         </div>

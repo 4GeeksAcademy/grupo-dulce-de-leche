@@ -64,11 +64,11 @@ export const Profile = () => {
               <h3 className="titulo-account">Cuenta</h3>
 
               <form className="profile-user bg-white">
-                <div class="row info">
-                  <div class="col-11">
+                <div className="row info">
+                  <div className="col-11">
                     <h4 className="personal">Información personal</h4>
                   </div>
-                  <div class="col-1"><Link to="/dashboard/edit-profile">
+                  <div className="col-1"><Link to="/dashboard/edit-profile">
                     <i className="fa-solid fa-user-pen icono-personal"></i> </Link>
                   </div>
                 </div>
@@ -89,7 +89,7 @@ export const Profile = () => {
                 <div className="mb-3">
                   <div className="row">
                     <div className="col-sm-12 col-md-6 mb-3">
-                      <label htmlFor="name" className="form-label">
+                      <label className="form-label">
                         Name
                       </label>
                       <input
@@ -98,10 +98,11 @@ export const Profile = () => {
                         id="name"
                         placeholder="Your Name"
                         value={user.name}
+                        readOnly
                       />
                     </div>
                     <div className="col-sm-12 col-md-6 mb-3">
-                      <label htmlFor="last_name" className="form-label">
+                      <label className="form-label">
                         Last Name
                       </label>
                       <input
@@ -110,10 +111,11 @@ export const Profile = () => {
                         id="last_name"
                         placeholder="Your Last Name"
                         value={user.last_name}
+                        readOnly
                       />
                     </div>
                     <div className="col-sm-12 col-md-6 mb-3">
-                      <label htmlFor="email" className="form-label">
+                      <label className="form-label">
                         Email
                       </label>
                       <input
@@ -122,11 +124,12 @@ export const Profile = () => {
                         id="email"
                         placeholder="name@example.com"
                         value={user.email}
+                        readOnly
 
                       />
                     </div>
                     <div className="col-sm-12 col-md-6 mb-3">
-                      <label htmlFor="address" className="form-label">
+                      <label className="form-label">
                         Address
                       </label>
                       <input
@@ -135,10 +138,11 @@ export const Profile = () => {
                         id="address"
                         placeholder="Address"
                         value={user.address}
+                        readOnly
 
                       />
                     </div>
-                    <div className="col-12 mb-3 position-relative">
+                    {/* <div className="col-12 mb-3 position-relative">
                       <label htmlFor="password" className="form-label">
                         Password
                       </label>
@@ -160,7 +164,7 @@ export const Profile = () => {
                           ></i>
                         </span>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </form>

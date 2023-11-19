@@ -4,11 +4,7 @@ import logo from "../../img/logoalmacena.png";
 import LogoutButton from './LogoutButton';
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
-import receta from "../../img/receta.png";
-import croisant from "../../img/croisant.png";
-import tomate from "../../img/tomate.png";
-import user from "../../img/user.png";
-import lapiz from "../../img/lapiz.png";
+
 
 
 const AlmaCenaSidebar = () => {

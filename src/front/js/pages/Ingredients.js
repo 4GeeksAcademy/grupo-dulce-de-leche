@@ -5,6 +5,8 @@ import { Card, Container, Table, Row, Col } from "react-bootstrap";
 import LoginButton from "../component/LoginButton";
 import AlmaCenaSidebar from "../component/AlmaCenaSidebar";
 import CreateIngredientButton from "../component/CreateIngredientButton";
+import EditIngredientButton from "../component/EditIngredientButton";
+import DeleteIngredientButton from "../component/DeleteIngredientButton";
 
 const Ingredients = () => {
   const { actions, store } = useContext(Context);
@@ -26,7 +28,7 @@ const Ingredients = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      if (response.status == 401) {navigate("/login")}
+      if (response.status == 401) { navigate("/login") }
       if (!response.ok) {
         throw new Error("Error fetching ingredients data");
       }
@@ -76,6 +78,13 @@ const Ingredients = () => {
                         <td>{materiaPrima.clasificacion}</td>
                         <td>{materiaPrima.cantidad_stock}</td>
                         <td>{materiaPrima.cantidad_stock_minimo}</td>
+                        <td>
+                          <EditIngredientButton
+                            ingredient={materiaPrima}
+                            onIngredientUpdated={() => fetchIngredientsData()}
+                          />
+                          <DeleteIngredientButton ingredient={materiaPrima} onIngredientDeleted={() => fetchIngredientsData()} />
+                        </td>
                       </tr>
                     ))}
                 </tbody>

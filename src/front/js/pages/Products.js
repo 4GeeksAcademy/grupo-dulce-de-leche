@@ -4,6 +4,7 @@ import { Row, Card, Button, Container, Col } from "react-bootstrap";
 import AlmaCenaSidebar from "../component/AlmaCenaSidebar";
 import CreateProductButton from "../component/CreateProductButton";
 import croissant from "../../img/croissant.png";
+import EditProductButton from "../component/EditProductButton";
 
 export const Products = () => {
   const navigate = useNavigate();
@@ -44,6 +45,10 @@ export const Products = () => {
     setProducts([...products, newProduct]);
   };
 
+  const handleProductEdited = () => {
+    fetchProducts();
+  };
+
   return (
     <Container fluid>
       <Row className="principal-products">
@@ -77,6 +82,7 @@ export const Products = () => {
                           </p>
                           <p className="card-text">Min: {product.cantidad_inventario_minimo}</p>
                           <p className="card-text">Clasificación: {product.clasificacion}</p>
+                          <EditProductButton product={product} onProductEdited={handleProductEdited} />
                           <i className="fa-solid fa-plus"></i>
                         </div>
                       </Card.Body>

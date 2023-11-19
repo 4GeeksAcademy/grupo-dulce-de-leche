@@ -447,7 +447,7 @@ def update_product():
 
     # Obtener el producto final
     user_producto = UserProductoFinal.query.filter_by(
-        user_id=user_id, id=product_id).first()
+    user_id=user_id, receta_id=product_id).first()
 
     if user_producto is None:
         return jsonify({"error": "Producto final no encontrado para el usuario especificado"}), 404
@@ -461,8 +461,10 @@ def update_product():
         user_producto.cantidad_inventario_minimo = body["cantidad_inventario_minimo"]
 
     db.session.commit()
+    
 
     return jsonify({"msg": "Producto Final actualizado con éxito"}), 200
+
 
 # DELETE |
 

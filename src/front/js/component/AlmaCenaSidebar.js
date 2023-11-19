@@ -32,34 +32,26 @@ const AlmaCenaSidebar = () => {
         <li className="nav-item almacenasidebar">
         <span className="menu-text"> Hola Sara Pérez </span></li>
 
-        <li className="nav-item almacenasidebar"><Link to="/dashboard/edit-profile">
-          <img
-          className="iconosidebar"
-          src={lapiz}
-          alt="" /><span class="menu-text">Profile</span></Link></li>
+        <li className="nav-item almacenasidebar"><Link to="/dashboard/profile">
+        <i class="fa-regular fa-user fa-lg iconos-sidebar"></i>
+        <span class="menu-text">Profile</span></Link></li>
 
           <li className="nav-item almacenasidebar"><Link to="/dashboard">
-          <img
-          className="iconosidebar"
-          src={user}
-          alt="" /><span class="menu-text">Dashboard</span></Link></li>
+          <i class="fa-solid fa-table-columns fa-lg iconos-sidebar"></i>
+          <span class="menu-text">Dashboard</span></Link></li>
 
 
           <li className="nav-item almacenasidebar"><Link to="/dashboard/ingredients">
-          <img
-          className="iconosidebar"
-          src={tomate}
-          alt="" /><span class="menu-text">Ingredients</span></Link></li>
+          <i class="fa-solid fa-wheat-awn fa-lg iconos-sidebar"></i>
+          <span class="menu-text">Ingredients</span></Link></li>
+
           <li className="nav-item almacenasidebar"><Link to="/dashboard/recipes">
-          <img
-          className="iconosidebar"
-          src={receta}
-          alt="" /><span class="menu-text">Recipes</span></Link></li>
+          <i class="fa-solid fa-book fa-lg iconos-sidebar"></i>
+          <span class="menu-text">Recipes</span></Link></li>
+
           <li className="nav-item almacenasidebar"><Link to="/dashboard/products">
-          <img
-          className="iconosidebar"
-          src={croisant}
-          alt="" /><span class="menu-text">Products</span></Link></li>
+          <i class="fas fa-cheese fa-lg iconos-sidebar"></i>
+           <span class="menu-text">Products</span></Link></li>
         </ul>
 
 
@@ -82,22 +74,32 @@ const AlmaCenaSidebar = () => {
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span className="navbar-toggler-icon"></span>
     </button>
-    <div className="collapse navbar-collapse" id="navbarNav">
+    <div className="collapse navbar-collapse collapse-movil" id="navbarNav">
       <ul className="navbar-nav">
-        <li className="nav-item">
-          <a className="nav-link" aria-current="page" href="/dashboard/profile">Profile</a>
+        <li className="nav-item sidebarmovil">
+        <Link to="/dashboard/profile">
+        <i class="fa-regular fa-user fa-lg iconos-sidebar"></i>
+        <span class="menu-text">Profile</span></Link>
         </li>
-        <li className="nav-item">
-          <a className="nav-link" href="/dashboard">Dashboard</a>
+        <li className="nav-item sidebarmovil">
+        <Link to="/dashboard">
+          <i class="fa-solid fa-table-columns fa-lg iconos-sidebar"></i>
+          <span class="menu-text">Dashboard</span></Link>
         </li>
-        <li className="nav-item">
-          <a className="nav-link" href="/dashboard/ingredients">Ingredients</a>
+        <li className="nav-item sidebarmovil">
+        <Link to="/dashboard/ingredients">
+          <i class="fa-solid fa-wheat-awn fa-lg iconos-sidebar"></i>
+          <span class="menu-text">Ingredients</span></Link>
         </li>
-        <li className="nav-item">
-          <a className="nav-link" href="/dashboard/recipes">Recipes</a>
+        <li className="nav-item sidebarmovil">
+        <Link to="/dashboard/recipes">
+          <i class="fa-solid fa-book fa-lg iconos-sidebar"></i>
+          <span class="menu-text">Recipes</span></Link>
         </li>
-        <li className="nav-item">
-          <a className="nav-link" href="/dashboard/products">Products</a>
+        <li className="nav-item sidebarmovil">
+        <Link to="/dashboard/products">
+          <i class="fas fa-cheese fa-lg iconos-sidebar"></i>
+           <span class="menu-text">Products</span></Link>
         </li>
       </ul>
     </div>

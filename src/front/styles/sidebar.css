@@ -67,6 +67,18 @@ span.menu-text {
     padding-left: 0;
 }
 
+.iconos-sidebar {
+    padding-right: 20px;
+    color: white;
+}
+
+li.nav-item.sidebarmovil {
+    padding: 10px 10px;
+}
+
+.collapse-movil {
+    padding: 20px 0px;}
+
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {

@@ -49,14 +49,25 @@ const Ingredients = () => {
 
   return (
     <Container fluid>
-      <Row>
-        <Col md={3} className="p-0 m-0">
+       <Row className="principal-products">
+        <Col md={2} className="p-0 m-0 col-sm-12 col-md-2">
           <AlmaCenaSidebar />
         </Col>
 
-        <Col md={9}>
-          <CreateIngredientButton onIngredientCreated={() => fetchIngredientsData()} />
-          <Card className="rounded m-5">
+        <Col xs={12} md={10}>
+        <div className="gris">
+        <Row className="boton-categories">
+              <Col sm={12} md={6}>
+                <p>Categories: <span>All</span></p>
+              </Col>
+              <Col sm={12} md={6}>
+              <CreateIngredientButton onIngredientCreated={() => fetchIngredientsData()} />
+              </Col>
+              </Row>
+
+
+              <div className="myproducts bg-white">
+          <Card className="rounded">
             <Card.Header>
               <Card.Title className="mb-0">Materias Primas</Card.Title>
             </Card.Header>
@@ -65,9 +76,10 @@ const Ingredients = () => {
                 <thead>
                   <tr>
                     <th>Nombre</th>
-                    <th>Clasificación</th>
                     <th>Cantidad en Stock</th>
                     <th>Cantidad Stock Mínimo</th>
+                    <th>Unidad Medida</th>
+                    <th>Clasificación</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -75,7 +87,6 @@ const Ingredients = () => {
                     materiasPrimas.map((materiaPrima) => (
                       <tr key={materiaPrima.materia_prima_id}>
                         <td>{materiaPrima.nombre}</td>
-                        <td>{materiaPrima.clasificacion}</td>
                         <td>{materiaPrima.cantidad_stock}</td>
                         <td>{materiaPrima.cantidad_stock_minimo}</td>
                         <td>
@@ -85,12 +96,16 @@ const Ingredients = () => {
                           />
                           <DeleteIngredientButton ingredient={materiaPrima} onIngredientDeleted={() => fetchIngredientsData()} />
                         </td>
+                        <td>{materiaPrima.unidad_medida}</td>
+                        <td>{materiaPrima.clasificacion}</td>
                       </tr>
                     ))}
                 </tbody>
               </Table>
             </Card.Body>
           </Card>
+          </div>
+          </div>
         </Col>
       </Row>
     </Container>

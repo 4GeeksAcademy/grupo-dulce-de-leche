@@ -10,14 +10,16 @@ import sal from "../../img/sal.png";
 import hojas from "../../img/hojas.png";
 import Leaf from "../../img/Leaf.png";
 import Esparrago from "../../img/esparrago.png";
-import {AlmaCenaNavbar} from "../component/AlmaCenaNavBar.js";
+import { MenuNavegacion } from "../component/AlmaCenaNavbar.js";
+
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
 <>
-<AlmaCenaNavbar />	
+<MenuNavegacion />	
+
 		<div className="contenedor-fluid">
 
 			{/* contenedor presentación */}

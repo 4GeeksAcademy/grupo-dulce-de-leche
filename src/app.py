@@ -22,7 +22,7 @@ from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
 from flask_bcrypt import Bcrypt
-
+from flask_mail import Mail, Message
 
 
 ENV = "development" if os.getenv("FLASK_DEBUG") == "1" else "production"
@@ -235,6 +235,33 @@ def login():
 def logout():
     return jsonify({"msg": "Logout successful"}), 200
 
+
+# USER | PASSWORD RECOVERY #
+
+app.config.update(dict(
+    DEBUG = False,
+    MAIL_SERVER = 'smtp.gmail.com',
+    MAIL_PORT = 587,
+    MAIL_USE_TLS = True,
+    MAIL_USE_SSL = False,
+    MAIL_USERNAME = 'rsm.fries@gmail.com',
+    MAIL_PASSWORD = 'ckoyxwdizftenmls',
+))
+mail = Mail(app)
+
+@app.route('/api/send_mail', methods=['GET'])
+def send_mail():
+    msg = Message(subject="test de mail", sender='rsm.fries@gmail.com', recipients=['rsm.fries@gmail.com'])
+    msg.body = "Hola desde la clase"
+
+    try:
+        mail.send(msg)
+        return jsonify({"message": "Mail sent successfully"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+if __name__ == '__main__':
+    app.run(debug=True)
 
 ##############################################################################################################################
 ##############################################################################################################################

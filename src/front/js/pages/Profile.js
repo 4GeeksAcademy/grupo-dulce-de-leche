@@ -99,6 +99,7 @@ export const Profile = () => {
                         placeholder="Your Name"
                         value={user.name}
                         readOnly
+                        disabled
                       />
                     </div>
                     <div className="col-sm-12 col-md-6 mb-3">
@@ -112,6 +113,7 @@ export const Profile = () => {
                         placeholder="Your Last Name"
                         value={user.last_name}
                         readOnly
+                        disabled
                       />
                     </div>
                     <div className="col-sm-12 col-md-6 mb-3">
@@ -125,6 +127,7 @@ export const Profile = () => {
                         placeholder="name@example.com"
                         value={user.email}
                         readOnly
+                        disabled
 
                       />
                     </div>
@@ -139,6 +142,7 @@ export const Profile = () => {
                         placeholder="Address"
                         value={user.address}
                         readOnly
+                        disabled
 
                       />
                     </div>

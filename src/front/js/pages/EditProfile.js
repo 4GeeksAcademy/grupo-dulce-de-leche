@@ -182,6 +182,7 @@ export const EditProfile = () => {
                         placeholder="name@example.com"
                         value={editableUser.email}
                         readOnly
+                        disabled
                       
                       />
                     </div>

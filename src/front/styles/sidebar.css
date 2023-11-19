@@ -11,16 +11,17 @@ span.item-content {
 }
 
 li.nav-item.almacenasidebar {
-    padding: 20px 0px;
+    padding: 10px 0px;
     color: white;
 }
 
-span.menu-text {
+.menu-text {
     font-size: 15px;
-    font-weight: 300;
+    font-weight: 400;
     font-family: 'Montserrat', sans-serif;
-    color: white;
 }
+
+
 
 .menuvertical {
     background: #415e4c;
@@ -62,6 +63,7 @@ span.menu-text {
 }
 
 .fa-ul {
+    padding-top: 20px;
     list-style-type: none;
     margin-left: var(--fa-li-margin,1.7em) !important;
     padding-left: 0;
@@ -77,7 +79,79 @@ li.nav-item.sidebarmovil {
 }
 
 .collapse-movil {
-    padding: 20px 0px;}
+    padding: 20px 0px;
+}
+
+
+th.imagen-usuario {
+    padding-right: 15px;
+}
+
+.icono-usuario {
+    color: #d9d9d9;
+    padding-left: 15px;
+}
+
+.info-usuario-registrado {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+}
+
+a.enlace-user {
+    text-decoration: none;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+}
+
+a.enlace-user:hover {
+    text-decoration: none;
+    color: #d9d9d9;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+
+}
+
+.info-company {
+    color: #D9D9D9;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+}
+
+    .usuario-registrado {
+        padding: 20px;
+    }
+
+    a.menu-navega {
+        color: #fff;
+        font-size: 15px;
+        font-weight: 400;
+        font-family: 'Montserrat', sans-serif;
+        text-decoration: none;
+    }
+    
+    a.menu-navega:hover {
+        color: #d9d9d9;
+        font-size: 15px;
+        font-weight: 400;
+        font-family: 'Montserrat', sans-serif;
+        text-decoration: none;
+    }
+    
+    a.menu-navega:active {
+        color: #000 !important;
+        font-size: 15px;
+        font-weight: 400;
+        font-family: 'Montserrat', sans-serif;
+        text-decoration: none;
+        
+    }
+
 
 
 /* Extra small devices (phones, 600px and down) */

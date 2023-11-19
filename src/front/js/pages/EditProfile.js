@@ -200,7 +200,7 @@ export const EditProfile = () => {
                       />
                     </div>
                     {/* <div className="col-12 mb-3 position-relative">
-                      <label htmlFor="password" className="form-label">
+                      <label className="form-label">
                         Password
                       </label>
                       <div className="input-group">

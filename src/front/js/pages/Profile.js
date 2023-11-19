@@ -61,10 +61,7 @@ export const Profile = () => {
         <div className="col-sm-12 col-md-10">
           <div className="row principal">
             <div className="col gris">
-              <h3 className="titulo-account">Cuenta</h3>
-
-              <form className="profile-user bg-white">
-                <div className="row info">
+            <div className="row info">
                   <div className="col-11">
                     <h4 className="personal">Información personal</h4>
                   </div>
@@ -72,6 +69,9 @@ export const Profile = () => {
                     <i className="fa-solid fa-user-pen icono-personal"></i> </Link>
                   </div>
                 </div>
+
+              <form className="profile-user bg-white">
+                
 
 
                 {/* <div className="row foto">
@@ -143,7 +143,7 @@ export const Profile = () => {
                       />
                     </div>
                     {/* <div className="col-12 mb-3 position-relative">
-                      <label htmlFor="password" className="form-label">
+                      <label className="form-label">
                         Password
                       </label>
                       <div className="input-group">

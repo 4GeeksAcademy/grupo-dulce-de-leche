@@ -6,6 +6,7 @@ import { Container, Card, Button, Row, Col } from "react-bootstrap";
 import "../../styles/myproducts.css";
 import redvelvet from "../../img/redvelvet.png";
 import CreateRecipeButton from "../component/CreateRecipeButton";
+import DeleteRecipeButton from "../component/DeleteRecipeButton";
 
 
 
@@ -14,7 +15,6 @@ const Recipes = () => {
   const navigate = useNavigate();
   const [recipes, setRecipes] = useState([]);
   const token = localStorage.getItem("jwt-token");
-
 
   useEffect(() => {
     const fetchRecipes = async () => {
@@ -34,7 +34,6 @@ const Recipes = () => {
         setRecipes(recipesData);
       } catch (error) {
         console.error(error);
-        // Manejar el error, redireccionar, etc.
       }
     };
 
@@ -64,6 +63,7 @@ const Recipes = () => {
       console.error("Error fetching updated recipes:", error);
     }
   };
+
 
   return (
     <Container fluid>
@@ -106,6 +106,10 @@ const Recipes = () => {
                               Details
                             </Button>
                           </Col>
+                         </Col>
+                        <Col md={1}>
+                        <DeleteRecipeButton recipe={recipe} onRecipeDeleted={handleRecipeCreated} />
+                        </Col>
                         </Row>
                       </Card.Body>
                     </Card>

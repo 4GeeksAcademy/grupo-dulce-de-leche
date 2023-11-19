@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { Row, Card, Button, Container, Col } from "react-bootstrap";
 import AlmaCenaSidebar from "../component/AlmaCenaSidebar";
 import CreateProductButton from "../component/CreateProductButton";
-import  croissant  from "../../img/croissant.png";
+import croissant from "../../img/croissant.png";
+import EditProductButton from "../component/EditProductButton";
+import DeleteProductButton from "../component/DeleteProductButton";
 
 export const Products = () => {
   const navigate = useNavigate();
@@ -24,7 +26,9 @@ export const Products = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      if (response.status == 401) {navigate("/login")}
+      if (response.status === 401) {
+        navigate("/login");
+      }
       if (!response.ok) {
         throw new Error("Error fetching products");
       }
@@ -41,7 +45,15 @@ export const Products = () => {
   const handleProductCreated = (newProduct) => {
     setProducts([...products, newProduct]);
   };
-  
+
+  const handleProductEdited = () => {
+    fetchProducts();
+  };
+
+  const handleProductDeleted = () => {
+    fetchProducts();
+  };
+
   return (
     <Container fluid>
       <Row className="principal-products">
@@ -53,10 +65,12 @@ export const Products = () => {
           <div className="gris">
             <Row className="boton-categories">
               <Col sm={12} md={6}>
-                <p>Categories: <span>All</span></p>
+                <p>
+                  Categories: <span>All</span>
+                </p>
               </Col>
               <Col sm={12} md={6}>
-              <CreateProductButton onProductCreated={handleProductCreated} />
+                <CreateProductButton onProductCreated={handleProductCreated} />
               </Col>
             </Row>
 
@@ -69,9 +83,13 @@ export const Products = () => {
                       <Card.Body>
                         <Card.Title>{product.nombre}</Card.Title>
                         <div className="unidades-add">
-                          <p className="card-text">{product.cantidad_inventario} ud</p>
-                          <p className="card-text">Min: {product.cantidad_inventario_minimo} ud</p>
+                          <p className="card-text">
+                            {product.cantidad_inventario} {product.unidad_medida}
+                          </p>
+                          <p className="card-text">Min: {product.cantidad_inventario_minimo}</p>
                           <p className="card-text">Clasificación: {product.clasificacion}</p>
+                          <EditProductButton product={product} onProductEdited={handleProductEdited} />
+                          <DeleteProductButton product={product} onProductDeleted={handleProductDeleted} />
                           <i className="fa-solid fa-plus"></i>
                         </div>
                       </Card.Body>

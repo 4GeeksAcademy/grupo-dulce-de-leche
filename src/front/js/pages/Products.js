@@ -5,6 +5,7 @@ import AlmaCenaSidebar from "../component/AlmaCenaSidebar";
 import CreateProductButton from "../component/CreateProductButton";
 import croissant from "../../img/croissant.png";
 import EditProductButton from "../component/EditProductButton";
+import DeleteProductButton from "../component/DeleteProductButton";
 
 export const Products = () => {
   const navigate = useNavigate();
@@ -49,6 +50,10 @@ export const Products = () => {
     fetchProducts();
   };
 
+  const handleProductDeleted = () => {
+    fetchProducts();
+  };
+
   return (
     <Container fluid>
       <Row className="principal-products">
@@ -83,6 +88,7 @@ export const Products = () => {
                           <p className="card-text">Min: {product.cantidad_inventario_minimo}</p>
                           <p className="card-text">Clasificación: {product.clasificacion}</p>
                           <EditProductButton product={product} onProductEdited={handleProductEdited} />
+                          <DeleteProductButton product={product} onProductDeleted={handleProductDeleted} />
                           <i className="fa-solid fa-plus"></i>
                         </div>
                       </Card.Body>

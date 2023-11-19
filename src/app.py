@@ -484,10 +484,10 @@ def delete_product():
 
     # Buscar el producto final del usuario
     user_producto = UserProductoFinal.query.filter_by(
-        user_id=user_id, id=product_id).first()
+        user_id=user_id, receta_id=product_id).first()
 
     if not user_producto:
-        return jsonify({"error": "Producto final no encontrado para el usuario especificado"}), 404
+        return jsonify({"error": "Producto final no encontrado para el usuario especificado"}), 404 
 
     # Eliminar el producto final del usuario
     db.session.delete(user_producto)

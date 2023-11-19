@@ -6,6 +6,7 @@ import { Container, Card, Button, Row, Col } from "react-bootstrap";
 import "../../styles/myproducts.css";
 import redvelvet from "../../img/redvelvet.png";
 import CreateRecipeButton from "../component/CreateRecipeButton";
+import DeleteRecipeButton from "../component/DeleteRecipeButton";
 
 
 
@@ -34,7 +35,6 @@ const Recipes = () => {
         setRecipes(recipesData);
       } catch (error) {
         console.error(error);
-        // Manejar el error, redireccionar, etc.
       }
     };
 
@@ -96,13 +96,16 @@ const Recipes = () => {
                             {recipe.rinde} {recipe.unidad_medida}
                           </p>
                         </Col>
-                        <Col md={2}>
+                        <Col md={1}>
                           <Button
                             variant="primary"
                             onClick={() => navigate(`/dashboard/recipes/${recipe.receta_id}`)}
                           >
                             Details
                           </Button>
+                        </Col>
+                        <Col md={1}>
+                        <DeleteRecipeButton recipe={recipe} onRecipeDeleted={handleRecipeCreated} />
                         </Col>
                       </Row>
                     </Card.Body>

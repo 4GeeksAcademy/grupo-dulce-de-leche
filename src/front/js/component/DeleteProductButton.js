@@ -25,10 +25,8 @@ const DeleteProductButton = ({ product, onProductDeleted }) => {
         throw new Error("Error deleting product");
       }
 
-      // Cierra el modal
       handleClose();
 
-      // Llama a la función onProductDeleted para actualizar la lista de productos
       if (onProductDeleted) {
         onProductDeleted();
       }

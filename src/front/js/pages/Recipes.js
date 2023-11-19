@@ -16,7 +16,6 @@ const Recipes = () => {
   const [recipes, setRecipes] = useState([]);
   const token = localStorage.getItem("jwt-token");
 
-
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
@@ -65,6 +64,7 @@ const Recipes = () => {
     }
   };
 
+ 
   return (
     <Container fluid>
       <Row className="principal-recipes">

@@ -58,12 +58,12 @@ const Dashboard = () => {
               <Row>
                 <Col md={6}>
                   {ingredientes.length > 0 ? (
-                    <Card className="rounded mb-5">
+                    <Card className="rounded mb-5 dashboard-user">
                       <CardTitle className="p-4">You are low on these ingredients:</CardTitle>
                       <ListGroup variant="flush">
                         {ingredientes.map(ingrediente => (
                           <div key={ingrediente.materia_prima_id} className="divider-line">
-                            <ListGroup.Item>
+                            <ListGroup.Item className="dashboard-lista">
                               <Row>
                                 <Col>{ingrediente.nombre}</Col>
                                 <Col>{ingrediente.cantidad_stock} {ingrediente.unidad_medida}</Col>
@@ -72,7 +72,7 @@ const Dashboard = () => {
                           </div>
                         ))}
                       </ListGroup>
-                      <CardFooter>And that's all</CardFooter>
+                      <CardFooter className="dashboard-user-listado">And that's all</CardFooter>
                     </Card>
                   ) : (
                     <Alert variant="success">Ingredients looking good for now.</Alert>
@@ -80,12 +80,12 @@ const Dashboard = () => {
                 </Col>
                 <Col md={6}>
                   {productosFinales.length > 0 ? (
-                    <Card className="rounded mb-5">
+                    <Card className="rounded mb-5 dashboard-user">
                       <CardTitle className="p-4">You are low on these products:</CardTitle>
                       <ListGroup variant="flush">
                         {productosFinales.map(producto => (
                           <div key={producto.producto_final_id} className="divider-line">
-                            <ListGroup.Item>
+                            <ListGroup.Item className="dashboard-lista">
                               <Row>
                                 <Col>{producto.nombre}</Col>
                                 <Col>{producto.cantidad_inventario} {producto.unidad_medida}</Col>
@@ -94,7 +94,7 @@ const Dashboard = () => {
                           </div>
                         ))}
                       </ListGroup>
-                      <CardFooter>And that's all</CardFooter>
+                      <CardFooter className="dashboard-user-listado">And that's all</CardFooter>
                     </Card>
                   ) : (
                     <Alert variant="success">Products looking good for now.</Alert>

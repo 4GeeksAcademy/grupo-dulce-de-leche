@@ -63,17 +63,17 @@ const CreateIngredientButton = ({ onIngredientCreated }) => {
               <Form.Label>Name</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Nombre del ingrediente"
+                placeholder="Ingredient Name"
                 name="nombre"
                 value={formData.nombre}
                 onChange={handleInputChange}
               />
             </Form.Group>
             <Form.Group controlId="formClasificacion">
-              <Form.Label>Classification</Form.Label>
+              <Form.Label>Category</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Clasificación del ingrediente"
+                placeholder="Ingredient Category"
                 name="clasificacion"
                 value={formData.clasificacion}
                 onChange={handleInputChange}
@@ -83,7 +83,7 @@ const CreateIngredientButton = ({ onIngredientCreated }) => {
               <Form.Label>Unit</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Unidad de medida"
+                placeholder="Units: Kilos, Grams, Litres..."
                 name="unidad_medida"
                 value={formData.unidad_medida}
                 onChange={handleInputChange}
@@ -93,17 +93,17 @@ const CreateIngredientButton = ({ onIngredientCreated }) => {
               <Form.Label>Quantity</Form.Label>
               <Form.Control
                 type="number"
-                placeholder="Cantidad"
+                placeholder="Quantity"
                 name="cantidad"
                 value={formData.cantidad}
                 onChange={handleInputChange}
               />
             </Form.Group>
             <Form.Group controlId="formMinimoStock">
-              <Form.Label>Alert Me When I Have</Form.Label>
+              <Form.Label>Min Quantity</Form.Label>
               <Form.Control
                 type="number"
-                placeholder="Mínimo Stock"
+                placeholder="Alert When I Have"
                 name="minimo_stock"
                 value={formData.minimo_stock}
                 onChange={handleInputChange}

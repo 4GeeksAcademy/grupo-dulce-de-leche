@@ -19,8 +19,8 @@ const CreateRecipeButton = ({ onRecipeCreated }) => {
     setSelectedIngredient(null);
     setQuantity("");
     setRecipeName("");
-    setRinde(1);
-    setUnidadMedida("units");
+    setRinde("");
+    setUnidadMedida("");
   };
 
   const fetchAvailableIngredients = async () => {
@@ -120,7 +120,7 @@ const CreateRecipeButton = ({ onRecipeCreated }) => {
               <Form.Label>Total Yield</Form.Label>
               <Form.Control
                 type="number"
-                placeholder="Enter rinde"
+                placeholder="Quantity"
                 value={rinde}
                 onChange={(e) => setRinde(e.target.value)}
               />
@@ -129,7 +129,7 @@ const CreateRecipeButton = ({ onRecipeCreated }) => {
               <Form.Label>Unit</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter unidad de medida"
+                placeholder="Portions, Units, Kilos..."
                 value={unidadMedida}
                 onChange={(e) => setUnidadMedida(e.target.value)}
               />

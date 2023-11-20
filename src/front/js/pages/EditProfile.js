@@ -119,11 +119,11 @@ export const EditProfile = () => {
 
               <div className="row info">
                   <div className="col-11">
-                    <h4 className="personal">Información personal</h4>
+                    <h4 className="personal">Personal information</h4>
                   </div>
                   <div className="col-1">
                     <Link to="/dashboard/profile">
-                      <i className="fa-solid fa-arrow-left icono-personal"></i>{" "}
+                      <i className="fa-solid fa-arrow-left fa-2xl icono-personal"></i>{" "}
                     </Link>
                   </div>
                   <div className="col-12">
@@ -133,6 +133,11 @@ export const EditProfile = () => {
 
               <form className="profile-user bg-white">
                
+              <div className="row foto">
+              <div className="col-sm-12 col-md-2">
+                <img className="perfil" src={perfil} />
+              </div>
+            </div> 
 
                 <div className="mb-3">
                 {updateSuccess && (

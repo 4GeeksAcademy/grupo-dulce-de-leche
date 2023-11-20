@@ -63,10 +63,10 @@ export const Profile = () => {
             <div className="col gris">
             <div className="row info">
                   <div className="col-11">
-                    <h4 className="personal">Personal Info</h4>
+                    <h4 className="personal">Personal information</h4>
                   </div>
                   <div className="col-1"><Link to="/dashboard/edit-profile">
-                    <i className="fa-solid fa-user-pen icono-personal"></i> </Link>
+                    <i className="fa-solid fa-user-pen icono-personal fa-xl"></i> </Link>
                   </div>
                 </div>
 
@@ -74,15 +74,11 @@ export const Profile = () => {
                 
 
 
-                {/* <div className="row foto">
+               <div className="row foto">
               <div className="col-sm-12 col-md-2">
                 <img className="perfil" src={perfil} />
               </div>
-              <div className="col-sm-12 col-md-10">
-                <i className="fa-solid fa-user-pen"></i>
-                <i className="fa-solid fa-trash"></i>
-              </div>
-            </div> */}
+            </div> 
 
 
 

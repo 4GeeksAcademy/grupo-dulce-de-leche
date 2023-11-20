@@ -70,7 +70,7 @@ const Ingredients = () => {
             <div className="myproducts bg-white">
               {/* <Card className="rounded"> */}
                 <Card.Header className="titulo-ingredientes"> 
-                  <Card.Title className="mb-0">Materias Primas</Card.Title>
+                  <Card.Title className="mb-0">Ingredients</Card.Title>
               </Card.Header>
                 {/* <Card.Body>  */}
                   <Table striped bordered hover responsive>
@@ -78,7 +78,7 @@ const Ingredients = () => {
                       <tr>
                         <th>Name</th>
                         <th>Quantity in Storage</th>
-                        <th>Alert When I Have</th>
+                        <th>Min Quantity</th>
                         <th>Unit</th>
                         <th>Classification</th>
                         <th className="columna-r-blanco"></th>

@@ -60,7 +60,7 @@ const AlmaCenaSidebar = () => {
 
 
         <div className="menuvertical">
-        <div class="table-responsive usuario-registrado">
+        <div className="table-responsive usuario-registrado">
           <table>
             <tr>
               <th rowspan="2" className="imagen-usuario"><img src={userprofile} alt="" /></th>
@@ -84,7 +84,7 @@ const AlmaCenaSidebar = () => {
 
             <li className="nav-item almacenasidebar"><Link className="menu-navega" to="/dashboard">
               <p className="menu-text">  <i className="fa-solid fa-table-columns fa-lg iconos-sidebar"></i>
-             Dashboard</p></Link></li>
+             Dashboard</p> </Link> </li>
 
 
             <li className="nav-item almacenasidebar"><Link className="menu-navega" to="/dashboard/ingredients">
@@ -123,29 +123,29 @@ const AlmaCenaSidebar = () => {
           <div className="collapse navbar-collapse collapse-movil" id="navbarNav">
             <ul className="navbar-nav">
               <li className="nav-item sidebarmovil">
-                <Link to="/dashboard/profile">
+                <Link className="menu-navega" to="/dashboard/profile">
                   <i className="fa-regular fa-user fa-lg iconos-sidebar"></i>
-                  <span className="menu-text">Profile</span></Link>
+                  <span className="menu-text-movil">Profile</span></Link>
               </li>
               <li className="nav-item sidebarmovil">
-                <Link to="/dashboard">
+                <Link className="menu-navega" to="/dashboard">
                   <i className="fa-solid fa-table-columns fa-lg iconos-sidebar"></i>
-                  <span className="menu-text">Dashboard</span></Link>
+                  <span className="menu-text-movil">Dashboard</span></Link>
               </li>
               <li className="nav-item sidebarmovil">
-                <Link to="/dashboard/ingredients">
+                <Link className="menu-navega" to="/dashboard/ingredients">
                   <i className="fa-solid fa-wheat-awn fa-lg iconos-sidebar"></i>
-                  <span className="menu-text">Ingredients</span></Link>
+                  <span className="menu-text-movil">Ingredients</span></Link>
               </li>
               <li className="nav-item sidebarmovil">
-                <Link to="/dashboard/recipes">
+                <Link className="menu-navega" to="/dashboard/recipes">
                   <i className="fa-solid fa-book fa-lg iconos-sidebar"></i>
-                  <span className="menu-text">Recipes</span></Link>
+                  <span className="menu-text-movil">Recipes</span></Link>
               </li>
               <li className="nav-item sidebarmovil">
-                <Link to="/dashboard/products">
+                <Link className="menu-navega" to="/dashboard/products">
                   <i className="fas fa-cheese fa-lg iconos-sidebar"></i>
-                  <span className="menu-text">Products</span></Link>
+                  <span className="menu-text-movil">Products</span></Link>
               </li>
             </ul>
             <div className="menuverticalboton">

@@ -60,7 +60,7 @@ const EditIngredientButton = ({ ingredient, onIngredientUpdated }) => {
         <Modal.Body>
           <Form>
             <Form.Group controlId="formCantidadStock">
-              <Form.Label>Cantidad Stock</Form.Label>
+              <Form.Label>Quantity</Form.Label>
               <Form.Control
                 type="number"
                 placeholder="Enter cantidad stock"
@@ -69,7 +69,7 @@ const EditIngredientButton = ({ ingredient, onIngredientUpdated }) => {
               />
             </Form.Group>
             <Form.Group controlId="formMinimoStock">
-              <Form.Label>Minimo Stock</Form.Label>
+              <Form.Label>Alert Me When I Have</Form.Label>
               <Form.Control
                 type="number"
                 placeholder="Enter minimo stock"

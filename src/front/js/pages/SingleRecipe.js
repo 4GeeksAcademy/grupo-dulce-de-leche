@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import AlmaCenaSidebar from "../component/AlmaCenaSidebar";
-import { Container, Row, Col, Table, Button, Spinner } from "react-bootstrap";
+import { Container, Row, Col, Table, Button, Spinner, Modal } from "react-bootstrap";
 import "../../styles/singlerecipe.css";
 import singlerecipe from "../../img/singlerecipe.png";
 
@@ -11,6 +11,7 @@ const SingleRecipe = () => {
   const [recipe, setRecipe] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showModal, setShowModal] = useState(false);
   const token = localStorage.getItem("jwt-token");
 
   useEffect(() => {
@@ -22,11 +23,11 @@ const SingleRecipe = () => {
             Authorization: `Bearer ${localStorage.getItem("jwt-token")}`
           },
         });
-        if (response.status == 401) {navigate("/login")}
+        if (response.status == 401) { navigate("/login") }
         if (!response.ok) {
           throw new Error("Failed to fetch recipe");
         }
-        
+
         const recipeData = await response.json();
         setRecipe(recipeData);
       } catch (error) {
@@ -35,7 +36,7 @@ const SingleRecipe = () => {
         setLoading(false);
       }
     };
-  
+
     fetchRecipe();
   }, [token, recipe_id]);
 
@@ -57,6 +58,7 @@ const SingleRecipe = () => {
       }
 
       console.log("Recipe made successfully");
+      setShowModal(true);
     } catch (error) {
       console.error(error);
       // Manejar el error
@@ -67,7 +69,7 @@ const SingleRecipe = () => {
     navigate("/login");
     return null;
   }
-  
+
   return (
     <Container fluid>
       <Row>
@@ -80,7 +82,7 @@ const SingleRecipe = () => {
               <h3 className="titulo-single-recipe">{loading || !recipe ? "Loading..." : recipe.nombre}</h3>
             </Col>
             <Col sm={12} md={6}>
-              <Button variant="primary" onClick={handleMakeRecipe} disabled={loading || !recipe}>
+            <Button variant="primary" onClick={handleMakeRecipe} disabled={loading || !recipe}>
                 {loading ? <Spinner animation="border" size="sm" /> : "Make Recipe"}
               </Button>
             </Col>
@@ -131,6 +133,20 @@ const SingleRecipe = () => {
                   </div>
                 </Col>
               </Row>
+              {/* Modal */}
+              <Modal show={showModal} onHide={() => setShowModal(false)}>
+                <Modal.Header closeButton>
+                  <Modal.Title>Recipe Made</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  Your inventory and products have been updated.
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button variant="primary" onClick={() => setShowModal(false)}>
+                    Close
+                  </Button>
+                </Modal.Footer>
+              </Modal>
             </div>
           )}
         </Col>

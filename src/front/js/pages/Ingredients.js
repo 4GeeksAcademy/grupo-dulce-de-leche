@@ -69,17 +69,17 @@ const Ingredients = () => {
               <div className="myproducts bg-white">
           <Card className="rounded">
             <Card.Header>
-              <Card.Title className="mb-0">Materias Primas</Card.Title>
+              <Card.Title className="mb-0">Ingredients</Card.Title>
             </Card.Header>
             <Card.Body>
               <Table striped bordered hover responsive>
                 <thead>
                   <tr>
-                    <th>Nombre</th>
-                    <th>Cantidad en Stock</th>
-                    <th>Cantidad Stock Mínimo</th>
-                    <th>Unidad Medida</th>
-                    <th>Clasificación</th>
+                    <th>Name</th>
+                    <th>Quantity in Storage</th>
+                    <th>Alert When I Have</th>
+                    <th>Unit</th>
+                    <th>Classification</th>
                   </tr>
                 </thead>
                 <tbody>

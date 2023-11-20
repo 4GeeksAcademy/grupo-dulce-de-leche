@@ -50,17 +50,17 @@ const CreateIngredientButton = ({ onIngredientCreated }) => {
   return (
     <>
       <Button variant="primary" onClick={() => setShowModal(true)}>
-        Crear Ingrediente
+        New Ingredient
       </Button>
 
       <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Crear Ingrediente</Modal.Title>
+          <Modal.Title>New Ingredient</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Group controlId="formNombre">
-              <Form.Label>Nombre</Form.Label>
+              <Form.Label>Name</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Nombre del ingrediente"
@@ -70,7 +70,7 @@ const CreateIngredientButton = ({ onIngredientCreated }) => {
               />
             </Form.Group>
             <Form.Group controlId="formClasificacion">
-              <Form.Label>Clasificación</Form.Label>
+              <Form.Label>Classification</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Clasificación del ingrediente"
@@ -80,7 +80,7 @@ const CreateIngredientButton = ({ onIngredientCreated }) => {
               />
             </Form.Group>
             <Form.Group controlId="formUnidadMedida">
-              <Form.Label>Unidad de Medida</Form.Label>
+              <Form.Label>Unit</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Unidad de medida"
@@ -90,7 +90,7 @@ const CreateIngredientButton = ({ onIngredientCreated }) => {
               />
             </Form.Group>
             <Form.Group controlId="formCantidad">
-              <Form.Label>Cantidad</Form.Label>
+              <Form.Label>Quantity</Form.Label>
               <Form.Control
                 type="number"
                 placeholder="Cantidad"
@@ -100,7 +100,7 @@ const CreateIngredientButton = ({ onIngredientCreated }) => {
               />
             </Form.Group>
             <Form.Group controlId="formMinimoStock">
-              <Form.Label>Mínimo Stock</Form.Label>
+              <Form.Label>Alert Me When I Have</Form.Label>
               <Form.Control
                 type="number"
                 placeholder="Mínimo Stock"
@@ -113,10 +113,10 @@ const CreateIngredientButton = ({ onIngredientCreated }) => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowModal(false)}>
-            Cerrar
+            Close
           </Button>
           <Button variant="primary" onClick={handleSubmit}>
-            Crear
+            Create
           </Button>
         </Modal.Footer>
       </Modal>

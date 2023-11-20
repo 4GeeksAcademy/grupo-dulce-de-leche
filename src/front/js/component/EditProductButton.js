@@ -61,7 +61,7 @@ const EditProductButton = ({ product, onProductEdited }) => {
         <Modal.Body>
           <Form>
             <Form.Group controlId="formCantidadInventario">
-              <Form.Label>Cantidad Inventario</Form.Label>
+              <Form.Label>Quantity in Storage</Form.Label>
               <Form.Control
                 type="number"
                 placeholder="Enter cantidad inventario"
@@ -70,7 +70,7 @@ const EditProductButton = ({ product, onProductEdited }) => {
               />
             </Form.Group>
             <Form.Group controlId="formClasificacion">
-              <Form.Label>Clasificacion</Form.Label>
+              <Form.Label>Classification</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter clasificacion"
@@ -79,7 +79,7 @@ const EditProductButton = ({ product, onProductEdited }) => {
               />
             </Form.Group>
             <Form.Group controlId="formCantidadInventarioMinimo">
-              <Form.Label>Cantidad Inventario Mínimo</Form.Label>
+              <Form.Label>Alert Me When I Have</Form.Label>
               <Form.Control
                 type="number"
                 placeholder="Enter cantidad inventario mínimo"

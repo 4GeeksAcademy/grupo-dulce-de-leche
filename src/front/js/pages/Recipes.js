@@ -91,22 +91,22 @@ const Recipes = () => {
                     <Card>
                       <Card.Img variant="top" src={redvelvet} />
                       <Card.Body>
-                        <Card.Title>{recipe.nombre}</Card.Title>
+                        <Card.Title className="fw-bold">{recipe.nombre}</Card.Title>
                         <Row className="unidades-add">
                           <Col md={12}>
-                            <p className="card-text">
-                              {recipe.rinde} {recipe.unidad_medida}
+                            <p className="card-text unidades-receta">
+                             Total Yield: {recipe.rinde} {recipe.unidad_medida}
                             </p>
                           </Col>
-                          <Col md={12}>
+                          <Col md={9}>
                             <Button
-                              variant="primary"
+                              variant="primary info-receta"
                               onClick={() => navigate(`/dashboard/recipes/${recipe.receta_id}`)}
                             >
-                              Details
+                              See Recipe
                             </Button>
                          </Col>
-                        <Col md={1}>
+                        <Col md={3}>
                         <DeleteRecipeButton recipe={recipe} onRecipeDeleted={handleRecipeCreated} />
                         </Col>
                         </Row>

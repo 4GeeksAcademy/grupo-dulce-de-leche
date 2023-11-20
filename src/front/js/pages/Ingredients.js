@@ -49,62 +49,63 @@ const Ingredients = () => {
 
   return (
     <Container fluid>
-       <Row className="principal-products">
+      <Row className="principal-products">
         <Col md={2} className="p-0 m-0 col-sm-12 col-md-2">
           <AlmaCenaSidebar />
         </Col>
 
         <Col xs={12} md={10}>
-        <div className="gris">
-        <Row className="boton-categories">
+          <div className="gris">
+            <Row className="boton-categories">
               <Col sm={12} md={6}>
                 <p>Categories: <span>All</span></p>
               </Col>
               <Col sm={12} md={6}>
-              <CreateIngredientButton onIngredientCreated={() => fetchIngredientsData()} />
+                <CreateIngredientButton onIngredientCreated={() => fetchIngredientsData()} />
               </Col>
-              </Row>
+            </Row>
 
 
-              <div className="myproducts bg-white">
-          <Card className="rounded">
-            <Card.Header>
-              <Card.Title className="mb-0">Materias Primas</Card.Title>
-            </Card.Header>
-            <Card.Body>
-              <Table striped bordered hover responsive>
-                <thead>
-                  <tr>
-                    <th>Nombre</th>
-                    <th>Cantidad en Stock</th>
-                    <th>Cantidad Stock Mínimo</th>
-                    <th>Unidad Medida</th>
-                    <th>Clasificación</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {materiasPrimas &&
-                    materiasPrimas.map((materiaPrima) => (
-                      <tr key={materiaPrima.materia_prima_id}>
-                        <td>{materiaPrima.nombre}</td>
-                        <td>{materiaPrima.cantidad_stock}</td>
-                        <td>{materiaPrima.cantidad_stock_minimo}</td>
-                        <td>
-                          <EditIngredientButton
-                            ingredient={materiaPrima}
-                            onIngredientUpdated={() => fetchIngredientsData()}
-                          />
-                          <DeleteIngredientButton ingredient={materiaPrima} onIngredientDeleted={() => fetchIngredientsData()} />
-                        </td>
-                        <td>{materiaPrima.unidad_medida}</td>
-                        <td>{materiaPrima.clasificacion}</td>
+            <div className="myproducts bg-white">
+              {/* <Card className="rounded"> */}
+                <Card.Header className="titulo-ingredientes"> 
+                  <Card.Title className="mb-0">Materias Primas</Card.Title>
+              </Card.Header>
+                {/* <Card.Body>  */}
+                  <Table striped bordered hover responsive>
+                    <thead>
+                      <tr>
+                        <th>Nombre</th>
+                        <th>Cantidad en Stock</th>
+                        <th>Cantidad Stock Mínimo</th>
+                        <th>Unidad Medida</th>
+                        <th>Clasificación</th>
+                        <th className="columna-r-blanco"></th>
+                        <th></th>
                       </tr>
-                    ))}
-                </tbody>
-              </Table>
-            </Card.Body>
-          </Card>
-          </div>
+                    </thead>
+                    <tbody>
+                      {materiasPrimas &&
+                        materiasPrimas.map((materiaPrima) => (
+                          <tr key={materiaPrima.materia_prima_id}>
+                            <td>{materiaPrima.nombre}</td>
+                            <td>{materiaPrima.cantidad_stock}</td>
+                            <td>{materiaPrima.cantidad_stock_minimo}</td>
+                            <td>{materiaPrima.unidad_medida}</td>
+                            <td>{materiaPrima.clasificacion}</td>
+                            <td className="columna-r-gris"><EditIngredientButton
+                              ingredient={materiaPrima}
+                              onIngredientUpdated={() => fetchIngredientsData()}
+                            /></td>
+                            <td><DeleteIngredientButton ingredient={materiaPrima} onIngredientDeleted={() => fetchIngredientsData()} />
+                            </td>
+                          </tr>
+                        ))}
+                    </tbody>
+                   </Table>
+          {/* </Card.Body>
+              </Card>  */}
+            </div>
           </div>
         </Col>
       </Row>

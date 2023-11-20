@@ -81,16 +81,19 @@ export const Products = () => {
                     <Card>
                       <Card.Img variant="top" src={croissant} />
                       <Card.Body>
-                        <Card.Title>{product.nombre}</Card.Title>
+                        <Card.Title className="fw-bold">{product.nombre}</Card.Title>
                         <div className="unidades-add">
                           <p className="card-text">
                             {product.cantidad_inventario} {product.unidad_medida}
                           </p>
                           <p className="card-text">Min: {product.cantidad_inventario_minimo}</p>
                           <p className="card-text">Clasificación: {product.clasificacion}</p>
-                          <EditProductButton product={product} onProductEdited={handleProductEdited} />
-                          <DeleteProductButton product={product} onProductDeleted={handleProductDeleted} />
-                          <i className="fa-solid fa-plus"></i>
+                          
+                          
+                          <Row>
+                          <Col md={6}><EditProductButton product={product} onProductEdited={handleProductEdited} /> </Col>
+                          <Col md={6}><DeleteProductButton product={product} onProductDeleted={handleProductDeleted} /> </Col>
+                          </Row>
                         </div>
                       </Card.Body>
                     </Card>

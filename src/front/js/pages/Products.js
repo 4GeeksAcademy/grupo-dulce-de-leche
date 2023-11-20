@@ -86,10 +86,8 @@ export const Products = () => {
                           <p className="card-text">
                             {product.cantidad_inventario} {product.unidad_medida}
                           </p>
-                          <p className="card-text">Min: {product.cantidad_inventario_minimo}</p>
-                          <p className="card-text">Clasificación: {product.clasificacion}</p>
-                          
-                          
+                          <p className="card-text">Alert When: {product.cantidad_inventario_minimo}</p>
+                          <p className="card-text">Classification: {product.clasificacion}</p>  
                           <Row>
                           <Col md={6}><EditProductButton product={product} onProductEdited={handleProductEdited} /> </Col>
                           <Col md={6}><DeleteProductButton product={product} onProductDeleted={handleProductDeleted} /> </Col>

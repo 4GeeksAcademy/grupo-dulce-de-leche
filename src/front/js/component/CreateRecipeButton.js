@@ -117,7 +117,7 @@ const CreateRecipeButton = ({ onRecipeCreated }) => {
               />
             </Form.Group>
             <Form.Group controlId="formRinde">
-              <Form.Label>Rinde</Form.Label>
+              <Form.Label>Total Yield</Form.Label>
               <Form.Control
                 type="number"
                 placeholder="Enter rinde"
@@ -126,7 +126,7 @@ const CreateRecipeButton = ({ onRecipeCreated }) => {
               />
             </Form.Group>
             <Form.Group controlId="formUnidadMedida">
-              <Form.Label>Unidad de Medida</Form.Label>
+              <Form.Label>Unit</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter unidad de medida"

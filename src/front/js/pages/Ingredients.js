@@ -66,6 +66,7 @@ const Ingredients = () => {
             </Row>
 
 
+
             <div className="myproducts bg-white">
               {/* <Card className="rounded"> */}
                 <Card.Header className="titulo-ingredientes"> 
@@ -75,11 +76,11 @@ const Ingredients = () => {
                   <Table striped bordered hover responsive>
                     <thead>
                       <tr>
-                        <th>Nombre</th>
-                        <th>Cantidad en Stock</th>
-                        <th>Cantidad Stock Mínimo</th>
-                        <th>Unidad Medida</th>
-                        <th>Clasificación</th>
+                        <th>Name</th>
+                        <th>Quantity in Storage</th>
+                        <th>Alert When I Have</th>
+                        <th>Unit</th>
+                        <th>Classification</th>
                         <th className="columna-r-blanco"></th>
                         <th></th>
                       </tr>

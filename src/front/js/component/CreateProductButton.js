@@ -77,17 +77,17 @@ const CreateProductButton = ({ onProductCreated }) => {
   return (
     <>
       <Button variant="primary" onClick={() => setShowModal(true)}>
-        Crear Producto
+        New Product
       </Button>
 
       <Modal show={showModal} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Crear Producto</Modal.Title>
+          <Modal.Title>New Product</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Group controlId="formRecetaNombre">
-              <Form.Label>Nombre de la Receta</Form.Label>
+              <Form.Label>Product Name</Form.Label>
               <Form.Control
                 as="select"
                 name="receta_nombre"
@@ -105,7 +105,7 @@ const CreateProductButton = ({ onProductCreated }) => {
               </Form.Control>
             </Form.Group>
             <Form.Group controlId="formCantidadInventario">
-              <Form.Label>Cantidad en Inventario</Form.Label>
+              <Form.Label>Quantity in Storage</Form.Label>
               <Form.Control
                 type="number"
                 placeholder="Cantidad en inventario"
@@ -115,7 +115,7 @@ const CreateProductButton = ({ onProductCreated }) => {
               />
             </Form.Group>
             <Form.Group controlId="formClasificacion">
-              <Form.Label>Clasificación</Form.Label>
+              <Form.Label>Classification</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Clasificación del producto"
@@ -125,7 +125,7 @@ const CreateProductButton = ({ onProductCreated }) => {
               />
             </Form.Group>
             <Form.Group controlId="formCantidadInventarioMinimo">
-              <Form.Label>Cantidad Mínima en Inventario</Form.Label>
+              <Form.Label>Alert Me When I Have</Form.Label>
               <Form.Control
                 type="number"
                 placeholder="Cantidad mínima en inventario"
@@ -138,10 +138,10 @@ const CreateProductButton = ({ onProductCreated }) => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Cerrar
+            Close
           </Button>
           <Button variant="primary" onClick={handleSubmit}>
-            Crear
+            Create
           </Button>
         </Modal.Footer>
       </Modal>

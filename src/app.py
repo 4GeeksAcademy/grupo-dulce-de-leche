@@ -25,6 +25,7 @@ from flask_bcrypt import Bcrypt
 from flask_mail import Mail, Message
 
 
+
 ENV = "development" if os.getenv("FLASK_DEBUG") == "1" else "production"
 static_file_dir = os.path.join(os.path.dirname(
     os.path.realpath(__file__)), '../public/')
@@ -262,6 +263,8 @@ def send_mail():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
 
 ##############################################################################################################################
 ##############################################################################################################################

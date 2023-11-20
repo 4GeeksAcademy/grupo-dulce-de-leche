@@ -245,15 +245,15 @@ app.config.update(dict(
     MAIL_PORT = 587,
     MAIL_USE_TLS = True,
     MAIL_USE_SSL = False,
-    MAIL_USERNAME = 'rsm.fries@gmail.com',
-    MAIL_PASSWORD = 'ckoyxwdizftenmls',
+    MAIL_USERNAME = 'noreply.almacena@gmail.com',
+    MAIL_PASSWORD = 'gzsijyhwwggnqrwm',
 ))
 mail = Mail(app)
 
 @app.route('/api/send_mail', methods=['GET'])
 def send_mail():
-    msg = Message(subject="test de mail", sender='rsm.fries@gmail.com', recipients=['rsm.fries@gmail.com'])
-    msg.body = "Hola desde la clase"
+    msg = Message(subject="test de mail", sender='rsm.fries@gmail.com', recipients=['rsm.fries@gmail.com', 'agastonsosa@gmail.com'])
+    msg.body = "This is a Test Email from AlmaCena"
 
     try:
         mail.send(msg)

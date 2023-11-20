@@ -164,7 +164,7 @@ const CreateRecipeButton = ({ onRecipeCreated }) => {
                 </Col>
                 <Col>
                   <Button
-                    variant="primary"
+                    variant="primary crear-receta"
                     onClick={() => {
                       if (selectedIngredient && quantity) {
                         handleIngredientSelected(selectedIngredient);

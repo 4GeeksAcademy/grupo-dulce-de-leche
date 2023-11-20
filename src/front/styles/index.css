@@ -81,12 +81,77 @@ nav.navbar.navbar-expand-lg.bg-body-tertiary {
   --bs-btn-hover-border-color: #ffffff;
 }
 
+button.btn.btn-warning {
+  border-color: #6c757d;
+  background: #6c757d;
+}
 
+button.btn.btn-warning:hover {
+  border-color: #6c757d;
+  background: #6c757d;
+}
+i.fa-regular.fa-pen-to-square {
+  color: white;
+}
+
+button#dropdown-ingredient {
+  background: #6c757d;
+}
+
+button#dropdown-ingredient {
+  border-color: #6c757d;
+  background: #6c757d;
+}
+
+button.btn.btn-primary.crear-receta{
+  --bs-btn-padding-x: 0.75rem;
+  --bs-btn-padding-y: 0.375rem !important;
+}
+
+button.btn.btn-primary.info-receta{
+  --bs-btn-padding-x: 0.75rem;
+  --bs-btn-padding-y: 0.375rem !important;
+}
+.unidades-receta {
+  padding-bottom: 10px;
+}
+
+.texto-boton {
+font-size: 15px;
+    font-weight: 400;
+    font-family: 'Montserrat';
+}
+
+.tbody {
+  vertical-align: middle;
+}
+
+button.btn.btn-danger.delete-recipe {
+  float: right;
+}
+
+.titulo-ingredientes.card-header {
+  border-left: 1px solid #d9d9d9;
+  border-right: 1px solid #d9d9d9;
+  border-top: 1px solid #d9d9d9;
+  background: #f2f2f2;
+  padding: 8px;
+}
+
+.columna-r-blanco {
+  border-right: 1px solid #fff;
+}
+.columna-r-gris {
+  border-right: 1px solid #f2f2f2;
+}
 
 .footer {
   font-family: "Nunito", sans-serif;
 }
 
+.unidades-receta {
+  padding-bottom: 30px;
+}
 
 .line2 {
   width: 100%;

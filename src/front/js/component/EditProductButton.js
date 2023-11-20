@@ -51,7 +51,7 @@ const EditProductButton = ({ product, onProductEdited }) => {
   return (
     <>
       <Button variant="warning" onClick={handleShow}>
-        Edit
+      <i class="fa-regular fa-pen-to-square"></i><span className="text-white ps-2 texto-boton">Edit</span>
       </Button>
 
       <Modal show={show} onHide={handleClose}>

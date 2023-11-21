@@ -55,10 +55,10 @@ export const Profile = () => {
   return (
     <div className="container-fluid">
       <div className="row principal-recipes">
-        <div className="p-0 m-0 col-md-4 col-lg-2">
+        <div className="p-0 m-0 col-md-4 col-lg-2" id="reduccion">
           <AlmaCenaSidebar />
         </div>
-        <div className="col-md-8 col-lg-10">
+        <div className="col-md-8 col-lg-10" id="reduccion-uno">
           <div className="row principal">
             <div className="col gris">
             <div className="row info">
@@ -75,7 +75,7 @@ export const Profile = () => {
 
 
                <div className="row foto">
-              <div className="col-sm-12 col-md-4 col-lg-2">
+              <div className="col-sm-12 col-md-4 col-lg-2" >
                 <img className="perfil" src={perfil} />
               </div>
             </div> 

@@ -49,7 +49,7 @@ const AlmaCenaSidebar = () => {
   return (
 
     <>
-      <div className="nuevoside">
+      <div className="nuevoside" id="navegacion-vertical">
         <div className="menuverticallogo">
           <Link to="/dashboard"> <img
             className="logosidebar"
@@ -59,7 +59,7 @@ const AlmaCenaSidebar = () => {
         </div>
 
 
-        <div className="menuvertical">
+        <div className="menuvertical" >
         <div className="table-responsive usuario-registrado">
           <table>
             <tr>
@@ -113,7 +113,7 @@ const AlmaCenaSidebar = () => {
       {/* Sidebar Movil */}
 
 
-      <nav className="navbar navbar-expand-lg bg-body-tertiary menumovil">
+      <nav className="navbar navbar-expand-lg bg-body-tertiary menumovil" id="navegacion-horizontal">
         <div className="container-fluid">
           <a className="navbar-brand" href="#">Almacena</a>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

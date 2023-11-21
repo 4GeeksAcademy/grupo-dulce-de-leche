@@ -57,11 +57,11 @@ export const Products = () => {
   return (
     <Container fluid>
       <Row className="principal-products">
-      <Col md={4} lg={2} className="p-0 m-0">
+      <Col md={4} lg={2} className="p-0 m-0" id="reduccion">
           <AlmaCenaSidebar />
         </Col>
         
-        <Col md={8} lg={10}>
+        <Col md={8} lg={10} id="reduccion-uno">
           <div className="gris">
             <Row className="boton-categories">
               <Col sm={12} md={6}>

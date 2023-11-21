@@ -152,6 +152,12 @@ a.enlace-user:hover {
         
     }
 
+    
+
+    a.menu-navega:active {
+        color: #000 !important;
+    }
+
 
 
 /* Extra small devices (phones, 600px and down) */
@@ -170,7 +176,21 @@ a.enlace-user:hover {
     }
 }
 
-/* Large devices (laptops/desktops, 992px and up) */
+
+/* Tablet*/
+@media only screen and (min-width: 601px) and (max-width: 991px) {
+    .menumovil {
+        display:none !important;
+    }
+
+    .gris {
+        padding: 20px 20px 20px 20px !important;
+    }
+}
+
+/* Ordenador */
 @media only screen and (min-width: 992px) {
-    .menumovil {display:none;}
+    .menumovil {
+        display:none !important;
+        }
 }

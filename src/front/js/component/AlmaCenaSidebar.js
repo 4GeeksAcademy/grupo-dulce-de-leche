@@ -80,24 +80,23 @@ const AlmaCenaSidebar = () => {
             {/* <li className="nav-item almacenasidebar">
         <span className="menu-text"> {user.name} {user.last_name}</span></li> */}
 
-           
 
             <li className="nav-item almacenasidebar"><Link className="menu-navega" to="/dashboard">
               <p className="menu-text">  <i className="fa-solid fa-table-columns fa-lg iconos-sidebar"></i>
-             Dashboard</p> </Link> </li>
+             Dashboard </p>  </Link> </li>
 
 
             <li className="nav-item almacenasidebar"><Link className="menu-navega" to="/dashboard/ingredients">
             <p className="menu-text"> <i className="fa-solid fa-wheat-awn fa-lg iconos-sidebar"></i>
-              Ingredients</p></Link></li>
+              Ingredients <span class="badge badge-secondary">1st</span></p></Link></li>
 
             <li className="nav-item almacenasidebar"><Link className="menu-navega" to="/dashboard/recipes">
             <p className="menu-text"> <i className="fa-solid fa-book fa-lg iconos-sidebar"></i>
-             Recipes</p></Link></li>
+             Recipes <span class="badge badge-secondary">2nd</span></p></Link></li>
 
             <li className="nav-item almacenasidebar"><Link className="menu-navega" to="/dashboard/products">
             <p className="menu-text"><i className="fas fa-cheese fa-lg iconos-sidebar"></i>
-              Products</p></Link></li>
+              Products <span class="badge badge-secondary">3rd</span></p></Link></li>
           </ul>
         </div>
 

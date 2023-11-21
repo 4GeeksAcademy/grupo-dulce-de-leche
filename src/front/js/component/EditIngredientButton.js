@@ -49,7 +49,7 @@ const EditIngredientButton = ({ ingredient, onIngredientUpdated }) => {
 
   return (
     <>
-      <Button variant="warning" onClick={handleShow}>
+      <Button variant="warning edit-ingredients" onClick={handleShow}>
       <i class="fa-regular fa-pen-to-square"></i>
       </Button>
 

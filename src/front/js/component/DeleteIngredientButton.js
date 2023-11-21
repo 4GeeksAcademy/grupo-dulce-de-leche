@@ -38,7 +38,7 @@ const DeleteIngredientButton = ({ ingredient, onIngredientDeleted }) => {
 
   return (
     <>
-      <Button variant="danger" onClick={handleShow}>
+      <Button variant="danger delete-recipe" onClick={handleShow}>
       <i class="fa-regular fa-trash-can"></i>
       </Button>
 

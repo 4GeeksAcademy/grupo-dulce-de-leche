@@ -50,11 +50,11 @@ const Ingredients = () => {
   return (
     <Container fluid>
       <Row className="principal-products">
-        <Col md={2} className="p-0 m-0 col-sm-12 col-md-2">
+      <Col className="p-0 m-0 col-md-3 col-lg-2">
           <AlmaCenaSidebar />
         </Col>
 
-        <Col xs={12} md={10}>
+        <Col className="col-md-9 col-lg-10">
           <div className="gris">
             <Row className="boton-categories">
               <Col sm={12} md={6}>

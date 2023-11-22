@@ -23,7 +23,7 @@ from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail, Message
-
+import secrets
 
 
 ENV = "development" if os.getenv("FLASK_DEBUG") == "1" else "production"
@@ -250,19 +250,54 @@ app.config.update(dict(
 ))
 mail = Mail(app)
 
-@app.route('/api/send_mail', methods=['GET'])
-def send_mail():
-    msg = Message(subject="test de mail", sender='rsm.fries@gmail.com', recipients=['rsm.fries@gmail.com', 'agastonsosa@gmail.com'])
-    msg.body = "This is a Test Email from AlmaCena"
 
-    try:
-        mail.send(msg)
-        return jsonify({"message": "Mail sent successfully"}), 200
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+## EMERGENCY API TO SEND EMAIL
 
-if __name__ == '__main__':
-    app.run(debug=True)
+# @app.route('/api/send_mail', methods=['GET'])
+# def send_mail():
+#     msg = Message(subject="test de mail", sender='noreply.almacena@gmail.com', recipients=['rsm.fries@gmail.com', 'agastonsosa@gmail.com'])
+#     msg.body = "This is a Test Email from AlmaCena"
+
+#     try:
+#         mail.send(msg)
+#         return jsonify({"message": "Mail sent successfully"}), 200
+#     except Exception as e:
+#         return jsonify({"error": str(e)}), 500
+
+
+# Generar token de restablecimiento de contraseña
+@app.route('/passwordrecovery', methods=['POST'])
+def password_recovery():
+    email = request.json.get("email")
+    user = User.query.filter_by(email=email).first()
+
+    if user:
+        # Generar token
+        reset_token = secrets.token_urlsafe(32)
+
+        # Enviar correo electrónico con el token
+        send_reset_email(email, reset_token)
+
+        # Almacenar el token en la base de datos para su verificación
+        user.reset_token = bcrypt.generate_password_hash(reset_token).decode("utf-8")
+        db.session.commit()
+
+        return jsonify({"message": "A password reset email has been sent to the email address provided"}), 200
+    else:
+        return jsonify({"message": "Email not found"}), 404
+
+def generate_reset_token(email):
+    return bcrypt.hashpw(email.encode('utf-8'), bcrypt.gensalt()).decode("utf-8")
+
+# Enviar correo electrónico con el token
+def send_reset_email(email, reset_token):
+    reset_link = f"{os.getenv('FRONTEND_URL')}/passwordreset/{reset_token}"
+    subject = "Password Reset"
+    body = f"Click the following link to reset your password: {reset_link}"
+    
+    msg = Message(subject=subject, sender="noreply@example.com", recipients=[email])
+    msg.body = body
+    mail.send(msg)
 
 
 

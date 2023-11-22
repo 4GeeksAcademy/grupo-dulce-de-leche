@@ -11,6 +11,7 @@ class User(db.Model):
     password = db.Column(db.String(80), nullable=False)
     address = db.Column(db.String(80), unique=True, nullable=False)
     is_active = db.Column(db.Boolean, default=True, nullable=False)
+    reset_token = db.Column(db.String(100), unique=True, nullable=True)
 
     def __repr__(self):
          return '{}'.format (self.name)

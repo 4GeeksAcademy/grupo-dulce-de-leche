@@ -7,8 +7,10 @@ import { Home } from "./pages/Home";
 import injectContext from "./store/appContext";
 import { Footer } from "./component/footer";
 import { Login } from "./pages/Login";
-import { Forgot } from "./pages/Forgot";
+// import { Forgot } from "./pages/Forgot";
 import { Signup } from "./pages/Signup";
+import PasswordRecovery from "./pages/PasswordRecovery.js";
+import PasswordReset from "./pages/PasswordReset";
 import Dashboard from "./pages/Dashboard";
 import Ingredients from "./pages/Ingredients";
 import { Profile } from "./pages/Profile";
@@ -30,7 +32,8 @@ const Layout = () => {
                     <Routes>
                         <Route element={<Home />} path="/" />
                         <Route element={<Login />} path="/login" />
-                        <Route element={<Forgot />} path="/forgot" />
+                        <Route element={<PasswordRecovery />} path="/passwordrecovery" />
+                        <Route element={<PasswordReset />} path="/passwordreset" />
                         <Route element={<Signup />} path="/signup" />
                         <Route element={<Dashboard />} path="/dashboard" />
                         <Route element={<Ingredients />} path="/dashboard/ingredients" />

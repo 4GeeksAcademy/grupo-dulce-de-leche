@@ -105,16 +105,16 @@ className="form-control"
   </div>
 </div>
   <div className="mb-3 form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1"/>
+    <input type="checkbox" className="form-check-input" id="exampleCheck1"/>
     <label className="form-check-label" for="exampleCheck1">Keep me logged in</label>
   </div>
-  <button type="submit" class="btn btn-primary">Login</button>
+  <button type="submit" className="btn btn-primary">Login</button>
 </form>
 
  
 
 <div className="forgot-password">
-<Link to="/forgot"><p>Forgot password</p></Link>
+<Link to="/PasswordRecovery"><p>Forgot password</p></Link>
     </div>
 	<div className="no-account">
     

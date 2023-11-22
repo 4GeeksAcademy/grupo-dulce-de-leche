@@ -9,10 +9,10 @@ import imagen from "../../img/imagen.png";
 import sal from "../../img/sal.png";
 import hojas from "../../img/hojas.png";
 import Leaf from "../../img/Leaf.png";
-import Esparrago from "../../img/esparrago.png";
 import inventary1 from "../../img/inventary1.png";
 import inventary2 from "../../img/inventary2.png";
 import inventary3 from "../../img/inventary3.png";
+
 import { MenuNavegacion } from "../component/AlmaCenaNavbar.js";
 
 

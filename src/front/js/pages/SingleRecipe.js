@@ -3,7 +3,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import AlmaCenaSidebar from "../component/AlmaCenaSidebar";
 import { Container, Row, Col, Table, Button, Spinner, Modal } from "react-bootstrap";
 import "../../styles/singlerecipe.css";
-import singlerecipe from "../../img/singlerecipe.png";
 
 const SingleRecipe = () => {
   const navigate = useNavigate();
@@ -93,7 +92,7 @@ const SingleRecipe = () => {
             <div className="profile-user bg-white">
               <h4 className="personal">Recipe information</h4>
               <Row className="foto">
-                <Col sm={12} md={4} className="imgsinglerecipe" style={{ backgroundImage: `url(${singlerecipe})` }}></Col>
+                <Col sm={12} md={4} className="imgsinglerecipe" style={{ backgroundImage: `url('https://res.cloudinary.com/ddc0clufh/image/upload/v1700684705/singlerecipe_mc4u7l.png')` }}></Col>
                 <Col sm={12} md={8}>
                   <div className="table-totalyield">
                     <Table className="table single recipe">

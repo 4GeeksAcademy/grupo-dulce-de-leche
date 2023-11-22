@@ -3,7 +3,7 @@ import { Context } from "../store/appContext";
 import "../../styles/login.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import recipes from "../../img/recipes.png";
+
 
 export const Login = () => {
   const { store, actions } = useContext(Context);
@@ -122,7 +122,7 @@ export const Login = () => {
           </div>
         </div>
         {/* Columna derecha */}
-        <div className="col muestra" style={{ backgroundImage: `url(${recipes})` }}>
+        <div className="col muestra" style={{ backgroundImage: `url('https://res.cloudinary.com/ddc0clufh/image/upload/v1700682510/recipes_inquin.png')` }}>
           {/* <img className="cucharas" src={recipes} />
     <h4>Keep track of all your inventory.</h4>
     <p className="p-login">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p> */}

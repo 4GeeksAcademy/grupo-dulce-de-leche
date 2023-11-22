@@ -9,7 +9,6 @@ import imagen from "../../img/imagen.png";
 import sal from "../../img/sal.png";
 import hojas from "../../img/hojas.png";
 import Leaf from "../../img/Leaf.png";
-import Esparrago from "../../img/esparrago.png";
 import { MenuNavegacion } from "../component/AlmaCenaNavbar.js";
 
 

@@ -5,7 +5,7 @@ export const Footer = () => (
 <div className="container-fluid bgfooter" style={{ backgroundColor: "rgba(65, 94, 76, 1)" }}>
   <div className="row">
     <div className="col-sm-12 col-md-4">
-    <img
+  <img
           src="https://i.ibb.co/16FC60X/logoalmacena.png"
           alt="logoalmacena"
           width="200"

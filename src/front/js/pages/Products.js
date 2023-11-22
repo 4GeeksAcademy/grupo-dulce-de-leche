@@ -57,11 +57,11 @@ export const Products = () => {
   return (
     <Container fluid>
       <Row className="principal-products">
-        <Col className="p-0 m-0 col-sm-12 col-md-2">
+      <Col md={4} lg={2} className="p-0 m-0" id="reduccion">
           <AlmaCenaSidebar />
         </Col>
         
-        <Col xs={12} md={10}>
+        <Col md={8} lg={10} id="reduccion-uno">
           <div className="gris">
             <Row className="boton-categories">
               <Col sm={12} md={6}>
@@ -75,7 +75,7 @@ export const Products = () => {
             </Row>
 
             <div className="myproducts bg-white">
-              <Row xs={1} md={3} className="g-4">
+              <Row className="g-4 row row-cols-md-2 row-cols-lg-3 row-cols-1">
                 {products.map((product) => (
                   <Col key={product.receta_id}>
                     <Card>
@@ -89,8 +89,8 @@ export const Products = () => {
                           <p className="card-text">Alert When: {product.cantidad_inventario_minimo}</p>
                           <p className="card-text">Classification: {product.clasificacion}</p>  
                           <Row>
-                          <Col md={6}><EditProductButton product={product} onProductEdited={handleProductEdited} /> </Col>
-                          <Col md={6}><DeleteProductButton product={product} onProductDeleted={handleProductDeleted} /> </Col>
+                          <Col className="col-6"><EditProductButton product={product} onProductEdited={handleProductEdited} /> </Col>
+                          <Col className="col-6"><DeleteProductButton product={product} onProductDeleted={handleProductDeleted} /> </Col>
                           </Row>
                         </div>
                       </Card.Body>

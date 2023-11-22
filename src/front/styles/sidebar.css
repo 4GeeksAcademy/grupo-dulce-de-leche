@@ -152,14 +152,17 @@ a.enlace-user:hover {
         
     }
 
+    
+
+    a.menu-navega:active {
+        color: #000 !important;
+    }
 
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
 
-.nuevoside {
-    display: none;
-}
+
     .logosidebar {
         width: 46%;
     }
@@ -170,7 +173,81 @@ a.enlace-user:hover {
     }
 }
 
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {
-    .menumovil {display:none;}
+
+/* Tablet*/
+@media only screen and (min-width: 601px) and (max-width: 991px) {
+    .gris {
+        padding: 20px 20px 20px 20px !important;
+    }
+    button.btn.btn-primary.info-receta {
+        padding: 10px;
+        font-size: 11px;
+    }
+}
+
+/* Ordenador */
+ @media only screen and (min-width: 992px) {
+    .menumovil {
+        display:none !important;
+        }
+} 
+
+
+
+@media only screen and (min-width: 992px) and (max-width: 1340px) {
+    .menumovil {
+        display:none !important;
+    }
+
+    .gris {
+        padding: 20px 20px 20px 20px !important;
+    }
+
+    #reduccion {
+        width: 25%;
+    }
+    
+    #reduccion-uno{
+        width: 75%;
+    }
+    .myproducts.bg-white {
+        /* display: flex; */
+        border-radius: 12px;
+        padding: 25px;
+    } 
+    
+    .texto-boton {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 11px;
+        font-weight: 400;
+    }
+
+    button.btn.btn-primary.info-receta {
+        padding: 10px;
+        font-size: 11px;
+    }
+}
+
+
+
+@media only screen and (min-width: 600px) and (max-width: 767px) {
+    #navegacion-vertical {
+display:none;
+    }
+}
+@media only screen and (min-width: 0px) and (max-width: 599px) {
+
+
+div#navegacion-vertical {
+    display:none;
+}
+}
+
+
+
+@media only screen and (min-width: 767px) {
+
+    nav#navegacion-horizontal {
+        display: none;
+    }
 }

@@ -81,11 +81,26 @@ nav.navbar.navbar-expand-lg.bg-body-tertiary {
   --bs-btn-hover-border-color: #ffffff;
 }
 
+
+ .edit-ingredients {
+  display: block;
+  margin: 0 auto;
+  border-color: #6c757d;
+  background: #6c757d;
+}
 button.btn.btn-warning {
   border-color: #6c757d;
   background: #6c757d;
 }
 
+button.btn.btn-danger-ingredients {
+  display: block;
+  margin: 0 auto;
+}
+button.btn.btn-warning-ingredients:hover {
+  border-color: #6c757d;
+  background: #6c757d;
+}
 button.btn.btn-warning:hover {
   border-color: #6c757d;
   background: #6c757d;
@@ -103,23 +118,38 @@ button#dropdown-ingredient {
   background: #6c757d;
 }
 
-button.btn.btn-primary.crear-receta{
+button.btn.btn-primary.info-receta {
   --bs-btn-padding-x: 0.75rem;
-  --bs-btn-padding-y: 0.375rem !important;
+  --bs-btn-padding-y: 0.42rem !important;
 }
 
-button.btn.btn-primary.info-receta{
+button.btn.btn-primary.info-receta {
   --bs-btn-padding-x: 0.75rem;
-  --bs-btn-padding-y: 0.375rem !important;
+  --bs-btn-padding-y: 0.42rem !important;
 }
 .unidades-receta {
   padding-bottom: 10px;
 }
 
+.btn-light {
+  width: 100%;
+}
+
 .texto-boton {
-font-size: 14px;
-    font-weight: 400;
-    font-family: 'Montserrat';
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+button.btn.btn-primary.info-receta {
+  font-weight: 400;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+}
+button.btn.btn-primary {
+  font-weight: 400;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
 }
 
 .tbody {
@@ -180,6 +210,7 @@ p.contacto {
 }
 
 .card-title.h5 {
+  font-weight: 600;
   font-family: 'Nunito', sans-serif;
   font-size: 20px;
 }
@@ -234,6 +265,19 @@ i.fa-solid.fa-user-pen.icono-personal.fa-xl {
 span.menu-text-movil {
   font-weight: 400;
   color: white;
+}
+
+.p-4.card-title.h5 {
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
+  background: #ffb7b7;
+  margin-bottom: 0px;
+}
+
+.badge {
+  margin-left: 6px;
+  padding-top: 6px;
+  background: #587360;
 }
 
 /* Extra small devices (phones, 600px and down) */

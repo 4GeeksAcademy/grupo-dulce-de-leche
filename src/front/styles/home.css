@@ -126,6 +126,33 @@ img.sal {
     background-image: url(https://images.pexels.com/photos/4696279/pexels-photo-4696279.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
 }
 
+.receta_cuatro {
+    background-size: auto;
+    background-position: top;
+    background-repeat: no-repeat;
+    height: 460px;
+    background-image: url(https://images.pexels.com/photos/2097090/pexels-photo-2097090.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+}
+.receta_cinco {
+    background-size: auto;
+    background-position: top;
+    background-repeat: no-repeat;
+    height: 460px;
+    background-image: url(https://images.pexels.com/photos/3323682/pexels-photo-3323682.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+}
+
+.receta_seis {
+    background-size: auto;
+    background-position: top;
+    background-repeat: no-repeat;
+    height: 460px;
+    background-image: url(https://images.pexels.com/photos/434295/pexels-photo-434295.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+}
+
+img.esparrago {
+    width: 100%;
+    border-radius: 20px;
+}
 
 .row.interior_receta_uno {
     padding-top: 40px;
@@ -150,7 +177,7 @@ img.sal {
     padding: 100px 80px;
 }
 
-.receta_uno, .receta_dos, .receta_tres {
+.receta_uno, .receta_dos, .receta_tres, .receta_cuatro, .receta_cinco, .receta_seis{
     margin: 13px;
     border-radius: 14px;
 }
@@ -249,6 +276,50 @@ img.leaf {
     }
 
 }
+
+@media only screen and (min-width: 601px) and (max-width: 991px) {
+    .start {
+        padding-left: 40px;
+        padding-right: 40px;
+        padding-bottom: 0px;
+        padding-top: 20px;
+        background: #415E4C;
+    }
+
+    h1 {  
+        margin-top: 34px;
+        font-size: 3em;
+        margin-bottom: 34px;
+    }
+    h2 {
+        font-size: 2.5em;
+    }
+
+
+    .intro {
+        padding-bottom: 0px;
+        padding-top: 0px;
+    }
+    .btn-light {
+        width: 100%;
+          margin-top: 22px;
+      }
+
+      .texto-boton {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 11px;
+        font-weight: 400;
+    }
+      
+    /* .fondo-carne {
+        background-image: none !important;
+        background: #415E4C;
+    } */
+
+    img.carne-movil {
+        display:none;
+    }
+  }
 
 
 /* Large devices (laptops/desktops, 992px and up) */

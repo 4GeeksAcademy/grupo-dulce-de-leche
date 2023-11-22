@@ -58,3 +58,20 @@
     font-size: 1.5em;
     line-height: 1;
 }
+
+
+@media only screen and (max-width: 600px){
+#titulo-informacion {
+    text-align: left;
+}
+
+.row.info {
+    padding: 0px 10px;
+    display: flex;
+    align-items: center;
+}
+
+.edit-profile-button {
+    width: 43%;
+}
+}

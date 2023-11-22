@@ -57,7 +57,7 @@ p.card-text {
 @media only screen and (max-width: 600px) {
 
     .gris {
-        padding: 60px 10px 90px 10px;
+        padding: 0px 10px 0px 10px;
     }
 
     .myproducts.bg-white {

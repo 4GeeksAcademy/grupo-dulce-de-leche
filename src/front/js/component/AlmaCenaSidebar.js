@@ -49,7 +49,7 @@ const AlmaCenaSidebar = () => {
   return (
 
     <>
-      <div className="nuevoside">
+      <div className="nuevoside" id="navegacion-vertical">
         <div className="menuverticallogo">
           <Link to="/dashboard"> <img
             className="logosidebar"
@@ -59,7 +59,7 @@ const AlmaCenaSidebar = () => {
         </div>
 
 
-        <div className="menuvertical">
+        <div className="menuvertical" >
         <div className="table-responsive usuario-registrado">
           <table>
             <tr>
@@ -80,24 +80,23 @@ const AlmaCenaSidebar = () => {
             {/* <li className="nav-item almacenasidebar">
         <span className="menu-text"> {user.name} {user.last_name}</span></li> */}
 
-           
 
             <li className="nav-item almacenasidebar"><Link className="menu-navega" to="/dashboard">
               <p className="menu-text">  <i className="fa-solid fa-table-columns fa-lg iconos-sidebar"></i>
-             Dashboard</p> </Link> </li>
+             Dashboard </p>  </Link> </li>
 
 
             <li className="nav-item almacenasidebar"><Link className="menu-navega" to="/dashboard/ingredients">
             <p className="menu-text"> <i className="fa-solid fa-wheat-awn fa-lg iconos-sidebar"></i>
-              Ingredients</p></Link></li>
+              Ingredients <span class="badge badge-secondary">1st</span></p></Link></li>
 
             <li className="nav-item almacenasidebar"><Link className="menu-navega" to="/dashboard/recipes">
             <p className="menu-text"> <i className="fa-solid fa-book fa-lg iconos-sidebar"></i>
-             Recipes</p></Link></li>
+             Recipes <span class="badge badge-secondary">2nd</span></p></Link></li>
 
             <li className="nav-item almacenasidebar"><Link className="menu-navega" to="/dashboard/products">
             <p className="menu-text"><i className="fas fa-cheese fa-lg iconos-sidebar"></i>
-              Products</p></Link></li>
+              Products <span class="badge badge-secondary">3rd</span></p></Link></li>
           </ul>
         </div>
 
@@ -114,7 +113,7 @@ const AlmaCenaSidebar = () => {
       {/* Sidebar Movil */}
 
 
-      <nav className="navbar navbar-expand-lg bg-body-tertiary menumovil">
+      <nav className="navbar navbar-expand-lg bg-body-tertiary menumovil" id="navegacion-horizontal">
         <div className="container-fluid">
           <a className="navbar-brand" href="#">Almacena</a>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

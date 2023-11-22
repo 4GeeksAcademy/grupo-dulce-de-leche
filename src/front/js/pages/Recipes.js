@@ -68,11 +68,11 @@ const Recipes = () => {
   return (
     <Container fluid>
       <Row className="principal-recipes">
-        <Col className="p-0 m-0 col-sm-12 col-md-2">
+      <Col md={4} lg={2} className="p-0 m-0" id="reduccion">
           <AlmaCenaSidebar />
         </Col>
 
-          <Col xs={12} md={10}>
+        <Col md={8} lg={10} id="reduccion-uno">
           <div className="gris">
             <Row className="boton-categories">
               <Col md={6}>
@@ -85,7 +85,7 @@ const Recipes = () => {
               </Col>
           </Row>
             <div className="myproducts bg-white">
-              <Row xs={1} md={3} className="g-4">
+            <Row className="g-4 row row-cols-md-2 row-cols-lg-3 row-cols-1">
                 {recipes.map((recipe) => (
                   <Col key={recipe.receta_id}>
                     <Card>
@@ -98,7 +98,7 @@ const Recipes = () => {
                              Total Yield: {recipe.rinde} {recipe.unidad_medida}
                             </p>
                           </Col>
-                          <Col md={9}>
+                          <Col className="col-9">
                             <Button
                               variant="primary info-receta"
                               onClick={() => navigate(`/dashboard/recipes/${recipe.receta_id}`)}
@@ -106,7 +106,7 @@ const Recipes = () => {
                               See Recipe
                             </Button>
                          </Col>
-                        <Col md={3}>
+                        <Col className="col-3">
                         <DeleteRecipeButton recipe={recipe} onRecipeDeleted={handleRecipeCreated} />
                         </Col>
                         </Row>

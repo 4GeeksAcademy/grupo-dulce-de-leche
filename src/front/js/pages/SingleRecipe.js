@@ -73,10 +73,10 @@ const SingleRecipe = () => {
   return (
     <Container fluid>
       <Row>
-        <Col className="p-0 m-0 col-sm-12 col-md-2">
+      <Col md={4} lg={2} className="p-0 m-0" id="reduccion">
           <AlmaCenaSidebar />
         </Col>
-        <Col xs={12} md={10} className="gris">
+        <Col md={8} lg={10} className="gris" id="reduccion-uno">
           <Row className="boton-categories">
             <Col sm={12} md={6}>
               <h3 className="titulo-single-recipe">{loading || !recipe ? "Loading..." : recipe.nombre}</h3>

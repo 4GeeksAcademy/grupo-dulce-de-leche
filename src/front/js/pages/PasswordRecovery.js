@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Alert } from "react-bootstrap";
 import "../../styles/login.css";
 import { Link } from "react-router-dom";
 import recipes from "../../img/recipes.png";
@@ -6,6 +7,8 @@ import recipes from "../../img/recipes.png";
 export const PasswordRecovery = () => {
   const [email, setEmail] = useState("");
   const [resetLinkSent, setResetLinkSent] = useState(false);
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,12 +25,22 @@ export const PasswordRecovery = () => {
       if (response.ok) {
         // Password reset link sent successfully
         setResetLinkSent(true);
+        setShowSuccessAlert(true); // Mostrar la alerta de éxito
+        setShowErrorAlert(false); // Ocultar la alerta de error
+      } else if (response.status === 404) {
+        // Email not recognized
+        setShowErrorAlert(true);
+        setShowSuccessAlert(false);
       } else {
-        // Handle errors, e.g., display an error message to the user
+        // Handle other errors
         console.error("Password reset request failed:", response.statusText);
+        setShowErrorAlert(true);
+        setShowSuccessAlert(false);
       }
     } catch (error) {
       console.error("An error occurred:", error.message);
+      setShowErrorAlert(true);
+      setShowSuccessAlert(false);
     }
   };
 
@@ -53,6 +66,16 @@ export const PasswordRecovery = () => {
             Please enter your email address. We will send you a link to reset
             your password.
           </p>
+          {showSuccessAlert && (
+            <Alert variant="success">
+              The Email was sent successfully. Check your Email.
+            </Alert>
+          )}
+          {showErrorAlert && (
+            <Alert variant="danger">
+              Email not recognized. Try again.
+            </Alert>
+          )}
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
               <input
@@ -83,4 +106,5 @@ export const PasswordRecovery = () => {
   );
 };
 
-export default PasswordRecovery
+export default PasswordRecovery;
+

@@ -104,7 +104,7 @@ export const Login = () => {
           </form>
 
           <div className="forgot-password">
-            <Link to="/passwordecovery"><p>Forgot password</p></Link>
+            <Link to="/passwordrecovery"><p>Forgot password</p></Link>
           </div>
           <div className="no-account">
             <p>Don’t have an account? <Link to="/signup"><span>Sign up!</span></Link></p>

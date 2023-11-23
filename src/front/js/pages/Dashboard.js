@@ -58,7 +58,7 @@ const Dashboard = () => {
               <Row>
                 <Col md={6}>
                   {ingredientes.length > 0 ? (
-                    <Card className="rounded mb-5 dashboard-user">
+                    <Card className="rounded mb-5 dashboard-user shadow">
                       <CardTitle className="p-4">You are low on these ingredients:</CardTitle>
                       <ListGroup variant="flush">
                         {ingredientes.map(ingrediente => (
@@ -75,12 +75,12 @@ const Dashboard = () => {
                       <CardFooter className="dashboard-user-listado">And that's all</CardFooter>
                     </Card>
                   ) : (
-                    <Alert variant="success">Ingredients looking good for now.</Alert>
+                    <Alert variant="success" className="shadow">Ingredients looking good for now.</Alert>
                   )}
                 </Col>
                 <Col md={6}>
                   {productosFinales.length > 0 ? (
-                    <Card className="rounded mb-5 dashboard-user">
+                    <Card className="rounded mb-5 dashboard-user shadow">
                       <CardTitle className="p-4">You are low on these products:</CardTitle>
                       <ListGroup variant="flush">
                         {productosFinales.map(producto => (
@@ -97,7 +97,7 @@ const Dashboard = () => {
                       <CardFooter className="dashboard-user-listado">And that's all</CardFooter>
                     </Card>
                   ) : (
-                    <Alert variant="success">Products looking good for now.</Alert>
+                    <Alert variant="success" className="shadow">Products looking good for now.</Alert>
                   )}
                 </Col>
               </Row>

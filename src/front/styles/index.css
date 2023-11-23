@@ -230,26 +230,11 @@ i.fa-solid.fa-user-pen.icono-personal.fa-xl {
   float: right;
 }
 
-.dashboard-lista.list-group-item {
-  padding-bottom: 13px;
-  padding-top: 13px;
-  border:none;
-  border-top: var(--bs-list-group-border-width) solid var(--bs-list-group-border-color);
-}
-
 .dashboard-user {
   border:none;
 }
 
-.dashboard-user-listado {
-  border-top: 1px solid #d9d9d9;
-  padding-bottom: 13px;
-  padding-top: 13px;
-}
 
-.card>.card-header+.list-group, .card>.list-group+.card-footer {
-  border-top: 1px solid #d9d9d9;
-}
 
 
 span.menu-text-movil {

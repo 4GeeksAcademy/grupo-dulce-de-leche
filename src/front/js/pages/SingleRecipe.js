@@ -73,7 +73,7 @@ const SingleRecipe = () => {
   return (
     <Container fluid>
       <Row>
-      <Col md={4} lg={2} className="p-0 m-0" id="reduccion">
+        <Col md={4} lg={2} className="p-0 m-0" id="reduccion">
           <AlmaCenaSidebar />
         </Col>
         <Col md={8} lg={10} className="gris" id="reduccion-uno">
@@ -81,11 +81,7 @@ const SingleRecipe = () => {
             <Col sm={12} md={6}>
               <h3 className="titulo-single-recipe">{loading || !recipe ? "Loading..." : recipe.nombre}</h3>
             </Col>
-            <Col sm={12} md={6}>
-            <Button variant="primary" onClick={handleMakeRecipe} disabled={loading || !recipe}>
-                {loading ? <Spinner animation="border" size="sm" /> : "Make Recipe"}
-              </Button>
-            </Col>
+
           </Row>
           {loading && <Spinner animation="border" />}
           {error && <p className="text-danger">{error}</p>}
@@ -130,6 +126,11 @@ const SingleRecipe = () => {
                         ))}
                       </tbody>
                     </Table>
+                    <Col sm={12} className="mt-5" >
+                      <Button variant="primary" onClick={handleMakeRecipe} disabled={loading || !recipe}>
+                        {loading ? <Spinner animation="border" size="sm" /> : "Make Recipe"}
+                      </Button>
+                    </Col>
                   </div>
                 </Col>
               </Row>
@@ -150,6 +151,7 @@ const SingleRecipe = () => {
             </div>
           )}
         </Col>
+
       </Row>
     </Container>
   );

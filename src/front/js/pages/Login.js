@@ -96,10 +96,6 @@ export const Login = () => {
                 </span>
               </div>
             </div>
-            <div className="mb-3 form-check">
-              <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-              <label className="form-check-label" htmlFor="exampleCheck1">Keep me logged in</label>
-            </div>
             <button type="submit" className="btn btn-primary">Login</button>
           </form>
 
@@ -107,7 +103,7 @@ export const Login = () => {
             <Link to="/passwordrecovery"><p>Forgot password</p></Link>
           </div>
           <div className="no-account">
-            <p>Don’t have an account? <Link to="/signup"><span>Sign up!</span></Link></p>
+            <p>Don't have an account? <Link to="/signup"><span>Sign up!</span></Link></p>
           </div>
         </div>
 
@@ -119,5 +115,3 @@ export const Login = () => {
     </div>
   );
 };
-
-

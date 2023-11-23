@@ -91,7 +91,7 @@ export const Signup = () => {
             )}
             <div className="mb-3">
               <div className="row">
-                <div className="col-6 mb-3">
+                <div className="col-sm-12 col-md-6 mb-3">
                   <label className="form-label">
                     Name
                   </label>
@@ -104,7 +104,7 @@ export const Signup = () => {
                     onChange={(e) => setUser({ ...user, name: e.target.value })}
                   />
                 </div>
-                <div className="col-6 mb-3">
+                <div className="col-sm-12 col-md-6 mb-3">
                   <label className="form-label">
                     Last Name
                   </label>
@@ -119,7 +119,7 @@ export const Signup = () => {
                     }
                   />
                 </div>
-                <div className="col-6 mb-3">
+                <div className="col-sm-12 col-md-6 mb-3">
                   <label className="form-label">
                     Email
                   </label>
@@ -132,7 +132,7 @@ export const Signup = () => {
                     onChange={(e) => setUser({ ...user, email: e.target.value })}
                   />
                 </div>
-                <div className="col-6 mb-3">
+                <div className="col-sm-12 col-md-6 mb-3">
                   <label className="form-label">
                     Address
                   </label>

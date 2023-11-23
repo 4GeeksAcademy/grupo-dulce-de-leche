@@ -130,3 +130,39 @@ h4 {
     }
 
     
+    @media only screen and (min-width: 601px) and (max-width: 991px) { 
+        .formulario-signup {
+            background-color: white;
+            padding: 40px 36px !important;
+        }
+        
+        .formulario {
+            background-color: white;
+            padding: 40px 36px !important;;
+        }
+        
+        .formulario-forgot {
+            background-color: white;
+            padding: 40px 36px !important;;
+        }
+    }
+    
+@media only screen and (min-width: 992px) and (max-width: 1340px) {
+
+    .formulario-signup {
+        background-color: white;
+        padding: 40px 36px !important;
+    }
+    
+    .formulario {
+        background-color: white;
+        padding: 40px 36px !important;;
+    }
+    
+    .formulario-forgot {
+        background-color: white;
+        padding: 40px 36px !important;;
+    }
+    
+    
+    }

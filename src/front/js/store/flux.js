@@ -45,7 +45,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 
-
 			login: async (email, password) => {
 				try {
 					const resp = await fetch(process.env.BACKEND_URL + "/login", {
@@ -77,6 +76,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					throw new Error(`Error during login: ${error.message}`);
 				}
 			},
+
+
+
 			logout: async () => {
 				try {
 					const resp = await fetch(process.env.BACKEND_URL + "/logout", {
@@ -100,6 +102,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					throw new Error(`Error during logout: ${error.message}`);
 				}
 			},
+
+			
 			getMessage: async () => {
 				try {
 					// fetching data from the backend

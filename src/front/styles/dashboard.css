@@ -11,4 +11,25 @@ body {
     #gris-dashboard {
         padding: 0px 10px 20px 10px;
     }
+
+    .col.muestra {
+        display: none;
+    }
+
+    .formulario-signup {
+        background-color: white;
+        padding: 50px 28px;
+    }
+
+    .formulario-forgot {
+        background-color: white;
+        padding: 50px 28px;
+    }
+
+    .formulario {
+        background-color: white;
+        padding: 50px 28px;
+    }
+
+    
 }

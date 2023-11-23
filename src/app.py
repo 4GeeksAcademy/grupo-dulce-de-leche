@@ -248,22 +248,8 @@ app.config.update(dict(
     MAIL_USERNAME = 'noreply.almacena@gmail.com',
     MAIL_PASSWORD = 'gzsijyhwwggnqrwm',
 ))
+
 mail = Mail(app)
-
-
-## EMERGENCY API TO SEND EMAIL
-
-# @app.route('/api/send_mail', methods=['GET'])
-# def send_mail():
-#     msg = Message(subject="test de mail", sender='noreply.almacena@gmail.com', recipients=['rsm.fries@gmail.com', 'agastonsosa@gmail.com'])
-#     msg.body = "This is a Test Email from AlmaCena"
-
-#     try:
-#         mail.send(msg)
-#         return jsonify({"message": "Mail sent successfully"}), 200
-#     except Exception as e:
-#         return jsonify({"error": str(e)}), 500
-
 
 # Generar token de restablecimiento de contraseña
 @app.route('/passwordrecovery', methods=['POST'])
@@ -291,13 +277,32 @@ def generate_reset_token(email):
 
 # Enviar correo electrónico con el token
 def send_reset_email(email, reset_token):
-    reset_link = f"{os.getenv('FRONTEND_URL')}/passwordreset/{reset_token}"
     subject = "Password Reset"
-    body = f"Click the following link to reset your password: {reset_link}"
+    body = f"Click the following link to reset your password: /passwordreset/{reset_token}"
     
     msg = Message(subject=subject, sender="noreply@example.com", recipients=[email])
     msg.body = body
     mail.send(msg)
+
+from flask_jwt_extended import get_jwt_identity
+
+@app.route('/resetpassword/<reset_token>', methods=['POST'])
+def reset_password(reset_token):
+    # Busca el usuario por el token de reset
+    user = User.query.filter_by(reset_token=reset_token).first()
+
+    if user:
+        new_password = request.json.get("new_password")
+
+       
+        user.password = bcrypt.generate_password_hash(new_password).decode('utf-8')
+        # Elimina el token de reset para que no se pueda utilizar nuevamente
+        user.reset_token = None
+        db.session.commit()
+
+        return jsonify({"message": "Password updated successfully"}), 200
+    else:
+        return jsonify({"message": "Invalid or expired reset token"}), 401
 
 
 

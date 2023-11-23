@@ -1,14 +1,15 @@
 import React, { useContext, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Context } from '../store/appContext';
 
 const PasswordReset = () => {
     const { actions } = useContext(Context);
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    const { token } = useParams();
+    const { reset_token } = useParams();
+    const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         // Check if passwords match before sending the reset request
@@ -18,49 +19,79 @@ const PasswordReset = () => {
             return;
         }
 
-        // Passwords match, proceed with password reset
-        actions.passwordReset(password, token);
+        try {
+            console.log("Token:", reset_token);
+            const response = await fetch(process.env.BACKEND_URL + `/resetpassword/${reset_token}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ new_password: password }),
+            });
 
-        // Clear password fields after submission
-        setPassword("");
-        setConfirmPassword("");
+            if (response.ok) {
+                console.log('Password updated successfully');
+                navigate('/login');
+            } else {
+                console.error('Password update failed:', response.statusText);
+            }
+        } catch (error) {
+            console.error('An error occurred:', error.message);
+        }
     };
 
     return (
-        <div>
-            <div className="userprofile-body">
-                <form className="m-auto" onSubmit={handleSubmit}>
-                    <h1 className="container userprofile-form-title">Reset Password</h1>
-                    <div className="userprofile-form-container text-center">
-                        <div className="userprofile-form-group">
+        <div className="container-fluid">
+            <div className="row principal">
+                {/* Columna izquierda */}
+                <div className="col formulario-forgot">
+                    <div className="row pb-5">
+                        <div className="col-1"></div>
+                        <div className="col-1">
+                            <i className="fa-solid fa-chevron-left"></i>
+                        </div>
+                        <div className="col-10">
+                            <div className="back-login">
+                                <Link to="/login">Back to login</Link>
+                            </div>
+                        </div>
+                    </div>
+                    <h2 className="recovery-title">Reset Password</h2>
+                    <p className="recovery-instructions">
+                        Enter your new password below.
+                    </p>
+                    <form onSubmit={handleSubmit}>
+                        <div className="mb-3">
                             <input
                                 type="password"
-                                className="userprofile-form-control"
-                                id="inputNewPassword"
+                                className="form-control form-control-recovery"
                                 placeholder="New Password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                required  // Adding the 'required' attribute for form validation
+                                required
                             />
                         </div>
-                        <div className="userprofile-form-group">
+                        <div className="mb-3">
                             <input
                                 type="password"
-                                className="userprofile-form-control"
-                                id="inputConfirmPassword"
+                                className="form-control form-control-recovery"
                                 placeholder="Confirm Password"
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
-                                required  // Adding the 'required' attribute for form validation
+                                required
                             />
                         </div>
-                    </div>
-                    <div className="text-center">
-                        <button type="submit" className="userprofile-btn mb-5">Submit</button>
-                    </div>
-                </form>
+                        <button
+                            type="submit"
+                            className="btn btn-primary btn-recovery"
+                        >
+                            Reset Password
+                        </button>
+                    </form>
+                </div>
+                {/* Columna derecha */}
+                <div className="col muestra"></div>
             </div>
-            <div className='liney' />
         </div>
     );
 };

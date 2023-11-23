@@ -1,15 +1,14 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/login.css";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import recipes from "../../img/recipes.png";
 
 export const Login = () => {
   const { store, actions } = useContext(Context);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar contraseña
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
@@ -58,13 +57,9 @@ export const Login = () => {
             </div>
           </div>
 
-
-          {/* <h3 className="titulo-login">Login</h3>
-	<p className="parrafo-login">Sign in with your data that you entered during your registration.</p> */}
           <form onSubmit={enviarFormulario}>
             <h3 className="titulo-login">Login</h3>
             <p className="parrafo-login">Sign in with your data that you entered during your registration.</p>
-
 
             {error && (
               <div className="alert alert-danger">
@@ -72,9 +67,8 @@ export const Login = () => {
               </div>
             )}
 
-            <div class="mb-3">
-              <label for="exampleInputEmail1" class="form-label">Email</label>
-
+            <div className="mb-3">
+              <label htmlFor="email" className="form-label">Email</label>
               <input
                 className="form-control"
                 type="text"
@@ -83,8 +77,6 @@ export const Login = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-
-
             </div>
             <div className="mb-3 position-relative">
               <label className="form-label">
@@ -105,74 +97,27 @@ export const Login = () => {
               </div>
             </div>
             <div className="mb-3 form-check">
-              <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-              <label className="form-check-label" for="exampleCheck1">Keep me logged in</label>
+              <input type="checkbox" className="form-check-input" id="exampleCheck1" />
+              <label className="form-check-label" htmlFor="exampleCheck1">Keep me logged in</label>
             </div>
-            <button type="submit" class="btn btn-primary">Login</button>
+            <button type="submit" className="btn btn-primary">Login</button>
           </form>
 
-
-
           <div className="forgot-password">
-            <Link to="/forgot"><p>Forgot password</p></Link>
+            <Link to="/passwordecovery"><p>Forgot password</p></Link>
           </div>
-        )}
-
-  <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Email</label>
-  
-<input
-className="form-control"
-            type="text"
-            id="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-
-
-  </div>
-  <div className="mb-3 position-relative">
-  <label htmlFor="password" className="form-label">
-    Password
-  </label>
-  <div className="input-group">
-    <input
-      type={showPassword ? "text" : "password"}
-      className="form-control"
-      id="password"
-      placeholder="Password"
-      value={password}
-      onChange={(e) => setPassword(e.target.value)}
-    />
-    <span className="input-group-text toggle-password" onClick={toggleShowPassword}>
-      <i className={`fa ${showPassword ? "fa-eye-slash" : "fa-eye"}`}></i>
-    </span>
-  </div>
-</div>
-  <div className="mb-3 form-check">
-    <input type="checkbox" className="form-check-input" id="exampleCheck1"/>
-    <label className="form-check-label" for="exampleCheck1">Keep me logged in</label>
-  </div>
-  <button type="submit" className="btn btn-primary">Login</button>
-</form>
-<div className="forgot-password">
-<Link to="/PasswordRecovery"><p>Forgot password</p></Link>
-    </div>
-	<div className="no-account">
-    
-	<p>Don’t have an account? <Link to="/signup"><span>Sign up!</span></Link></p>
-	</div>
-	</div>
-	{/* Columna derecha */}
-    <div className="col muestra" style={{ backgroundImage: `url(${recipes})` }}>
-    {/* <img className="cucharas" src={recipes} />
-
-    <h4>Keep track of all your inventory.</h4>
-    <p className="p-login">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p> */}
+          <div className="no-account">
+            <p>Don’t have an account? <Link to="/signup"><span>Sign up!</span></Link></p>
+          </div>
         </div>
 
+        {/* Columna derecha */}
+        <div className="col muestra" style={{ backgroundImage: `url(${recipes})` }}>
+          {/* Contenido de la columna derecha */}
+        </div>
       </div>
     </div>
   );
 };
+
+

@@ -1,66 +1,78 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Context } from "../store/appContext";
 import "../../styles/sidebar.css";
 import logo from "../../img/logoalmacena.png";
 import userprofile from "../../img/userprofile.png";
 import LogoutButton from './LogoutButton';
-import { Context } from "../store/appContext";
-import { Link } from "react-router-dom";
-
-
 
 const AlmaCenaSidebar = () => {
+  const { actions } = useContext(Context);
+  const [selectedLink, setSelectedLink] = useState("");
   const [user, setUser] = useState({ name: "", last_name: "" });
-  const { store, actions } = useContext(Context);
+  const [userDataLoaded, setUserDataLoaded] = useState(false);
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
 
+  // Efecto secundario que se ejecuta solo una vez al cargar el componente
+  useEffect(() => {
+    const token = localStorage.getItem("jwt-token");
+
+    if (token && !userDataLoaded) {
+      const fetchUserData = async () => {
+        try {
+          const response = await fetch(process.env.BACKEND_URL + "/dashboard", {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          });
+
+          if (!response.ok) {
+            throw new Error("Error fetching user data");
+          }
+
+          const data = await response.json();
+          setUser({
+            name: data.name,
+            last_name: data.last_name,
+          });
+
+          setUserDataLoaded(true);
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
+      };
+
+      fetchUserData();
+    }
+  }, [userDataLoaded]);
 
   useEffect(() => {
-    const fetchDashboardData = async () => {
-      try {
-        const response = await fetch(process.env.BACKEND_URL + "/dashboard", {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt-token")}`
-          }
-        });
-        if (response.status == 401) { navigate("/login") }
-        if (!response.ok) {
-          throw new Error("Error fetching dashboard data");
-        };
-        const data = await response.json();
-        setUser({
-          name: data.name,
-          last_name: data.last_name,
-        });
+    // Actualiza el estado del enlace seleccionado cuando cambia la ruta
+    setSelectedLink(pathname);
+  }, [pathname]);
 
-      } catch (error) {
-        console.error("Error fetching dashboard data:", error);
-      }
-    };
-    if (!token) {
-      navigate("/login");
-    }
-    fetchDashboardData();
-  }, []);
+  
 
-  const token = localStorage.getItem("jwt-token");
-
-
+  const menuItems = [
+    { path: "/dashboard", text: "Dashboard", icon: "fa-solid fa-table-columns fa-lg" },
+    { path: "/dashboard/ingredients", text: "Ingredients", icon: "fa-solid fa-wheat-awn fa-lg" },
+    { path: "/dashboard/recipes", text: "Recipes", icon: "fa-solid fa-book fa-lg" },
+    { path: "/dashboard/products", text: "Products", icon: "fas fa-cheese fa-lg" },
+  ];
 
   return (
-
     <>
       <div className="nuevoside" id="navegacion-vertical">
         <div className="menuverticallogo">
-          <Link to="/dashboard"> <img
-            className="logosidebar"
-            src={logo}
-            alt="" />
+          <Link to="/dashboard">
+            <img className="logosidebar" src={logo} alt="" />
           </Link>
         </div>
 
-
-        <div className="menuvertical" >
-        <div className="table-responsive usuario-registrado">
+        <div className="menuvertical">
+          <div className="table-responsive usuario-registrado">
           <table>
             <tr>
               <th rowspan="2" className="imagen-usuario"><img src={userprofile} alt="" /></th>
@@ -74,38 +86,29 @@ const AlmaCenaSidebar = () => {
 
             </tr>
           </table>
+
+
           </div>
-          <ul className="nav flex-column fa-ul">
-
-            {/* <li className="nav-item almacenasidebar">
-        <span className="menu-text"> {user.name} {user.last_name}</span></li> */}
-
-
-            <li className="nav-item almacenasidebar"><Link className="menu-navega" to="/dashboard">
-              <p className="menu-text">  <i className="fa-solid fa-table-columns fa-lg iconos-sidebar"></i>
-             Dashboard </p>  </Link> </li>
-
-
-            <li className="nav-item almacenasidebar"><Link className="menu-navega" to="/dashboard/ingredients">
-            <p className="menu-text"> <i className="fa-solid fa-wheat-awn fa-lg iconos-sidebar"></i>
-              Ingredients <span class="badge badge-secondary">1st</span></p></Link></li>
-
-            <li className="nav-item almacenasidebar"><Link className="menu-navega" to="/dashboard/recipes">
-            <p className="menu-text"> <i className="fa-solid fa-book fa-lg iconos-sidebar"></i>
-             Recipes <span class="badge badge-secondary">2nd</span></p></Link></li>
-
-            <li className="nav-item almacenasidebar"><Link className="menu-navega" to="/dashboard/products">
-            <p className="menu-text"><i className="fas fa-cheese fa-lg iconos-sidebar"></i>
-              Products <span class="badge badge-secondary">3rd</span></p></Link></li>
+           <ul className="nav flex-column fa-ul fw-bold">
+            {menuItems.map((item, index) => (
+              <li key={index} className={`nav-item almacenasidebar ${selectedLink === item.path ? "selected" : ""}`}>
+                <Link
+                  className="menu-navega"
+                  to={item.path}
+                  style={selectedLink === item.path ? { color: "black", fontWeight: "bold", fontSize:"15px", fontFamily:'Montserrat',} : {}}
+                >
+                  <div className="menu-text">
+                    <i className={`fa ${item.icon} iconos-sidebar`}></i> {item.text}
+                  </div>
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
-
 
         <div className="menuverticalboton">
           <LogoutButton actions={actions} />
         </div>
-
-
       </div>
 
 
@@ -163,3 +166,7 @@ const AlmaCenaSidebar = () => {
 };
 
 export default AlmaCenaSidebar;
+
+
+
+

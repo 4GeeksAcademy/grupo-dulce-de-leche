@@ -16,6 +16,7 @@ li.nav-item.almacenasidebar {
 }
 
 .menu-text {
+    padding-bottom: 10px;
     padding-top: 10px;
     font-size: 15px;
     font-family: 'Montserrat', sans-serif;
@@ -274,3 +275,4 @@ div#navegacion-vertical {
         display: none;
     }
 }
+

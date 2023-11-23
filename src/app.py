@@ -23,7 +23,7 @@ from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail, Message
-
+import secrets
 
 
 ENV = "development" if os.getenv("FLASK_DEBUG") == "1" else "production"
@@ -245,24 +245,65 @@ app.config.update(dict(
     MAIL_PORT = 587,
     MAIL_USE_TLS = True,
     MAIL_USE_SSL = False,
-    MAIL_USERNAME = 'rsm.fries@gmail.com',
-    MAIL_PASSWORD = 'ckoyxwdizftenmls',
+    MAIL_USERNAME = 'noreply.almacena@gmail.com',
+    MAIL_PASSWORD = 'gzsijyhwwggnqrwm',
 ))
+
 mail = Mail(app)
 
-@app.route('/api/send_mail', methods=['GET'])
-def send_mail():
-    msg = Message(subject="test de mail", sender='rsm.fries@gmail.com', recipients=['rsm.fries@gmail.com'])
-    msg.body = "Hola desde la clase"
+# Generar token de restablecimiento de contraseña
+@app.route('/passwordrecovery', methods=['POST'])
+def password_recovery():
+    email = request.json.get("email")
+    user = User.query.filter_by(email=email).first()
 
-    try:
-        mail.send(msg)
-        return jsonify({"message": "Mail sent successfully"}), 200
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+    if user:
+        # Generar token
+        reset_token = secrets.token_urlsafe(32)
 
-if __name__ == '__main__':
-    app.run(debug=True)
+        # Enviar correo electrónico con el token
+        send_reset_email(email, reset_token)
+
+        # Almacenar el token en la base de datos para su verificación
+        user.reset_token = reset_token
+        db.session.commit()
+
+        return jsonify({"message": "A password reset email has been sent to the email address provided"}), 200
+    else:
+        return jsonify({"message": "Email not found"}), 404
+
+def generate_reset_token(email):
+    return bcrypt.hashpw(email.encode('utf-8'), bcrypt.gensalt()).decode("utf-8")
+
+# Enviar correo electrónico con el token
+def send_reset_email(email, reset_token):
+    subject = "Password Reset"
+    body = f"Click the following link to reset your password: /passwordreset/{reset_token}"
+    
+    msg = Message(subject=subject, sender="noreply@example.com", recipients=[email])
+    msg.body = body
+    mail.send(msg)
+
+from flask_jwt_extended import get_jwt_identity
+
+@app.route('/resetpassword/<reset_token>', methods=['POST'])
+def reset_password(reset_token):
+    # Busca el usuario por el token de reset
+    user = User.query.filter_by(reset_token=reset_token).first()
+    print(user)
+    print(reset_token)
+    if user:
+        new_password = request.json.get("new_password")
+
+       
+        user.password = bcrypt.generate_password_hash(new_password).decode('utf-8')
+        # Elimina el token de reset para que no se pueda utilizar nuevamente
+        user.reset_token = None
+        db.session.commit()
+
+        return jsonify({"message": "Password updated successfully"}), 200
+    else:
+        return jsonify({"message": "Invalid or expired reset token"}), 401
 
 
 

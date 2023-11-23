@@ -116,14 +116,58 @@ export const Login = () => {
           <div className="forgot-password">
             <Link to="/forgot"><p>Forgot password</p></Link>
           </div>
-          <div className="no-account">
+        )}
 
-            <p>Don’t have an account? <Link to="/signup"><span>Sign up!</span></Link></p>
-          </div>
-        </div>
-        {/* Columna derecha */}
-        <div className="col muestra" style={{ backgroundImage: `url(${recipes})` }}>
-          {/* <img className="cucharas" src={recipes} />
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Email</label>
+  
+<input
+className="form-control"
+            type="text"
+            id="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+
+
+  </div>
+  <div className="mb-3 position-relative">
+  <label htmlFor="password" className="form-label">
+    Password
+  </label>
+  <div className="input-group">
+    <input
+      type={showPassword ? "text" : "password"}
+      className="form-control"
+      id="password"
+      placeholder="Password"
+      value={password}
+      onChange={(e) => setPassword(e.target.value)}
+    />
+    <span className="input-group-text toggle-password" onClick={toggleShowPassword}>
+      <i className={`fa ${showPassword ? "fa-eye-slash" : "fa-eye"}`}></i>
+    </span>
+  </div>
+</div>
+  <div className="mb-3 form-check">
+    <input type="checkbox" className="form-check-input" id="exampleCheck1"/>
+    <label className="form-check-label" for="exampleCheck1">Keep me logged in</label>
+  </div>
+  <button type="submit" className="btn btn-primary">Login</button>
+</form>
+<div className="forgot-password">
+<Link to="/PasswordRecovery"><p>Forgot password</p></Link>
+    </div>
+	<div className="no-account">
+    
+	<p>Don’t have an account? <Link to="/signup"><span>Sign up!</span></Link></p>
+	</div>
+	</div>
+	{/* Columna derecha */}
+    <div className="col muestra" style={{ backgroundImage: `url(${recipes})` }}>
+    {/* <img className="cucharas" src={recipes} />
+
     <h4>Keep track of all your inventory.</h4>
     <p className="p-login">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p> */}
         </div>

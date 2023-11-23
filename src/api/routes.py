@@ -23,64 +23,64 @@ def handle_hello():
 
     return jsonify(response_body), 200
 
-# Reset user's password
-@api.route('/reset_password/<token>', methods=['POST'])
-def reset_password(token):
-    body = request.get_json(silent=True)
-    user = User.query.filter_by(reset_token=token).first()
+# # Reset user's password
+# @api.route('/reset_password/<token>', methods=['POST'])
+# def reset_password(token):
+#     body = request.get_json(silent=True)
+#     user = User.query.filter_by(reset_token=token).first()
 
-    if user is None:
-        raise APIException('Invalid Token', status_code=400)
+#     if user is None:
+#         raise APIException('Invalid Token', status_code=400)
 
-    if body is None:
-        raise APIException('You must send information inside the body', status_code=400)
+#     if body is None:
+#         raise APIException('You must send information inside the body', status_code=400)
 
-    new_password = body['new_password']
-    confirm_password = body['confirm_password']
+#     new_password = body['new_password']
+#     confirm_password = body['confirm_password']
 
-    if new_password is None:
-        raise APIException('You must provide a password', status_code=400)
+#     if new_password is None:
+#         raise APIException('You must provide a password', status_code=400)
 
-    # Verifies password doesn't have typos
-    if new_password != confirm_password:
-        raise APIException('Passwords do not match', status_code=400)
+#     # Verifies password doesn't have typos
+#     if new_password != confirm_password:
+#         raise APIException('Passwords do not match', status_code=400)
 
-    # Updates the user's password
-    user.password = generate_password_hash(new_password).decode("utf-8")
-    # Removes the reset_token from the database
-    user.reset_token = None
-    db.session.commit()
+#     # Updates the user's password
+#     user.password = generate_password_hash(new_password).decode("utf-8")
+#     # Removes the reset_token from the database
+#     user.reset_token = None
+#     db.session.commit()
 
-    return jsonify({"message": "Password reset successfully"}), 200
+#     return jsonify({"message": "Password reset successfully"}), 200
 
 
-# Updates user's password
-@api.route('/updatepassword', methods=['PUT'])
-@jwt_required()
-def update_password():
-    user_email = get_jwt_identity()
-    body = request.get_json(silent=True)
-    if body is None:
-        raise APIException(
-            "You must send information in the body", status_code=400)
+# # Updates user's password
+# @api.route('/updatepassword', methods=['PUT'])
+# @jwt_required()
+# def update_password():
+#     user_email = get_jwt_identity()
+#     body = request.get_json(silent=True)
+#     if body is None:
+#         raise APIException(
+#             "You must send information in the body", status_code=400)
 
-    if "current_password" not in body or not body["current_password"]:
-        raise APIException("Current password is required", status_code=422)
+#     if "current_password" not in body or not body["current_password"]:
+#         raise APIException("Current password is required", status_code=422)
 
-    if "new_password" not in body or not body["new_password"]:
-        raise APIException("New password is required", status_code=422)
+#     if "new_password" not in body or not body["new_password"]:
+#         raise APIException("New password is required", status_code=422)
 
-    user = User.query.filter_by(email=user_email).first()
-    if user is None:
-        raise APIException("User not found", status_code=404)
+#     user = User.query.filter_by(email=user_email).first()
+#     if user is None:
+#         raise APIException("User not found", status_code=404)
 
-    # Check if the current password matches
-    if not check_password_hash(user.password, body["current_password"]):
-        raise APIException("Current password is incorrect", status_code=400)
+#     # Check if the current password matches
+#     if not check_password_hash(user.password, body["current_password"]):
+#         raise APIException("Current password is incorrect", status_code=400)
 
-    # Update the user's password with the new one
-    user.password = generate_password_hash(
-        body["new_password"]).decode("utf-8")
-    db.session.commit()
+#     # Update the user's password with the new one
+#     user.password = generate_password_hash(
+#         body["new_password"]).decode("utf-8")
+#     db.session.commit()
 
-    return jsonify({"message": "Password updated successfully"}), 200
+#     return jsonify({"message": "Password updated successfully"}), 200

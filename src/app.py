@@ -265,7 +265,7 @@ def password_recovery():
         send_reset_email(email, reset_token)
 
         # Almacenar el token en la base de datos para su verificación
-        user.reset_token = bcrypt.generate_password_hash(reset_token).decode("utf-8")
+        user.reset_token = reset_token
         db.session.commit()
 
         return jsonify({"message": "A password reset email has been sent to the email address provided"}), 200
@@ -290,7 +290,8 @@ from flask_jwt_extended import get_jwt_identity
 def reset_password(reset_token):
     # Busca el usuario por el token de reset
     user = User.query.filter_by(reset_token=reset_token).first()
-
+    print(user)
+    print(reset_token)
     if user:
         new_password = request.json.get("new_password")
 

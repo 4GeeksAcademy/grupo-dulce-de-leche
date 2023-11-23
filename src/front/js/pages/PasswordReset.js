@@ -6,6 +6,8 @@ const PasswordReset = () => {
     const { actions } = useContext(Context);
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [resetSuccess, setResetSuccess] = useState(false);
+    const [resetError, setResetError] = useState(null);
     const { reset_token } = useParams();
     const navigate = useNavigate();
 
@@ -15,7 +17,7 @@ const PasswordReset = () => {
         // Check if passwords match before sending the reset request
         if (password !== confirmPassword) {
             // Handle password mismatch, e.g., display an error message
-            console.error("Passwords do not match");
+            setResetError("Passwords do not match");
             return;
         }
 
@@ -31,12 +33,16 @@ const PasswordReset = () => {
 
             if (response.ok) {
                 console.log('Password updated successfully');
-                navigate('/login');
+                setResetSuccess(true);
+                // Optionally, you can set a delay and then redirect
+                // setTimeout(() => navigate('/login'), 3000);
             } else {
                 console.error('Password update failed:', response.statusText);
+                setResetError("Password reset failed. Please try again!");
             }
         } catch (error) {
             console.error('An error occurred:', error.message);
+            setResetError("An error occurred. Please try again!");
         }
     };
 
@@ -61,6 +67,16 @@ const PasswordReset = () => {
                         Enter your new password below.
                     </p>
                     <form onSubmit={handleSubmit}>
+                        {resetSuccess && (
+                            <div className="alert alert-success">
+                                Your password was reset successfully. Please login!
+                            </div>
+                        )}
+                        {resetError && (
+                            <div className="alert alert-danger">
+                                {resetError}
+                            </div>
+                        )}
                         <div className="mb-3">
                             <input
                                 type="password"
@@ -97,3 +113,4 @@ const PasswordReset = () => {
 };
 
 export default PasswordReset;
+

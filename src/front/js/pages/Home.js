@@ -9,15 +9,20 @@ import imagen from "../../img/imagen.png";
 import sal from "../../img/sal.png";
 import hojas from "../../img/hojas.png";
 import Leaf from "../../img/Leaf.png";
-import Esparrago from "../../img/esparrago.png";
-import {AlmaCenaNavbar} from "../component/AlmaCenaNavBar.js";
+import inventary1 from "../../img/inventary1.png";
+import inventary2 from "../../img/inventary2.png";
+import inventary3 from "../../img/inventary3.png";
+
+import { MenuNavegacion } from "../component/AlmaCenaNavbar.js";
+
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
 <>
-<AlmaCenaNavbar />	
+<MenuNavegacion />	
+
 		<div className="contenedor-fluid">
 
 			{/* contenedor presentación */}
@@ -98,7 +103,7 @@ export const Home = () => {
 			
 				{/* segunda fila recetas */}
 				<div className="row fila_receta_dos">
-					<div className="col-sm-12 col-md receta_uno">
+					<div className="col-sm-12 col-md receta_cuatro">
 						<div className="row interior_receta">
 							<div className="col">
 							<p>Starters</p>
@@ -108,7 +113,7 @@ export const Home = () => {
 							</div>
 						</div>
 					</div>
-					<div className="col-sm-12 col-md receta_dos">
+					<div className="col-sm-12 col-md receta_cinco">
 						<div className="row interior_receta">
 							<div className="col">
 							<p>Main</p>
@@ -118,7 +123,7 @@ export const Home = () => {
 							</div>
 						</div>
 					</div>
-					<div className="col-sm-12 col-md receta_tres">
+					<div className="col-sm-12 col-md receta_seis">
 						<div className="row interior_receta">
 							<div className="col">
 							<p>Dessert</p>
@@ -158,18 +163,18 @@ export const Home = () => {
 				<div className="row fila_receta_uno">
 					<div className="col-sm-12 col-md-4">
 						<div className="row interior_receta">
-						<img className="esparrago" src={Esparrago} />	
+						<img className="esparrago" src={inventary1} />	
 							
 						</div>
 					</div>
 					<div className="col-sm-12 col-md-4">
 						<div className="row interior_receta">
-						<img className="esparrago" src={Esparrago} />
+						<img className="esparrago" src={inventary2} />
 						</div>
 					</div>
 					<div className="col-sm-12 col-md-4">
 						<div className="row interior_receta">
-						<img className="esparrago" src={Esparrago} />
+						<img className="esparrago" src={inventary3} />
 						
 						</div>
 					</div>

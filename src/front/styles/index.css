@@ -1,8 +1,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;800&display=swap");
 
+
+img.Almacena {
+  width: 20%;
+}
+
+li.nav-item {
+  margin: 0 10px;
+}
+nav.navbar.navbar-expand-lg.bg-body-tertiary {
+  background: #415e4c !important;
+}
+
 .signupbutton {
   font-size: 15px;
-  padding: 23px 73px;
+  padding: 16px 70px;
   background-color: #415e4c;
   box-shadow: 0px 4px 10px rgb(108 128 114);
   border: 2px white solid;
@@ -14,12 +26,11 @@
 }
 
 .login-button {
+  padding: 16px 70px;
   font-size: 15px;
-  padding: 23px 60px;
   background-color: #587360;
   box-shadow: 0px 4px 10px rgb(88 115 96);
   border: 2px #587360 solid;
-  padding: 23px 73px;
   font-family: "Nunito", sans-serif;
   font-weight: 600;
   --bs-btn-hover-bg: #415e4c;
@@ -28,11 +39,10 @@
 
 .logoutbutton {
   font-size: 15px;
-  padding: 23px 60px;
+  padding: 16px 70px;
   background-color: #343a40;
   box-shadow: 0px 4px 10px rgb(88 115 96);
   border: 2px #587360 solid;
-  padding: 23px 73px;
   font-family: "Nunito", sans-serif;
   font-weight: 600;
   --bs-btn-hover-bg: #783a3a;
@@ -40,10 +50,138 @@
   --bs-btn-hover-color: #ffffff;
 }
 
+.logoutbutton.btn.btn-outline-light {
+  margin: 0 auto;
+  display: block;
+  font-size: 15px;
+  padding: 16px 70px;
+  background-color: #343a40;
+  box-shadow: 0px 4px 10px rgb(88 115 96);
+  border: 2px #587360 solid;
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+  --bs-btn-hover-bg: #783a3a;
+  --bs-btn-hover-border-color: #ffffff;
+  --bs-btn-hover-color: #ffffff;
+}
+
+
+.donate-button {
+  margin: 0 auto;
+  display: block;
+  font-size: 15px;
+  padding: 16px 70px;
+  font-size: 15px;
+  background-color: #587360;
+  box-shadow: 0px 4px 10px rgb(88 115 96);
+  border: 2px #587360 solid;
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+  --bs-btn-hover-bg: #415e4c;
+  --bs-btn-hover-border-color: #ffffff;
+}
+
+
+ .edit-ingredients {
+  display: block;
+  margin: 0 auto;
+  border-color: #6c757d;
+  background: #6c757d;
+}
+button.btn.btn-warning {
+  border-color: #6c757d;
+  background: #6c757d;
+}
+
+button.btn.btn-danger-ingredients {
+  display: block;
+  margin: 0 auto;
+}
+button.btn.btn-warning-ingredients:hover {
+  border-color: #6c757d;
+  background: #6c757d;
+}
+button.btn.btn-warning:hover {
+  border-color: #6c757d;
+  background: #6c757d;
+}
+i.fa-regular.fa-pen-to-square {
+  color: white;
+}
+
+button#dropdown-ingredient {
+  background: #6c757d;
+}
+
+button#dropdown-ingredient {
+  border-color: #6c757d;
+  background: #6c757d;
+}
+
+button.btn.btn-primary.info-receta {
+  --bs-btn-padding-x: 0.75rem;
+  --bs-btn-padding-y: 0.42rem !important;
+}
+
+button.btn.btn-primary.info-receta {
+  --bs-btn-padding-x: 0.75rem;
+  --bs-btn-padding-y: 0.42rem !important;
+}
+.unidades-receta {
+  padding-bottom: 10px;
+}
+
+.btn-light {
+  width: 100%;
+}
+
+.texto-boton {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+button.btn.btn-primary.info-receta {
+  font-weight: 400;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+}
+button.btn.btn-primary {
+  font-weight: 400;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+}
+
+.tbody {
+  vertical-align: middle;
+}
+
+button.btn.btn-danger.delete-recipe {
+  float: right;
+}
+
+.titulo-ingredientes.card-header {
+  border-left: 1px solid #d9d9d9;
+  border-right: 1px solid #d9d9d9;
+  border-top: 1px solid #d9d9d9;
+  background: #f2f2f2;
+  padding: 8px;
+}
+
+.columna-r-blanco {
+  border-right: 1px solid #fff;
+}
+.columna-r-gris {
+  border-right: 1px solid #f2f2f2;
+}
+
 .footer {
   font-family: "Nunito", sans-serif;
 }
 
+.unidades-receta {
+  padding-bottom: 30px;
+}
 
 .line2 {
   width: 100%;
@@ -71,7 +209,109 @@ p.contacto {
   color: white;
 }
 
+.card-title.h5 {
+  font-weight: 600;
+  font-family: 'Nunito', sans-serif;
+  font-size: 20px;
+}
 
-img.logo {
-  width: 35%;
+th {
+  font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
+}
+.list-group-item:last-child {
+  font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  border-bottom-right-radius: inherit;
+  border-bottom-left-radius: inherit;
+}
+
+.card-footer {
+  font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+}
+
+i.fa-solid.fa-arrow-left.fa-2xl.icono-personal {
+  float: right;
+}
+i.fa-solid.fa-user-pen.icono-personal.fa-xl {
+  float: right;
+}
+
+.dashboard-lista.list-group-item {
+  padding-bottom: 13px;
+  padding-top: 13px;
+  border:none;
+  border-top: var(--bs-list-group-border-width) solid var(--bs-list-group-border-color);
+}
+
+.dashboard-user {
+  border:none;
+}
+
+.dashboard-user-listado {
+  border-top: 1px solid #d9d9d9;
+  padding-bottom: 13px;
+  padding-top: 13px;
+}
+
+.card>.card-header+.list-group, .card>.list-group+.card-footer {
+  border-top: 1px solid #d9d9d9;
+}
+
+
+span.menu-text-movil {
+  font-weight: 400;
+  color: white;
+}
+
+.p-4.card-title.h5 {
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
+  background: #ffb7b7;
+  margin-bottom: 0px;
+}
+
+.badge {
+  margin-left: 6px;
+  padding-top: 6px;
+  background: #587360;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+
+  img.Almacena {
+    width: 56%;
+}
+
+.login-button {
+  width: 100%;
+}
+
+button.navbar-toggler {
+  margin-right: 30px;
+}
+
+.navbar-toggler {
+  color: #415e4c;}
+  
+
+.navbar-toggler {
+  background-color: #587360;
+  border: var(--bs-border-width) solid rgb(255 255 255 / 81%);
+}
+
+
+button.login-button.text-white.btn.btn-light {
+    margin-bottom: 20px;
+
+}
+
+button.signupbutton.text-white.btn.btn-primary{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 }

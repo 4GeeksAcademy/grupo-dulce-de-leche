@@ -1,15 +1,253 @@
-.contain {
+
+span.item-content {
+  font-size: 14px;
+  font-weight: 300;
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+}
+
+.p-0.m-0 {
+    background: #415e4c;
+}
+
+li.nav-item.almacenasidebar {
+    padding: 10px 0px;
+    color: white;
+}
+
+.menu-text {
+    font-size: 15px;
+    font-weight: 400;
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+
+.menuvertical {
+    background: #415e4c;
+}
+
+.menuverticallogo {
+  
+    background: #415e4c;
+    border-bottom: 1px solid rgba(173, 173, 173, 0.2);
+    padding: 20px 10px;
+}
+
+.vertical {
+    padding-right: 10px;
+    color: white;
+}
+
+.menuverticalboton {
+    border-top: 1px solid rgba(173, 173, 173, 0.2);
+    padding: 26px 0px;
+}
+
+.menuvertical {
+    padding: 30px 0px;
+    background: #415e4c;
+}
+
+.logosidebar {
     width: 100%;
 }
 
-span.item-content {
+.verticaluser {
+    color:white;
+}
+
+.iconosidebar {
+    margin-right: 30px;
+    width: 15%;
+}
+
+.fa-ul {
+    padding-top: 20px;
+    list-style-type: none;
+    margin-left: var(--fa-li-margin,1.7em) !important;
+    padding-left: 0;
+}
+
+.iconos-sidebar {
+    padding-right: 20px;
     color: white;
 }
 
-.lhYbII {
-    background: rgb(65 94 76);
+li.nav-item.sidebarmovil {
+    padding: 10px 10px;
 }
 
-.text-decoration-none {
-    color: white;
+.collapse-movil {
+    padding: 20px 0px;
+}
+
+
+th.imagen-usuario {
+    padding-right: 15px;
+}
+
+.icono-usuario {
+    font-size: 16px;
+    color: #d9d9d9;
+    padding-left: 15px;
+}
+
+.info-usuario-registrado {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+}
+
+a.enlace-user {
+    text-decoration: none;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+}
+
+a.enlace-user:hover {
+    text-decoration: none;
+    color: #d9d9d9;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+
+}
+
+.info-company {
+    color: #D9D9D9;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+}
+    .usuario-registrado {
+        padding: 20px;
+    }
+
+    a.menu-navega {
+        color: #fff;
+        font-size: 15px;
+        font-weight: 400;
+        font-family: 'Montserrat', sans-serif;
+        text-decoration: none;
+    }
+    
+    a.menu-navega:hover {
+        color: #d9d9d9;
+        font-size: 15px;
+        font-weight: 400;
+        font-family: 'Montserrat', sans-serif;
+        text-decoration: none;
+    }
+    
+    a.menu-navega:active {
+        color: #000 !important;
+        font-size: 15px;
+        font-weight: 400;
+        font-family: 'Montserrat', sans-serif;
+        text-decoration: none;
+        
+    }
+
+    
+
+    a.menu-navega:active {
+        color: #000 !important;
+    }
+
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+
+
+    .logosidebar {
+        width: 46%;
+    }
+    .navbar-brand {
+        font-family: 'Montserrat', sans-serif;
+        color: rgb(255 255 255);
+     
+    }
+}
+
+
+/* Tablet*/
+@media only screen and (min-width: 601px) and (max-width: 991px) {
+    .gris {
+        padding: 20px 20px 20px 20px !important;
+    }
+    button.btn.btn-primary.info-receta {
+        padding: 10px;
+        font-size: 11px;
+    }
+}
+
+/* Ordenador */
+ @media only screen and (min-width: 992px) {
+    .menumovil {
+        display:none !important;
+        }
+} 
+
+
+
+@media only screen and (min-width: 992px) and (max-width: 1340px) {
+    .menumovil {
+        display:none !important;
+    }
+
+    .gris {
+        padding: 20px 20px 20px 20px !important;
+    }
+
+    #reduccion {
+        width: 25%;
+    }
+    
+    #reduccion-uno{
+        width: 75%;
+    }
+    .myproducts.bg-white {
+        /* display: flex; */
+        border-radius: 12px;
+        padding: 25px;
+    } 
+    
+    .texto-boton {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 11px;
+        font-weight: 400;
+    }
+
+    button.btn.btn-primary.info-receta {
+        padding: 10px;
+        font-size: 11px;
+    }
+}
+
+
+
+@media only screen and (min-width: 600px) and (max-width: 767px) {
+    #navegacion-vertical {
+display:none;
+    }
+}
+@media only screen and (min-width: 0px) and (max-width: 599px) {
+
+
+div#navegacion-vertical {
+    display:none;
+}
+}
+
+
+
+@media only screen and (min-width: 767px) {
+
+    nav#navegacion-horizontal {
+        display: none;
+    }
 }

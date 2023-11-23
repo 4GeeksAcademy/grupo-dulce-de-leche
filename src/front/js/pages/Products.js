@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { Row, Card, Button, Container, Col } from "react-bootstrap";
 import AlmaCenaSidebar from "../component/AlmaCenaSidebar";
 import CreateProductButton from "../component/CreateProductButton";
-import  croissant  from "../../img/croissant.png";
+import croissant from "../../img/croissant.png";
+import EditProductButton from "../component/EditProductButton";
+import DeleteProductButton from "../component/DeleteProductButton";
 
 export const Products = () => {
   const navigate = useNavigate();
@@ -24,7 +26,9 @@ export const Products = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      if (response.status == 401) {navigate("/login")}
+      if (response.status === 401) {
+        navigate("/login");
+      }
       if (!response.ok) {
         throw new Error("Error fetching products");
       }
@@ -41,37 +45,53 @@ export const Products = () => {
   const handleProductCreated = (newProduct) => {
     setProducts([...products, newProduct]);
   };
-  
+
+  const handleProductEdited = () => {
+    fetchProducts();
+  };
+
+  const handleProductDeleted = () => {
+    fetchProducts();
+  };
+
   return (
     <Container fluid>
       <Row className="principal-products">
-        <Col xs={3} className="p-0 m-0">
+      <Col md={4} lg={2} className="p-0 m-0" id="reduccion">
           <AlmaCenaSidebar />
         </Col>
-        <Col xs={9}>
+        
+        <Col md={8} lg={10} id="reduccion-uno">
           <div className="gris">
             <Row className="boton-categories">
               <Col sm={12} md={6}>
-                <p>Categories: <span>All</span></p>
+                <p>
+                  Categories: <span>All</span>
+                </p>
               </Col>
               <Col sm={12} md={6}>
-              <CreateProductButton onProductCreated={handleProductCreated} />
+                <CreateProductButton onProductCreated={handleProductCreated} />
               </Col>
             </Row>
 
             <div className="myproducts bg-white">
-              <Row xs={1} md={3} className="g-4">
+              <Row className="g-4 row row-cols-md-2 row-cols-lg-3 row-cols-1">
                 {products.map((product) => (
                   <Col key={product.receta_id}>
                     <Card>
                       <Card.Img variant="top" src={croissant} />
                       <Card.Body>
-                        <Card.Title>{product.nombre}</Card.Title>
+                        <Card.Title className="fw-bold">{product.nombre}</Card.Title>
                         <div className="unidades-add">
-                          <p className="card-text">{product.cantidad_inventario} ud</p>
-                          <p className="card-text">Min: {product.cantidad_inventario_minimo} ud</p>
-                          <p className="card-text">Clasificación: {product.clasificacion}</p>
-                          <i className="fa-solid fa-plus"></i>
+                          <p className="card-text">
+                            {product.cantidad_inventario} {product.unidad_medida}
+                          </p>
+                          <p className="card-text">Alert When: {product.cantidad_inventario_minimo}</p>
+                          <p className="card-text">Classification: {product.clasificacion}</p>  
+                          <Row>
+                          <Col className="col-6"><EditProductButton product={product} onProductEdited={handleProductEdited} /> </Col>
+                          <Col className="col-6"><DeleteProductButton product={product} onProductDeleted={handleProductDeleted} /> </Col>
+                          </Row>
                         </div>
                       </Card.Body>
                     </Card>

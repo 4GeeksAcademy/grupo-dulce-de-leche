@@ -17,17 +17,25 @@
     padding-bottom: 36px;
 }
 
-.fa-solid.fa-user-pen {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    display: table;
-    color: #aeb4b7;
+
+.icono-personal {
+
+    color: #415e4c;
+}
+
+.row.info {
+    display: flex;
+    align-items: center;
 }
 
 .fa-solid.fa-trash{
     display: table;
     color: #aeb4b7;
 
+}
+
+.edit-profile-button {
+    width: 30%;
 }
 
 .titulo-account {
@@ -49,4 +57,21 @@
     color: black;
     font-size: 1.5em;
     line-height: 1;
+}
+
+
+@media only screen and (max-width: 600px){
+#titulo-informacion {
+    text-align: left;
+}
+
+.row.info {
+    padding: 0px 10px;
+    display: flex;
+    align-items: center;
+}
+
+.edit-profile-button {
+    width: 43%;
+}
 }

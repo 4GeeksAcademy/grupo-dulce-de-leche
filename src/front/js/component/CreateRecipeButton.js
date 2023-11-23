@@ -1,24 +1,26 @@
-// CreateRecipeButton.js
-
 import React, { useState, useEffect } from "react";
-import { Button, Modal, Form, Dropdown } from "react-bootstrap";
+import { Button, Modal, Form, Dropdown, Row, Col } from "react-bootstrap";
 
 const CreateRecipeButton = ({ onRecipeCreated }) => {
   const [show, setShow] = useState(false);
   const [ingredients, setIngredients] = useState([]);
+  const [selectedIngredients, setSelectedIngredients] = useState([]);
+  const [ingredientQuantities, setIngredientQuantities] = useState({});
   const [selectedIngredient, setSelectedIngredient] = useState(null);
   const [quantity, setQuantity] = useState("");
-  
+  const [recipeName, setRecipeName] = useState("");
+  const [rinde, setRinde] = useState(1);
+  const [unidadMedida, setUnidadMedida] = useState("units");
+
   const handleClose = () => {
     setShow(false);
+    setSelectedIngredients([]);
+    setIngredientQuantities({});
     setSelectedIngredient(null);
     setQuantity("");
-  };
-
-  const handleShow = () => {
-    // Obtener las materias primas del usuario al abrir el modal
-    fetchAvailableIngredients();
-    setShow(true);
+    setRecipeName("");
+    setRinde("");
+    setUnidadMedida("");
   };
 
   const fetchAvailableIngredients = async () => {
@@ -41,6 +43,23 @@ const CreateRecipeButton = ({ onRecipeCreated }) => {
     }
   };
 
+  const handleShow = () => {
+    fetchAvailableIngredients();
+    setShow(true);
+  };
+
+  const handleIngredientSelected = (ingredient) => {
+    setSelectedIngredients((prevIngredients) => [...prevIngredients, ingredient]);
+    setSelectedIngredient(null);
+  };
+
+  const handleQuantityChange = (ingredientId, quantity) => {
+    setIngredientQuantities((prevQuantities) => ({
+      ...prevQuantities,
+      [ingredientId]: quantity,
+    }));
+  };
+
   const handleCreateRecipe = async () => {
     try {
       const response = await fetch(process.env.BACKEND_URL + "/dashboard/recipes", {
@@ -50,15 +69,13 @@ const CreateRecipeButton = ({ onRecipeCreated }) => {
           Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
         },
         body: JSON.stringify({
-          nombre: "Recipe Name",
-          rinde: 1, 
-          unidad_medida: "units", 
-          ingredientes: [
-            {
-              materia_prima_id: selectedIngredient.materia_prima_id,
-              cantidad_necesaria: parseInt(quantity, 10),
-            },
-          ],
+          nombre: recipeName,
+          rinde: parseInt(rinde, 10),
+          unidad_medida: unidadMedida,
+          ingredientes: selectedIngredients.map((ingredient) => ({
+            materia_prima_id: ingredient.materia_prima_id,
+            cantidad_necesaria: parseInt(ingredientQuantities[ingredient.materia_prima_id], 10),
+          })),
         }),
       });
 
@@ -66,11 +83,12 @@ const CreateRecipeButton = ({ onRecipeCreated }) => {
         throw new Error("Error creating recipe");
       }
 
- 
+      const data = await response.json();
+
       handleClose();
 
       if (onRecipeCreated) {
-        onRecipeCreated();
+        onRecipeCreated(data.ingredientes);
       }
     } catch (error) {
       console.error("Error creating recipe:", error);
@@ -89,43 +107,92 @@ const CreateRecipeButton = ({ onRecipeCreated }) => {
         </Modal.Header>
         <Modal.Body>
           <Form>
-            {/* Campos del formulario para la receta */}
             <Form.Group controlId="formRecipeName">
               <Form.Label>Recipe Name</Form.Label>
-              <Form.Control type="text" placeholder="Enter recipe name" />
-            </Form.Group>
-            {/* Otros campos del formulario ... */}
-
-            {/* Dropdown para seleccionar ingredientes */}
-            <Form.Group controlId="formIngredient">
-              <Form.Label>Ingredient</Form.Label>
-              <Dropdown>
-                <Dropdown.Toggle variant="success" id="dropdown-ingredient">
-                  {selectedIngredient ? selectedIngredient.nombre : "Select Ingredient"}
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  {ingredients.map((ingredient) => (
-                    <Dropdown.Item
-                      key={ingredient.materia_prima_id}
-                      onClick={() => setSelectedIngredient(ingredient)}
-                    >
-                      {ingredient.nombre}
-                    </Dropdown.Item>
-                  ))}
-                </Dropdown.Menu>
-              </Dropdown>
-            </Form.Group>
-
-            {/* Campo para la cantidad necesaria */}
-            <Form.Group controlId="formQuantity">
-              <Form.Label>Quantity</Form.Label>
               <Form.Control
-                type="number"
-                placeholder="Enter quantity"
-                value={quantity}
-                onChange={(e) => setQuantity(e.target.value)}
+                type="text"
+                placeholder="Enter recipe name"
+                value={recipeName}
+                onChange={(e) => setRecipeName(e.target.value)}
               />
             </Form.Group>
+            <Form.Group controlId="formRinde">
+              <Form.Label>Total Yield</Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="Quantity"
+                value={rinde}
+                onChange={(e) => setRinde(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group controlId="formUnidadMedida">
+              <Form.Label>Unit</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Portions, Units, Kilos..."
+                value={unidadMedida}
+                onChange={(e) => setUnidadMedida(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group controlId="formIngredients">
+              <Form.Label>Ingredients</Form.Label>
+              <Row>
+                <Col>
+                  <Dropdown>
+                    <Dropdown.Toggle variant="success" id="dropdown-ingredient">
+                      {selectedIngredient ? selectedIngredient.nombre : "Select Ingredient"}
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                      {ingredients.map((ingredient) => (
+                        <Dropdown.Item
+                          key={ingredient.materia_prima_id}
+                          onClick={() => setSelectedIngredient(ingredient)}
+                        >
+                          {ingredient.nombre}
+                        </Dropdown.Item>
+                      ))}
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </Col>
+                <Col>
+                  <Form.Control
+                    type="number"
+                    placeholder="Quantity"
+                    value={quantity}
+                    onChange={(e) => setQuantity(e.target.value)}
+                  />
+                </Col>
+                <Col>
+                  <Button
+                    variant="primary crear-receta"
+                    onClick={() => {
+                      if (selectedIngredient && quantity) {
+                        handleIngredientSelected(selectedIngredient);
+                        handleQuantityChange(selectedIngredient.materia_prima_id, quantity);
+                        setSelectedIngredient(null);
+                        setQuantity("");
+                      }
+                    }}
+                  >
+                    Add
+                  </Button>
+                </Col>
+              </Row>
+            </Form.Group>
+
+            {selectedIngredients.length > 0 && (
+              <Form.Group controlId="formSelectedIngredients">
+                <Form.Label>Selected Ingredients</Form.Label>
+                <ul>
+                  {selectedIngredients.map((ingredient) => (
+                    <li key={ingredient.materia_prima_id}>
+                      {ingredient.nombre} - {ingredientQuantities[ingredient.materia_prima_id]}{' '}
+                      {ingredient.unidad_medida}
+                    </li>
+                  ))}
+                </ul>
+              </Form.Group>
+            )}
           </Form>
         </Modal.Body>
         <Modal.Footer>
@@ -142,5 +209,10 @@ const CreateRecipeButton = ({ onRecipeCreated }) => {
 };
 
 export default CreateRecipeButton;
+
+
+
+
+
 
 

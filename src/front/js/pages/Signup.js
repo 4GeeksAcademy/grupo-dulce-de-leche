@@ -92,7 +92,7 @@ export const Signup = () => {
             <div className="mb-3">
               <div className="row">
                 <div className="col-6 mb-3">
-                  <label htmlFor="name" className="form-label">
+                  <label className="form-label">
                     Name
                   </label>
                   <input
@@ -105,7 +105,7 @@ export const Signup = () => {
                   />
                 </div>
                 <div className="col-6 mb-3">
-                  <label htmlFor="last_name" className="form-label">
+                  <label className="form-label">
                     Last Name
                   </label>
                   <input
@@ -120,7 +120,7 @@ export const Signup = () => {
                   />
                 </div>
                 <div className="col-6 mb-3">
-                  <label htmlFor="email" className="form-label">
+                  <label className="form-label">
                     Email
                   </label>
                   <input
@@ -133,7 +133,7 @@ export const Signup = () => {
                   />
                 </div>
                 <div className="col-6 mb-3">
-                  <label htmlFor="address" className="form-label">
+                  <label className="form-label">
                     Address
                   </label>
                   <input
@@ -148,7 +148,7 @@ export const Signup = () => {
                   />
                 </div>
                 <div className="col-12 mb-3 position-relative">
-                  <label htmlFor="password" className="form-label">
+                  <label className="form-label">
                     Password
                   </label>
                   <div className="input-group">

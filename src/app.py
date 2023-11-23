@@ -369,7 +369,8 @@ def get_user_ingredients():
                 "nombre": materia_prima.nombre,
                 "cantidad_stock": user_materia_prima.cantidad_stock,
                 "cantidad_stock_minimo": user_materia_prima.minimo_stock,
-                "clasificacion": materia_prima.clasificacion
+                "clasificacion": materia_prima.clasificacion,
+                "unidad_medida": materia_prima.unidad_medida 
             }
             ingredients_list.append(ingredient_data)
     return jsonify(ingredients_list), 200
@@ -486,15 +487,19 @@ def get_user_products():
     user_products = UserProductoFinal.query.filter_by(user_id=user_id).all()
     products_list = []
     for user_product in user_products:
-        product_data = {
-            "receta_id": user_product.receta_id,
-            "nombre": user_product.receta_relationship.nombre,
-            "cantidad_inventario": user_product.cantidad_inventario,
-            "clasificacion": user_product.clasificacion,
-            "cantidad_inventario_minimo": user_product.cantidad_inventario_minimo
-        }
-        products_list.append(product_data)
+        receta = Receta.query.get(user_product.receta_id)
+        if receta:
+            product_data = {
+                "receta_id": user_product.receta_id,
+                "nombre": receta.nombre,
+                "cantidad_inventario": user_product.cantidad_inventario,
+                "clasificacion": user_product.clasificacion,
+                "cantidad_inventario_minimo": user_product.cantidad_inventario_minimo,
+                "unidad_medida": receta.unidad_medida
+            }
+            products_list.append(product_data)
     return jsonify(products_list), 200
+
 
 # UPDATE |
 
@@ -513,7 +518,7 @@ def update_product():
 
     # Obtener el producto final
     user_producto = UserProductoFinal.query.filter_by(
-        user_id=user_id, id=product_id).first()
+    user_id=user_id, receta_id=product_id).first()
 
     if user_producto is None:
         return jsonify({"error": "Producto final no encontrado para el usuario especificado"}), 404
@@ -527,8 +532,10 @@ def update_product():
         user_producto.cantidad_inventario_minimo = body["cantidad_inventario_minimo"]
 
     db.session.commit()
+    
 
     return jsonify({"msg": "Producto Final actualizado con éxito"}), 200
+
 
 # DELETE |
 
@@ -548,10 +555,10 @@ def delete_product():
 
     # Buscar el producto final del usuario
     user_producto = UserProductoFinal.query.filter_by(
-        user_id=user_id, id=product_id).first()
+        user_id=user_id, receta_id=product_id).first()
 
     if not user_producto:
-        return jsonify({"error": "Producto final no encontrado para el usuario especificado"}), 404
+        return jsonify({"error": "Producto final no encontrado para el usuario especificado"}), 404 
 
     # Eliminar el producto final del usuario
     db.session.delete(user_producto)
@@ -578,7 +585,8 @@ def get_user_recipes():
         recipe_data = {
             "receta_id": user_receta.receta_id,
             "nombre": user_receta.receta_relationship.nombre,
-            "rinde": user_receta.receta_relationship.rinde
+            "rinde": user_receta.receta_relationship.rinde,
+            "unidad_medida": user_receta.receta_relationship.unidad_medida,
         }
         recipes_list.append(recipe_data)
     return jsonify(recipes_list), 200
@@ -616,6 +624,8 @@ def create_recipe():
         user_id=user_id).all()
 
     # Asociar ingredientes a la receta
+    ingredientes_receta_info = []  # Lista para almacenar la información de los ingredientes
+
     for ingrediente in body.get("ingredientes", []):
         materia_prima_id = ingrediente.get("materia_prima_id")
         cantidad_necesaria = ingrediente.get("cantidad_necesaria")
@@ -631,13 +641,26 @@ def create_recipe():
         # Tomar la primera coincidencia
         materia_prima_id = matching_materias_primas[0].materias_primas_id
 
-        # Crear la relación entre la receta y la materia prima como ingrediente
-        new_ingrediente = IngredientesReceta(
-            receta_relationship=new_recipe,
-            materias_primas_id=materia_prima_id,
-            cantidad_necesaria=cantidad_necesaria
-        )
-        db.session.add(new_ingrediente)
+        # Obtener la información de la materia prima, incluida la unidad de medida
+        materia_prima = MateriasPrimas.query.get(materia_prima_id)
+
+        if materia_prima:
+            # Crear la relación entre la receta y la materia prima como ingrediente
+            new_ingrediente = IngredientesReceta(
+                receta_relationship=new_recipe,
+                materias_primas_id=materia_prima_id,
+                cantidad_necesaria=cantidad_necesaria
+            )
+            db.session.add(new_ingrediente)
+
+            # Almacenar la información del ingrediente en la lista
+            ingrediente_data = {
+                "materia_prima_id": materia_prima_id,
+                "nombre": materia_prima.nombre,
+                "cantidad_necesaria": cantidad_necesaria,
+                "unidad_medida": materia_prima.unidad_medida
+            }
+            ingredientes_receta_info.append(ingrediente_data)
 
     # Crear la relación entre el usuario y la receta
     user_receta = UserReceta(
@@ -649,10 +672,9 @@ def create_recipe():
     db.session.add(new_recipe)
     db.session.commit()
 
-    return jsonify({"msg": "Receta creada con éxito"}), 201
+    return jsonify({"msg": "Receta creada con éxito", "ingredientes": ingredientes_receta_info}), 201
 
 # READ |
-
 
 @app.route('/dashboard/recipes/<int:recipe_id>', methods=['GET'])
 @jwt_required()
@@ -684,6 +706,7 @@ def get_user_recipe(recipe_id):
             }
             receta_info["ingredientes"].append(ingrediente_data)
     return jsonify(receta_info), 200
+
 
 # UPDATE |
 
@@ -846,6 +869,7 @@ def get_user_dashboard():
 
     response_data = {
         "name": user.name,
+        "last_name": user.last_name,
         "ingredientes": ingredientes_list,
         "productos_finales": productos_list
     }

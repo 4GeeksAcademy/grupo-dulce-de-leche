@@ -80,7 +80,7 @@ const AlmaCenaSidebar = () => {
             </tr>
             <tr>
               <td ><span className="info-company">Company</span></td>
-              <td className="icono-usuario"><Link className="enlace-user" to="/dashboard/edit-profile"><i class="fa-solid fa-user-pen fa-sm icono-usuario"></i></Link></td>
+              <td className="icono-usuario"><Link className="enlace-user" to="/dashboard/edit-profile"><i className="fa-solid fa-user-pen fa-sm icono-usuario"></i></Link></td>
             </tr>
             <tr>
 

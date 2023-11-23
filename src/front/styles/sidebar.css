@@ -16,8 +16,9 @@ li.nav-item.almacenasidebar {
 }
 
 .menu-text {
+    padding-bottom: 10px;
+    padding-top: 10px;
     font-size: 15px;
-    font-weight: 400;
     font-family: 'Montserrat', sans-serif;
 }
 
@@ -50,7 +51,9 @@ li.nav-item.almacenasidebar {
 }
 
 .logosidebar {
-    width: 100%;
+    margin: 0 auto;
+    width: 86%;
+    display: block;
 }
 
 .verticaluser {
@@ -130,7 +133,7 @@ a.enlace-user:hover {
     a.menu-navega {
         color: #fff;
         font-size: 15px;
-        font-weight: 400;
+ 
         font-family: 'Montserrat', sans-serif;
         text-decoration: none;
     }
@@ -143,20 +146,26 @@ a.enlace-user:hover {
         text-decoration: none;
     }
     
-    a.menu-navega:active {
-        color: #000 !important;
-        font-size: 15px;
-        font-weight: 400;
-        font-family: 'Montserrat', sans-serif;
-        text-decoration: none;
-        
-    }
 
     
-
-    a.menu-navega:active {
+/* 
+   a.menu-navega:active {
         color: #000 !important;
-    }
+        font-weight: 400;
+        font-family: 'Montserrat', sans-serif;
+    }  */
+
+    .selected {
+        font-weight: bold;
+        color: black !important; /* Cambia el color del texto a negro */
+      }
+      
+      .selected i {
+        font-weight: bold;
+        color: black !important; /* Cambia el color del icono a negro */
+      }
+
+
 
 
 /* Extra small devices (phones, 600px and down) */
@@ -182,6 +191,21 @@ a.enlace-user:hover {
     button.btn.btn-primary.info-receta {
         padding: 10px;
         font-size: 11px;
+    }
+    .navbar-brand {
+        font-family: 'Montserrat', sans-serif;
+        color: rgb(255 255 255);
+     
+    }
+
+    
+    .navbar-toggler {
+        background-color: #587360;
+        border: var(--bs-border-width) solid rgb(255 255 255 / 81%);
+    }
+
+    button.navbar-toggler {
+        margin-right: 0px;
     }
 }
 
@@ -251,3 +275,4 @@ div#navegacion-vertical {
         display: none;
     }
 }
+

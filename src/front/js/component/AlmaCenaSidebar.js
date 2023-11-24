@@ -56,10 +56,10 @@ const AlmaCenaSidebar = () => {
   
 
   const menuItems = [
-    { path: "/dashboard", text: "Dashboard", icon: "fa-solid fa-table-columns fa-lg" },
-    { path: "/dashboard/ingredients", text: "Ingredients", icon: "fa-solid fa-wheat-awn fa-lg" },
-    { path: "/dashboard/recipes", text: "Recipes", icon: "fa-solid fa-book fa-lg" },
-    { path: "/dashboard/products", text: "Products", icon: "fas fa-cheese fa-lg" },
+    { path: "/dashboard", textdos: "Dashboard", icon: "fa-solid fa-table-columns fa-lg" },
+    { path: "/dashboard/ingredients", textdos: "Ingredients", icon: "fa-solid fa-wheat-awn fa-lg", badge: "badge badge-secondary 1st", text: "1st"},
+    { path: "/dashboard/recipes", textdos: "Recipes", icon: "fa-solid fa-book fa-lg", badge: "badge badge-secondary 2nd", text: "2nd"  },
+    { path: "/dashboard/products", textdos: "Products", icon: "fas fa-cheese fa-lg", badge: "badge badge-secondary 3rd", text: "3rd" },
   ];
 
   return (
@@ -98,7 +98,9 @@ const AlmaCenaSidebar = () => {
                   style={selectedLink === item.path ? { color: "black", fontWeight: "bold", fontSize:"15px", fontFamily:'Montserrat',} : {}}
                 >
                   <div className="menu-text">
-                    <i className={`fa ${item.icon} iconos-sidebar`}></i> {item.text}
+                  
+
+                    <i className={`fa ${item.icon} iconos-sidebar`}></i> {item.textdos} <span className={`badge ${item.badge}`}>{item.text}</span>
                   </div>
                 </Link>
               </li>

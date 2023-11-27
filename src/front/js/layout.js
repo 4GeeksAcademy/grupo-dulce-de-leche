@@ -8,7 +8,7 @@ import injectContext from "./store/appContext";
 import { Footer } from "./component/footer";
 import { Login } from "./pages/Login";
 // import { Forgot } from "./pages/Forgot";
-import { Signup } from "./pages/Signup";
+import Signup from "./pages/Signup";
 import PasswordRecovery from "./pages/PasswordRecovery.js";
 import PasswordReset from "./pages/PasswordReset";
 import Dashboard from "./pages/Dashboard";

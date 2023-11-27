@@ -24,6 +24,7 @@ from flask_jwt_extended import JWTManager
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail, Message
 import secrets
+import cloudinary
 
 
 ENV = "development" if os.getenv("FLASK_DEBUG") == "1" else "production"
@@ -90,6 +91,14 @@ def serve_any_other_file(path):
     response = send_from_directory(static_file_dir, path)
     response.cache_control.max_age = 0  # avoid cache memory
     return response
+
+#CLOUDINARY Config
+
+cloudinary.config( 
+  cloud_name = "dq5gjc26f", 
+  api_key = "986996986378135", 
+  api_secret = "SaKGcFXWbHTqhKZB5U1Jn5oDYWE" 
+)
 
 ##############################################################################################################################
 ##############################################################################################################################
@@ -200,6 +209,7 @@ def signup():
     name = data.get("name")
     last_name = data.get("last_name")
     address = data.get("address")
+    photo_url = data.get("photo_url") 
     existing_user = User.query.filter_by(email=email).first()
     if existing_user:
         return jsonify({"msg": "Email already exists"}), 400
@@ -208,11 +218,11 @@ def signup():
         password=bcrypt.generate_password_hash(password).decode('utf-8'),
         name=name,
         last_name=last_name,
-        address=address
+        address=address,
+        photo_url=photo_url
     )
     db.session.add(new_user)
     db.session.commit()
-    expires = timedelta(minutes=15)
     access_token = create_access_token(identity=new_user.id, expires_delta=expires)
     return jsonify({"El usuario": name, "fue creado con exito, su token es": access_token, "user_id": new_user.id}), 201
 
@@ -225,10 +235,14 @@ def login():
     email = data.get("email")
     password = data.get("password")
     user = User.query.filter_by(email=email).first()
-    if user.is_active == False: return jsonify({"msg": "Account is deactivated"}), 403
+
+    if user.is_active == False:
+        return jsonify({"msg": "Account is deactivated"}), 403
+
+    expires = timedelta(minutes=15)
+
     if user and bcrypt.check_password_hash(user.password, password):
-        # CORRECT PASS=> GENERATE TOKEN
-        expires = timedelta(minutes=15)
+        # CORRECT PASS => GENERATE TOKEN
         access_token = create_access_token(identity=user.id, expires_delta=expires)
         return jsonify({"token": access_token, "user_id": user.id}), 200
     else:
@@ -595,6 +609,7 @@ def get_user_recipes():
             "nombre": user_receta.receta_relationship.nombre,
             "rinde": user_receta.receta_relationship.rinde,
             "unidad_medida": user_receta.receta_relationship.unidad_medida,
+            "photo_url": user_receta.receta_relationship.photo_url,
         }
         recipes_list.append(recipe_data)
     return jsonify(recipes_list), 200
@@ -624,7 +639,8 @@ def create_recipe():
     new_recipe = Receta(
         nombre=body.get("nombre"),
         rinde=body.get("rinde"),
-        unidad_medida=body.get("unidad_medida")
+        unidad_medida=body.get("unidad_medida"),
+        photo_url=body.get("photo_url")
     )
 
     # Obtener las materias primas del usuario para mostrar en las opciones de la receta
@@ -698,6 +714,7 @@ def get_user_recipe(recipe_id):
         "nombre": user_receta.receta_relationship.nombre,
         "rinde": user_receta.receta_relationship.rinde,
         "unidad_medida_rinde": user_receta.receta_relationship.unidad_medida,
+        "photo_url": user_receta.receta_relationship.photo_url,
         "ingredientes": []
     }
     ingredientes_receta = IngredientesReceta.query.filter_by(

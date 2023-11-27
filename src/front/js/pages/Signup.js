@@ -1,12 +1,11 @@
-import React, { useContext, useState } from "react";
-import { navigate } from "react-router-dom"; // Asegúrate de importar la función navigate
-import { Context } from "../store/appContext";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import recipes from "../../img/recipes.png";
 import "../../styles/login.css";
+import { Context } from "../store/appContext";
 
-export const Signup = () => {
+const Signup = () => {
   const { actions } = useContext(Context);
   const navigate = useNavigate();
   const [user, setUser] = useState({
@@ -19,10 +18,49 @@ export const Signup = () => {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
+  const [newUserPhoto, setNewUserPhoto] = useState("");
+
+  // CLOUDINARY //
+
+  const upload_preset_name = "almacena-upload";
+  const cloud_name = "dq5gjc26f";
+
+  async function cloudinary(formData) {
+    try {
+      const response = await fetch(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, {
+        method: "POST",
+        body: formData,
+      });
+      const data = await response.json();
+      console.log("cloudinary response", data);
+      setNewUserPhoto(data.secure_url);
+    } catch (error) {
+      console.error("Error:", error);
+      throw error;
+    }
+  }
+
+  useEffect(() => {
+
+  }, [newUserPhoto]);
+
+  function handleFile(event) {
+    const file = event.target.files[0];
+    console.log("fileInfo:", file);
+
+    if (file.size >= 10485760) {
+      alert("Elige una imagen más pequeña (menos que 10MB).");
+    } else {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append("upload_preset", upload_preset_name);
+      cloudinary(formData);
+    }
+  }
 
   const enviarFormulario = async (event) => {
     event.preventDefault();
-    setError(""); // Limpiar errores al intentar registrar nuevamente
+    setError("");
     setRegistrationSuccess(false);
 
     if (
@@ -37,21 +75,19 @@ export const Signup = () => {
     }
 
     try {
-      // Realizar la solicitud de registro utilizando el método signup del contexto
       await actions.signup(
         user.name,
         user.last_name,
         user.email,
         user.password,
-        user.address
+        user.address,
+        newUserPhoto
       );
 
-      // Registro exitoso
       setRegistrationSuccess(true);
 
-     // Redirección despues de 3 segundos
       setTimeout(() => {
-        navigate("/login"); // Redirige a la página
+        navigate("/login");
       }, 3000);
     } catch (error) {
       setError(
@@ -61,22 +97,19 @@ export const Signup = () => {
     }
   };
 
-
   return (
     <div className="container-fluid">
       <div className="row principal">
-        {/* Columna izquierda */}
         <div className="col formulario-signup">
-        <div className="row pb-5">
-    <div className="col-1">
-    </div>
-    <div className="col-1">
-    <i className="fa-solid fa-chevron-left"></i>
-    </div>
-    <div className="col-10">
-    <div className="back-login"> <Link to="/">Back to Home</Link> </div> 
-    </div>
-    </div>
+          <div className="row pb-5">
+            <div className="col-1"></div>
+            <div className="col-1">
+              <i className="fa-solid fa-chevron-left"></i>
+            </div>
+            <div className="col-10">
+              <div className="back-login"> <Link to="/">Back to Home</Link> </div>
+            </div>
+          </div>
 
           <form onSubmit={enviarFormulario}>
             <h3 className="titulo-login">Sign up</h3>
@@ -89,6 +122,16 @@ export const Signup = () => {
                 Registration successful! You can now log in... Redirecting to Login
               </div>
             )}
+            <div className="mb-3">
+              <label htmlFor="formFile" className="form-label extradark-blue fw-bold">Imagen de perfil</label>
+              <input
+                className="form-control"
+                type="file"
+                id="formFile"
+                name="photo"
+                onChange={(e) => handleFile(e)}
+              />
+            </div>
             <div className="mb-3">
               <div className="row">
                 <div className="col-sm-12 col-md-6 mb-3">
@@ -167,9 +210,8 @@ export const Signup = () => {
                       onClick={() => setShowPassword(!showPassword)}
                     >
                       <i
-                        className={`fa ${
-                          showPassword ? "fa-eye-slash" : "fa-eye"
-                        }`}
+                        className={`fa ${showPassword ? "fa-eye-slash" : "fa-eye"
+                          }`}
                       ></i>
                     </span>
                   </div>
@@ -181,14 +223,13 @@ export const Signup = () => {
             </button>
           </form>
         </div>
-        {/* Columna derecha */}
         <div
           className="col muestra"
           style={{ backgroundImage: `url(${recipes})` }}
-        >
-          {/* Contenido de la columna derecha */}
-        </div>
+        ></div>
       </div>
     </div>
   );
 };
+
+export default Signup;

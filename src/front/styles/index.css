@@ -217,6 +217,7 @@ th {
   border-bottom-left-radius: inherit;
 }
 
+
 .card-footer {
   font-weight: 500;
   font-family: 'Montserrat', sans-serif;
@@ -291,3 +292,5 @@ button.signupbutton.text-white.btn.btn-primary{
   margin-bottom: 20px;
 }
 }
+
+

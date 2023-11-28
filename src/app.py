@@ -893,6 +893,7 @@ def get_user_dashboard():
     response_data = {
         "name": user.name,
         "last_name": user.last_name,
+        "photo_url": user.photo_url,
         "ingredientes": ingredientes_list,
         "productos_finales": productos_list
     }

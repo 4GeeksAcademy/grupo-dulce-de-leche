@@ -13,7 +13,8 @@ export const EditProfile = () => {
     last_name: "",
     email: "",
     password: "",
-    address: ""
+    address: "",
+    photo_url: "",
   });
 
   const [editableUser, setEditableUser] = useState({
@@ -21,7 +22,8 @@ export const EditProfile = () => {
     last_name: "",
     email: "",
     password: "",
-    address: ""
+    address: "",
+    photo_url: ""
   });
 
   const [updateSuccess, setUpdateSuccess] = useState(false);
@@ -52,14 +54,16 @@ export const EditProfile = () => {
           last_name: data.last_name,
           email: data.email,
           address: data.address,
-          password: data.password
+          password: data.password,
+          photo_url: data.photo_url
         });
         setEditableUser({
           name: data.name,
           last_name: data.last_name,
           email: data.email,
           address: data.address,
-          password: data.password
+          password: data.password,
+          photo_url: data.photo_url
         });
       } catch (error) {
         console.error("Error fetching dashboard data:", error);
@@ -77,75 +81,118 @@ export const EditProfile = () => {
     }));
   };
 
-  const handleSaveChanges = async () => {
-    try {
-      const response = await fetch(process.env.BACKEND_URL + "/profile", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("jwt-token")}`
-        },
-        body: JSON.stringify(editableUser)
+  const handleImageChange = async (e) => {
+    const newImageFile = e.target.files[0];
+
+    if (newImageFile) {
+        try {
+            // Cargar la imagen en Cloudinary
+            const formData = new FormData();
+            formData.append('file', newImageFile);
+            formData.append('upload_preset', 'almacena-upload');
+            formData.append('cloud_name', 'dq5gjc26f');
+
+            const cloudinaryResponse = await fetch(
+                'https://api.cloudinary.com/v1_1/dq5gjc26f/image/upload',
+                {
+                    method: 'POST',
+                    body: formData,
+                }
+            );
+
+            if (!cloudinaryResponse.ok) {
+                throw new Error('Error uploading image to Cloudinary');
+            }
+
+            const cloudinaryData = await cloudinaryResponse.json();
+            const cloudinaryImageUrl = cloudinaryData.secure_url;
+
+            console.log('Imagen cargada exitosamente en Cloudinary. URL:', cloudinaryImageUrl);
+
+            // Almacenar la URL de la imagen en el estado
+            setEditableUser((prevUser) => ({ ...prevUser, photo_url: cloudinaryImageUrl }));
+        } catch (error) {
+            console.error('Error uploading image:', error);
+        }
+    }
+};
+
+const handleSaveChanges = async () => {
+  try {
+      // Enviar los datos actualizados al backend en formato JSON
+      const response = await fetch(process.env.BACKEND_URL + '/profile', {
+          method: 'PUT',
+          headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${localStorage.getItem('jwt-token')}`,
+          },
+          body: JSON.stringify({
+              ...editableUser,
+          }),
       });
 
-      if (response.status === 401) {
-        navigate("/login");
+      if (!response.ok) {
+          throw new Error('Error updating user profile');
       }
 
-      if (!response.ok) {
-        throw new Error("Error updating user profile");
-      }
+      console.log('Datos enviados exitosamente al backend');
 
       // Actualizar la información del usuario después de la actualización
       setUser(editableUser);
 
       // Mostrar alerta de éxito
       setUpdateSuccess(true);
-    } catch (error) {
-      console.error("Error updating user profile:", error);
-    }
-  };
+  } catch (error) {
+      console.error('Error updating user profile:', error);
+  }
+};
 
   return (
     <div className="container-fluid">
       <div className="row principal-recipes">
-      <div className="p-0 m-0 col-md-4 col-lg-2" id="reduccion">
+        <div className="p-0 m-0 col-md-4 col-lg-2" id="reduccion">
           <AlmaCenaSidebar />
         </div>
         <div className="col-md-8 col-lg-10" id="reduccion-uno">
           <div className="row principal">
             <div className="col gris">
-              
+
 
               <div className="row info">
-                  <div className="col-11">
-                    <h4 className="personal" id="titulo-informacion">Personal information</h4>
-                  </div>
-                  <div className="col-1">
-                    <Link to="/dashboard/profile">
-                      <i className="fa-solid fa-arrow-left fa-2xl icono-personal"></i>{" "}
-                    </Link>
-                  </div>
-                  <div className="col-12">
-                 
-                  </div>
+                <div className="col-11">
+                  <h4 className="personal" id="titulo-informacion">Personal information</h4>
                 </div>
+                <div className="col-1">
+                  <Link to="/dashboard/profile">
+                    <i className="fa-solid fa-arrow-left fa-2xl icono-personal"></i>{" "}
+                  </Link>
+                </div>
+                <div className="col-12">
+
+                </div>
+              </div>
 
               <form className="profile-user bg-white">
-               
-              <div className="row foto">
-              <div className="col-sm-12 col-md-4 col-lg-2">
-                <img className="perfil" src={perfil} />
-              </div>
-            </div> 
+
+                <div className="row foto">
+                  <div className="col-sm-12 col-md-4 col-lg-2">
+                    <img className="perfil" src={perfil} />
+                    <input
+                      type="file"
+                      accept="image/*"
+                      name="photo"
+                      onChange={handleImageChange}
+                    />
+                  </div>
+                </div>
 
                 <div className="mb-3">
-                {updateSuccess && (
-                <div className="alert alert-success">
-                  Sus datos han sido actualizados correctamente
-                </div>
-              )}
-               
+                  {updateSuccess && (
+                    <div className="alert alert-success">
+                      Sus datos han sido actualizados correctamente
+                    </div>
+                  )}
+
 
                   <div className="row">
                     <div className="col-sm-12 col-md-6 mb-3">
@@ -158,7 +205,7 @@ export const EditProfile = () => {
                         id="name"
                         placeholder="Your Name"
                         value={editableUser.name}
-                        onChange={handleInputChange} 
+                        onChange={handleInputChange}
                         name="name"
                       />
                     </div>
@@ -172,7 +219,7 @@ export const EditProfile = () => {
                         id="last_name"
                         placeholder="Your Last Name"
                         value={editableUser.last_name}
-                        onChange={handleInputChange} 
+                        onChange={handleInputChange}
                         name="last_name"
                       />
                     </div>
@@ -188,7 +235,7 @@ export const EditProfile = () => {
                         value={editableUser.email}
                         readOnly
                         disabled
-                      
+
                       />
                     </div>
                     <div className="col-sm-12 col-md-6 mb-3">
@@ -242,7 +289,7 @@ export const EditProfile = () => {
                 </div>
               </form>
 
-            
+
 
             </div>
           </div>

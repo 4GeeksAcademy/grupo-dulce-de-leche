@@ -42,6 +42,7 @@ export const Profile = () => {
           email: data.email,
           address: data.address,
           password: data.password,
+          photo_url: data.photo_url
         });
       } catch (error) {
         console.error("Error fetching dashboard data:", error);
@@ -76,7 +77,7 @@ export const Profile = () => {
 
                <div className="row foto">
               <div className="col-sm-12 col-md-4 col-lg-2" >
-                <img className="perfil" src={perfil} />
+              <img className="perfil" src={user.photo_url || perfil} alt="Profile" />
               </div>
             </div> 
 

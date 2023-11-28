@@ -146,6 +146,7 @@ def update_user():
     user.name = body.get("name", user.name)
     user.last_name = body.get("last_name", user.last_name)
     user.address = body.get("address", user.address)
+    user.photo_url = body.get("photo_url", user.photo_url)
 
     # Verificar si se proporcionó una nueva contraseña
     new_password = body.get("new_password")
@@ -198,8 +199,6 @@ def reactivate_user():
 
 ################################################# GESTION DE USUARIO ##########################################################
 
-# SIGNUP #
-
 @app.route("/signup", methods=["POST"])
 def signup():
     data = request.get_json()
@@ -209,7 +208,6 @@ def signup():
     name = data.get("name")
     last_name = data.get("last_name")
     address = data.get("address")
-    photo_url = data.get("photo_url") 
     existing_user = User.query.filter_by(email=email).first()
     if existing_user:
         return jsonify({"msg": "Email already exists"}), 400
@@ -218,11 +216,11 @@ def signup():
         password=bcrypt.generate_password_hash(password).decode('utf-8'),
         name=name,
         last_name=last_name,
-        address=address,
-        photo_url=photo_url
+        address=address
     )
     db.session.add(new_user)
     db.session.commit()
+    expires = timedelta(minutes=15)
     access_token = create_access_token(identity=new_user.id, expires_delta=expires)
     return jsonify({"El usuario": name, "fue creado con exito, su token es": access_token, "user_id": new_user.id}), 201
 

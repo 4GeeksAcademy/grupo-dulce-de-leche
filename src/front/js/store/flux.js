@@ -5,7 +5,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			user: null,
 			userLoggedIn: null,
 			profile:[],
-			photo_url_user: "",
 		},
 
 		actions: {
@@ -14,7 +13,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				getActions().changeColor(0, "green");
 			},
 
-			signup: async (name, last_name, email, password, address, photo_url) => {
+			signup: async (name, last_name, email, password, address) => {
 				try {
 					const resp = await fetch(process.env.BACKEND_URL + "/signup", {
 						method: "POST",
@@ -27,7 +26,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 							email: email,
 							password: password,
 							address: address,
-							photo_url: photo_url
 						}),
 					});
 
@@ -35,6 +33,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						const data = await resp.json();
 						throw new Error(data.message);
 					}
+
 					const data = await resp.json();
 					// Guardar el token en el localStorage
 					localStorage.setItem("jwt-token", data.token);
@@ -103,13 +102,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					throw new Error(`Error during logout: ${error.message}`);
 				}
 			},
-			setUserPhoto: (photoUrl) => {
-				const { store } = getStore();
-				if (store) {
-					store.photo_url_user = photoUrl;
-					setStore({ store });
-				}
-			},		
 		}
 	};
 };

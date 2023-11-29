@@ -77,7 +77,7 @@ const AlmaCenaSidebar = () => {
             <table>
               <tr>
                 <th rowspan="2" className="imagen-usuario">
-                  <img src={user.photo_url} className="img-fluid rounded-circle" alt="" style={{ width: '50px' }} />
+                  <img src={user.photo_url} alt="" style={{ width: '60px', height: '60px', backgroundSize: 'cover', borderRadius: '50%' }} />
                 </th>
 
                 <td colspan="2" className="info-usuario-registrado"><Link className="enlace-user" to="/dashboard/profile"> {user.name} {user.last_name} </Link></td>
@@ -102,8 +102,6 @@ const AlmaCenaSidebar = () => {
                   style={selectedLink === item.path ? { color: "black", fontWeight: "bold", fontSize: "15px", fontFamily: 'Montserrat', } : {}}
                 >
                   <div className="menu-text">
-
-
                     <i className={`fa ${item.icon} iconos-sidebar`}></i> {item.textdos} <span className={`badge ${item.badge}`}>{item.text}</span>
                   </div>
                 </Link>

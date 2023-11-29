@@ -69,7 +69,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const data = await resp.json();
 
 					localStorage.setItem("jwt-token", data.token);
-					setStore({ userLoggedIn: localStorage.getItem("jwt-token") })
+					localStorage.setItem("user", JSON.stringify({ photo_url: data.photo_url }));
+					setStore({ userLoggedIn: localStorage.getItem("jwt-token") });
 
 					return data;
 				} catch (error) {
@@ -102,6 +103,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					throw new Error(`Error during logout: ${error.message}`);
 				}
 			},
+			
 		}
 	};
 };

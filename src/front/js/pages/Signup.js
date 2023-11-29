@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import { navigate } from "react-router-dom"; // Asegúrate de importar la función navigate
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";

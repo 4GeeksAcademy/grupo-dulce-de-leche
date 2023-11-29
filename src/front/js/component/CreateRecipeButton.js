@@ -11,6 +11,7 @@ const CreateRecipeButton = ({ onRecipeCreated }) => {
   const [recipeName, setRecipeName] = useState("");
   const [rinde, setRinde] = useState(1);
   const [unidadMedida, setUnidadMedida] = useState("units");
+  const [recipeImage, setRecipeImage] = useState(null);
 
   const handleClose = () => {
     setShow(false);
@@ -21,6 +22,7 @@ const CreateRecipeButton = ({ onRecipeCreated }) => {
     setRecipeName("");
     setRinde("");
     setUnidadMedida("");
+    setRecipeImage(null);
   };
 
   const fetchAvailableIngredients = async () => {
@@ -60,8 +62,42 @@ const CreateRecipeButton = ({ onRecipeCreated }) => {
     }));
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setRecipeImage(file);
+  };
+
+  const uploadImageToCloudinary = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("file", recipeImage);
+      formData.append("upload_preset", "almacena-upload");
+      formData.append('cloud_name', 'dq5gjc26f');
+
+      // Subir la imagen a Cloudinary
+      const response = await fetch("https://api.cloudinary.com/v1_1/dq5gjc26f/image/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error("Error uploading image to Cloudinary");
+      }
+
+      const data = await response.json();
+      return data.secure_url;
+    } catch (error) {
+      console.error("Error uploading image to Cloudinary:", error);
+      throw error;
+    }
+  };
+
   const handleCreateRecipe = async () => {
     try {
+      // Subir la imagen a Cloudinary y obtener la URL
+      const photoUrl = await uploadImageToCloudinary();
+
+      // Crear la receta usando la URL de la imagen
       const response = await fetch(process.env.BACKEND_URL + "/dashboard/recipes", {
         method: "POST",
         headers: {
@@ -72,6 +108,7 @@ const CreateRecipeButton = ({ onRecipeCreated }) => {
           nombre: recipeName,
           rinde: parseInt(rinde, 10),
           unidad_medida: unidadMedida,
+          photo_url: photoUrl, // Agregar la URL de la imagen
           ingredientes: selectedIngredients.map((ingredient) => ({
             materia_prima_id: ingredient.materia_prima_id,
             cantidad_necesaria: parseInt(ingredientQuantities[ingredient.materia_prima_id], 10),
@@ -180,6 +217,15 @@ const CreateRecipeButton = ({ onRecipeCreated }) => {
               </Row>
             </Form.Group>
 
+            <Form.Group controlId="formImage">
+              <Form.Label>Recipe Image</Form.Label>
+              <Form.Control
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+              />
+            </Form.Group>
+
             {selectedIngredients.length > 0 && (
               <Form.Group controlId="formSelectedIngredients">
                 <Form.Label>Selected Ingredients</Form.Label>
@@ -209,10 +255,3 @@ const CreateRecipeButton = ({ onRecipeCreated }) => {
 };
 
 export default CreateRecipeButton;
-
-
-
-
-
-
-

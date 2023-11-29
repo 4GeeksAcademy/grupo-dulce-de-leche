@@ -12,6 +12,7 @@ class User(db.Model):
     address = db.Column(db.String(80), unique=True, nullable=False)
     is_active = db.Column(db.Boolean, default=True, nullable=False)
     reset_token = db.Column(db.String(100), unique=True, nullable=True)
+    photo_url = db.Column(db.String(500))
 
     def __repr__(self):
          return '{}'.format (self.name)
@@ -22,7 +23,8 @@ class User(db.Model):
             "name" : self.name,
             "last_name" : self.last_name,
             "email": self.email,
-            "address": self.address
+            "address": self.address,
+            "photo_url": self.photo_url,
         }
     
 class MateriasPrimas(db.Model):
@@ -72,6 +74,7 @@ class Receta(db.Model):
     nombre = db.Column(db.String(80), nullable=False )
     rinde = db.Column(db.Integer, nullable=False)
     unidad_medida = db.Column(db.String(80), nullable=False )
+    photo_url = db.Column(db.String(500))
 
     def __repr__(self): #terminal con el print y en el admin
         return 'La receta de {}, rinde para {} {}'.format (self.nombre, self.rinde, self.unidad_medida)
@@ -80,7 +83,8 @@ class Receta(db.Model):
         return {
             "id": self.id,
             "nombre": self.nombre,
-            "rinde": self.rinde
+            "rinde": self.rinde,
+            "photo_url": self.photo_url
         }
     
 class UserReceta(db.Model):

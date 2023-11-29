@@ -9,7 +9,7 @@ import LogoutButton from './LogoutButton';
 const AlmaCenaSidebar = () => {
   const { actions } = useContext(Context);
   const [selectedLink, setSelectedLink] = useState("");
-  const [user, setUser] = useState({ name: "", last_name: "" });
+  const [user, setUser] = useState({ name: "", last_name: "", photo_url: "" });
   const [userDataLoaded, setUserDataLoaded] = useState(false);
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -36,6 +36,7 @@ const AlmaCenaSidebar = () => {
           setUser({
             name: data.name,
             last_name: data.last_name,
+            photo_url: data.photo_url
           });
 
           setUserDataLoaded(true);
@@ -53,12 +54,12 @@ const AlmaCenaSidebar = () => {
     setSelectedLink(pathname);
   }, [pathname]);
 
-  
+
 
   const menuItems = [
     { path: "/dashboard", textdos: "Dashboard", icon: "fa-solid fa-table-columns fa-lg" },
-    { path: "/dashboard/ingredients", textdos: "Ingredients", icon: "fa-solid fa-wheat-awn fa-lg", badge: "badge badge-secondary 1st", text: "1st"},
-    { path: "/dashboard/recipes", textdos: "Recipes", icon: "fa-solid fa-book fa-lg", badge: "badge badge-secondary 2nd", text: "2nd"  },
+    { path: "/dashboard/ingredients", textdos: "Ingredients", icon: "fa-solid fa-wheat-awn fa-lg", badge: "badge badge-secondary 1st", text: "1st" },
+    { path: "/dashboard/recipes", textdos: "Recipes", icon: "fa-solid fa-book fa-lg", badge: "badge badge-secondary 2nd", text: "2nd" },
     { path: "/dashboard/products", textdos: "Products", icon: "fas fa-cheese fa-lg", badge: "badge badge-secondary 3rd", text: "3rd" },
   ];
 
@@ -73,33 +74,34 @@ const AlmaCenaSidebar = () => {
 
         <div className="menuvertical">
           <div className="table-responsive usuario-registrado">
-          <table>
-            <tr>
-              <th rowspan="2" className="imagen-usuario"><img src={userprofile} alt="" /></th>
-              <td colspan="2" className="info-usuario-registrado"><Link className="enlace-user" to="/dashboard/profile"> {user.name} {user.last_name} </Link></td>
-            </tr>
-            <tr>
-              <td ><span className="info-company">Company</span></td>
-              <td className="icono-usuario"><Link className="enlace-user" to="/dashboard/edit-profile"><i className="fa-solid fa-user-pen fa-sm icono-usuario"></i></Link></td>
-            </tr>
-            <tr>
+            <table>
+              <tr>
+                <th rowspan="2" className="imagen-usuario">
+                  <img src={user.photo_url} alt="" style={{ width: '60px', height: '60px', backgroundSize: 'cover', borderRadius: '50%' }} />
+                </th>
 
-            </tr>
-          </table>
+                <td colspan="2" className="info-usuario-registrado"><Link className="enlace-user" to="/dashboard/profile"> {user.name} {user.last_name} </Link></td>
+              </tr>
+              <tr>
+                <td ><span className="info-company">Company</span></td>
+                <td className="icono-usuario"><Link className="enlace-user" to="/dashboard/edit-profile"><i className="fa-solid fa-user-pen fa-sm icono-usuario"></i></Link></td>
+              </tr>
+              <tr>
+
+              </tr>
+            </table>
 
 
           </div>
-           <ul className="nav flex-column fa-ul fw-bold">
+          <ul className="nav flex-column fa-ul fw-bold">
             {menuItems.map((item, index) => (
               <li key={index} className={`nav-item almacenasidebar ${selectedLink === item.path ? "selected" : ""}`}>
                 <Link
                   className="menu-navega"
                   to={item.path}
-                  style={selectedLink === item.path ? { color: "black", fontWeight: "bold", fontSize:"15px", fontFamily:'Montserrat',} : {}}
+                  style={selectedLink === item.path ? { color: "black", fontWeight: "bold", fontSize: "15px", fontFamily: 'Montserrat', } : {}}
                 >
                   <div className="menu-text">
-                  
-
                     <i className={`fa ${item.icon} iconos-sidebar`}></i> {item.textdos} <span className={`badge ${item.badge}`}>{item.text}</span>
                   </div>
                 </Link>

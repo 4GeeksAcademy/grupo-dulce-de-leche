@@ -89,7 +89,7 @@ const SingleRecipe = () => {
             <div className="profile-user bg-white">
               <h4 className="personal">Recipe information</h4>
               <Row className="foto">
-                <Col sm={12} md={4} className="imgsinglerecipe" style={{ backgroundImage: `url(${singlerecipe})` }}></Col>
+              <Col sm={12} md={4} className="imgsinglerecipe" style={{ backgroundImage: `url(${recipe.photo_url || singlerecipe})` }}></Col>
                 <Col sm={12} md={8}>
                   <div className="table-totalyield">
                     <Table className="table single recipe">

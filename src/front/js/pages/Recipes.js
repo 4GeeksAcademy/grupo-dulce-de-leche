@@ -1,17 +1,12 @@
-
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AlmaCenaSidebar from "../component/AlmaCenaSidebar";
 import { Container, Card, Button, Row, Col } from "react-bootstrap";
 import "../../styles/myproducts.css";
-import redvelvet from "../../img/redvelvet.png";
 import CreateRecipeButton from "../component/CreateRecipeButton";
 import DeleteRecipeButton from "../component/DeleteRecipeButton";
 
-
-
 const Recipes = () => {
-
   const navigate = useNavigate();
   const [recipes, setRecipes] = useState([]);
   const token = localStorage.getItem("jwt-token");
@@ -25,7 +20,9 @@ const Recipes = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        if (response.status == 401) { navigate("/login") }
+        if (response.status === 401) {
+          navigate("/login");
+        }
         if (!response.ok) {
           throw new Error("Failed to fetch recipes");
         }
@@ -64,11 +61,10 @@ const Recipes = () => {
     }
   };
 
-
   return (
     <Container fluid>
       <Row className="principal-recipes">
-      <Col md={4} lg={2} className="p-0 m-0" id="reduccion">
+        <Col md={4} lg={2} className="p-0 m-0" id="reduccion">
           <AlmaCenaSidebar />
         </Col>
 
@@ -83,19 +79,43 @@ const Recipes = () => {
               <Col md={6}>
                 <CreateRecipeButton onRecipeCreated={handleRecipeCreated} />
               </Col>
-          </Row>
+            </Row>
             <div className="myproducts bg-white">
-            <Row className="g-4 row row-cols-md-2 row-cols-lg-3 row-cols-1">
+              <Row className="g-4 row row-cols-md-2 row-cols-lg-3 row-cols-1">
                 {recipes.map((recipe) => (
                   <Col key={recipe.receta_id}>
                     <Card>
-                      <Card.Img variant="top" src={redvelvet} />
+                      {recipe.photo_url ? (
+                        <Card.Img
+                          variant="top"
+                          className="img-thumbnail"
+                          src={recipe.photo_url}
+                          alt={recipe.nombre}
+                          style={{
+                            width: `400px`,
+                            height: `400px`,
+                            objectFit: 'cover',
+                          }}
+                        />
+                      ) : (
+                        <Card.Img
+                          variant="top"
+                          className="img-thumbnail"
+                          src="https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg"
+                          alt="Default Placeholder"
+                          style={{
+                            width: `400px`,
+                            height: `400px`,
+                            objectFit: 'cover',
+                          }}
+                        />
+                      )}
                       <Card.Body>
                         <Card.Title className="fw-bold">{recipe.nombre}</Card.Title>
                         <Row className="unidades-add">
                           <Col md={12}>
                             <p className="card-text unidades-receta">
-                             Total Yield: {recipe.rinde} {recipe.unidad_medida}
+                              Total Yield: {recipe.rinde} {recipe.unidad_medida}
                             </p>
                           </Col>
                           <Col className="col-9">
@@ -105,10 +125,13 @@ const Recipes = () => {
                             >
                               See Recipe
                             </Button>
-                         </Col>
-                        <Col className="col-3">
-                        <DeleteRecipeButton recipe={recipe} onRecipeDeleted={handleRecipeCreated} />
-                        </Col>
+                          </Col>
+                          <Col className="col-3">
+                            <DeleteRecipeButton
+                              recipe={recipe}
+                              onRecipeDeleted={handleRecipeCreated}
+                            />
+                          </Col>
                         </Row>
                       </Card.Body>
                     </Card>
@@ -117,7 +140,6 @@ const Recipes = () => {
               </Row>
             </div>
           </div>
-   
         </Col>
       </Row>
     </Container>
@@ -125,4 +147,3 @@ const Recipes = () => {
 };
 
 export default Recipes;
-

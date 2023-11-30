@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/profile.css";
-import perfil from "../../img/perfil.png";
+import perfil from '../../img/perfilchef.jpg';
 import AlmaCenaSidebar from "../component/AlmaCenaSidebar";
 import { Link } from "react-router-dom";
 
@@ -176,7 +176,7 @@ const handleSaveChanges = async () => {
 
                 <div className="row foto">
                   <div className="col-sm-12 col-md-4 col-lg-2">
-                    <img className="perfil" src={perfil} />
+                  <img className="perfil mb-2" src={editableUser.photo_url || perfil} />
                     <input
                       type="file"
                       accept="image/*"

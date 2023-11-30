@@ -1,10 +1,16 @@
+
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			message: null,
 			user: null,
 			userLoggedIn: null,
-			profile:[],
+			profile: {
+				photo_url: null,
+				name: null,
+				last_name: null,
+			  },
 		},
 
 		actions: {
@@ -103,6 +109,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 					throw new Error(`Error during logout: ${error.message}`);
 				}
 			},
+			updateUserProfile: ({ photo_url, name, last_name }) => {
+				const store = getStore();
+				setStore({
+				  profile: {
+					...store.profile,
+					photo_url: photo_url || store.profile.photo_url,
+					name: name || store.profile.name,
+					last_name: last_name || store.profile.last_name,
+				  },
+				});
+			  },
 			
 		}
 	};

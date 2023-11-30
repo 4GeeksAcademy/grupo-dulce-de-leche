@@ -3,18 +3,21 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/sidebar.css";
 import logo from "../../img/logoalmacena.png";
-import userprofile from "../../img/userprofile.png";
 import LogoutButton from './LogoutButton';
+import perfil from '../../img/perfilchef.jpg';
 
 const AlmaCenaSidebar = () => {
-  const { actions } = useContext(Context);
+  const { actions, store } = useContext(Context);
   const [selectedLink, setSelectedLink] = useState("");
-  const [user, setUser] = useState({ name: "", last_name: "", photo_url: "" });
+  const [user, setUser] = useState({
+    name: store.profile.name || "",
+    last_name: store.profile.last_name || "",
+    photo_url: store.profile.photo_url || perfil,
+  });
   const [userDataLoaded, setUserDataLoaded] = useState(false);
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
-  // Efecto secundario que se ejecuta solo una vez al cargar el componente
   useEffect(() => {
     const token = localStorage.getItem("jwt-token");
 
@@ -24,8 +27,8 @@ const AlmaCenaSidebar = () => {
           const response = await fetch(process.env.BACKEND_URL + "/dashboard", {
             method: "GET",
             headers: {
-              Authorization: `Bearer ${token}`
-            }
+              Authorization: `Bearer ${token}`,
+            },
           });
 
           if (!response.ok) {
@@ -33,10 +36,17 @@ const AlmaCenaSidebar = () => {
           }
 
           const data = await response.json();
-          setUser({
+
+          actions.updateUserProfile({
+            photo_url: data.photo_url,
             name: data.name,
             last_name: data.last_name,
-            photo_url: data.photo_url
+          });
+
+          setUser({
+            name: data.name || "",
+            last_name: data.last_name || "",
+            photo_url: data.photo_url || perfil,
           });
 
           setUserDataLoaded(true);
@@ -47,14 +57,11 @@ const AlmaCenaSidebar = () => {
 
       fetchUserData();
     }
-  }, [userDataLoaded]);
+  }, [userDataLoaded, actions]);
 
   useEffect(() => {
-    // Actualiza el estado del enlace seleccionado cuando cambia la ruta
     setSelectedLink(pathname);
   }, [pathname]);
-
-
 
   const menuItems = [
     { path: "/dashboard", textdos: "Dashboard", icon: "fa-solid fa-table-columns fa-lg" },
@@ -77,22 +84,31 @@ const AlmaCenaSidebar = () => {
             <table>
               <tr>
                 <th rowspan="2" className="imagen-usuario">
-                  <img src={user.photo_url} alt="" style={{ width: '60px', height: '60px', backgroundSize: 'cover', borderRadius: '50%' }} />
+                  <img
+                    src={user.photo_url === null ? perfil : user.photo_url || store.profile.defaultPhotoUrl}
+                    alt=""
+                    style={{ width: '60px', height: '60px', backgroundSize: 'cover', borderRadius: '50%' }}
+                  />
                 </th>
 
-                <td colspan="2" className="info-usuario-registrado"><Link className="enlace-user" to="/dashboard/profile"> {user.name} {user.last_name} </Link></td>
+                <td colspan="2" className="info-usuario-registrado">
+                  <Link className="enlace-user" to="/dashboard/profile">
+                    {user.name} {user.last_name}
+                  </Link>
+                </td>
               </tr>
               <tr>
                 <td ><span className="info-company">Company</span></td>
-                <td className="icono-usuario"><Link className="enlace-user" to="/dashboard/edit-profile"><i className="fa-solid fa-user-pen fa-sm icono-usuario"></i></Link></td>
+                <td className="icono-usuario">
+                  <Link className="enlace-user" to="/dashboard/edit-profile">
+                    <i className="fa-solid fa-user-pen fa-sm icono-usuario"></i>
+                  </Link>
+                </td>
               </tr>
-              <tr>
-
-              </tr>
+              <tr></tr>
             </table>
-
-
           </div>
+
           <ul className="nav flex-column fa-ul fw-bold">
             {menuItems.map((item, index) => (
               <li key={index} className={`nav-item almacenasidebar ${selectedLink === item.path ? "selected" : ""}`}>
@@ -115,11 +131,7 @@ const AlmaCenaSidebar = () => {
         </div>
       </div>
 
-
-
-      {/* Sidebar Movil */}
-
-
+      {/* Sidebar Móvil */}
       <nav className="navbar navbar-expand-lg bg-body-tertiary menumovil" id="navegacion-horizontal">
         <div className="container-fluid">
           <a className="navbar-brand" href="#">Almacena</a>
@@ -158,19 +170,10 @@ const AlmaCenaSidebar = () => {
               <LogoutButton actions={actions} />
             </div>
           </div>
-
-
         </div>
       </nav>
-
-
-
     </>
   );
 };
 
 export default AlmaCenaSidebar;
-
-
-
-

@@ -83,8 +83,8 @@ const Recipes = () => {
             <div className="myproducts bg-white">
               <Row className="g-4 row row-cols-md-2 row-cols-lg-3 row-cols-1">
                 {recipes.map((recipe) => (
-                  <Col key={recipe.receta_id}>
-                    <Card>
+                  <Col key={recipe.receta_id} className="mb-4 me-4">
+                    <Card style={{ width: '24rem' }}>
                       {recipe.photo_url ? (
                         <Card.Img
                           variant="top"

@@ -79,7 +79,7 @@ export const Products = () => {
                 {products.map((product) => (
                   <Col key={product.receta_id}>
                     <Card>
-                      <Card.Img variant="top" src={croissant} />
+                    <Card.Img variant="top" src={product.photo_url || croissant} />
                       <Card.Body>
                         <Card.Title className="fw-bold">{product.nombre}</Card.Title>
                         <div className="unidades-add">

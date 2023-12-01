@@ -52,6 +52,7 @@ setup_commands(app)
 bcrypt = Bcrypt(app)
 app.register_blueprint(api, url_prefix='/api')
 
+
 def active_account_required(fn):
     @wraps(fn)
     def wrapper(*args, **kwargs):
@@ -71,6 +72,8 @@ def active_account_required(fn):
     return wrapper
 
 # HANDLE ERRORS
+
+
 @app.errorhandler(APIException)
 def handle_invalid_usage(error):
     return jsonify(error.to_dict()), error.status_code
@@ -84,6 +87,7 @@ def sitemap():
         return generate_sitemap(app)
     return send_from_directory(static_file_dir, 'index.html')
 
+
 @app.route('/<path:path>', methods=['GET'])
 def serve_any_other_file(path):
     if not os.path.isfile(os.path.join(static_file_dir, path)):
@@ -92,12 +96,13 @@ def serve_any_other_file(path):
     response.cache_control.max_age = 0  # avoid cache memory
     return response
 
-#CLOUDINARY Config
+# CLOUDINARY Config
 
-cloudinary.config( 
-  cloud_name = "dq5gjc26f", 
-  api_key = "986996986378135", 
-  api_secret = "SaKGcFXWbHTqhKZB5U1Jn5oDYWE" 
+
+cloudinary.config(
+    cloud_name="dq5gjc26f",
+    api_key="986996986378135",
+    api_secret="SaKGcFXWbHTqhKZB5U1Jn5oDYWE"
 )
 
 ##############################################################################################################################
@@ -106,6 +111,7 @@ cloudinary.config(
 ######################################################### USER DATA ############################################################
 
 # READ | TODOS LOS USUARIOS
+
 
 @app.route('/users', methods=['GET'])
 def get_users():
@@ -127,6 +133,8 @@ def get_user():
     return jsonify(user.serialize()), 200
 
 # UPDATE |
+
+
 @app.route('/profile', methods=['PUT'])
 @jwt_required()
 @active_account_required
@@ -153,13 +161,16 @@ def update_user():
 
     if new_password:
         # Actualizar la contraseña si se proporcionó una nueva
-        user.password = bcrypt.generate_password_hash(new_password).decode('utf-8')
+        user.password = bcrypt.generate_password_hash(
+            new_password).decode('utf-8')
 
     db.session.commit()
 
     return jsonify({"msg": "Perfil de usuario actualizado con éxito"}), 200
 
-# DELETE | 
+# DELETE |
+
+
 @app.route('/profile', methods=['DELETE'])
 @jwt_required()
 @active_account_required
@@ -169,7 +180,7 @@ def delete_user():
 
     if user_to_delete is None:
         raise APIException("User not found", status_code=404)
-    
+
     user_to_delete.is_active = False
     db.session.commit()
 
@@ -183,7 +194,8 @@ def reactivate_user():
     data = request.get_json()
     email_to_reactivate = data.get("email")
 
-    user_to_reactivate = User.query.filter_by(email=email_to_reactivate, is_active=False).first()
+    user_to_reactivate = User.query.filter_by(
+        email=email_to_reactivate, is_active=False).first()
 
     if user_to_reactivate is None:
         return jsonify({"msg": "User not found or already active"}), 404
@@ -198,6 +210,7 @@ def reactivate_user():
 ##############################################################################################################################
 
 ################################################# GESTION DE USUARIO ##########################################################
+
 
 @app.route("/signup", methods=["POST"])
 def signup():
@@ -221,7 +234,8 @@ def signup():
     db.session.add(new_user)
     db.session.commit()
     expires = timedelta(minutes=15)
-    access_token = create_access_token(identity=new_user.id, expires_delta=expires)
+    access_token = create_access_token(
+        identity=new_user.id, expires_delta=expires)
     return jsonify({"El usuario": name, "fue creado con exito, su token es": access_token, "user_id": new_user.id}), 201
 
 
@@ -241,7 +255,8 @@ def login():
 
     if user and bcrypt.check_password_hash(user.password, password):
         # CORRECT PASS => GENERATE TOKEN
-        access_token = create_access_token(identity=user.id, expires_delta=expires)
+        access_token = create_access_token(
+            identity=user.id, expires_delta=expires)
         return jsonify({"token": access_token, "user_id": user.id}), 200
     else:
         # USER NOT FOUND OR INCORRECT PASS
@@ -260,18 +275,20 @@ def logout():
 # USER | PASSWORD RECOVERY #
 
 app.config.update(dict(
-    DEBUG = False,
-    MAIL_SERVER = 'smtp.gmail.com',
-    MAIL_PORT = 587,
-    MAIL_USE_TLS = True,
-    MAIL_USE_SSL = False,
-    MAIL_USERNAME = 'noreply.almacena@gmail.com',
-    MAIL_PASSWORD = 'gzsijyhwwggnqrwm',
+    DEBUG=False,
+    MAIL_SERVER='smtp.gmail.com',
+    MAIL_PORT=587,
+    MAIL_USE_TLS=True,
+    MAIL_USE_SSL=False,
+    MAIL_USERNAME='noreply.almacena@gmail.com',
+    MAIL_PASSWORD='gzsijyhwwggnqrwm',
 ))
 
 mail = Mail(app)
 
 # Generar token de restablecimiento de contraseña
+
+
 @app.route('/passwordrecovery', methods=['POST'])
 def password_recovery():
     email = request.json.get("email")
@@ -292,19 +309,22 @@ def password_recovery():
     else:
         return jsonify({"message": "Email not found"}), 404
 
+
 def generate_reset_token(email):
     return bcrypt.hashpw(email.encode('utf-8'), bcrypt.gensalt()).decode("utf-8")
 
 # Enviar correo electrónico con el token
+
+
 def send_reset_email(email, reset_token):
     subject = "Password Reset"
     body = f"Click the following link to reset your password: /passwordreset/{reset_token}"
-    
-    msg = Message(subject=subject, sender="noreply@example.com", recipients=[email])
+
+    msg = Message(subject=subject, sender="noreply@example.com",
+                  recipients=[email])
     msg.body = body
     mail.send(msg)
 
-from flask_jwt_extended import get_jwt_identity
 
 @app.route('/resetpassword/<reset_token>', methods=['POST'])
 def reset_password(reset_token):
@@ -315,8 +335,8 @@ def reset_password(reset_token):
     if user:
         new_password = request.json.get("new_password")
 
-       
-        user.password = bcrypt.generate_password_hash(new_password).decode('utf-8')
+        user.password = bcrypt.generate_password_hash(
+            new_password).decode('utf-8')
         # Elimina el token de reset para que no se pueda utilizar nuevamente
         user.reset_token = None
         db.session.commit()
@@ -324,7 +344,6 @@ def reset_password(reset_token):
         return jsonify({"message": "Password updated successfully"}), 200
     else:
         return jsonify({"message": "Invalid or expired reset token"}), 401
-
 
 
 ##############################################################################################################################
@@ -372,6 +391,7 @@ def create_ingredient():
 
 # READ |
 
+
 @app.route('/dashboard/ingredients', methods=['GET'])
 @jwt_required()
 @active_account_required
@@ -390,12 +410,13 @@ def get_user_ingredients():
                 "cantidad_stock": user_materia_prima.cantidad_stock,
                 "cantidad_stock_minimo": user_materia_prima.minimo_stock,
                 "clasificacion": materia_prima.clasificacion,
-                "unidad_medida": materia_prima.unidad_medida 
+                "unidad_medida": materia_prima.unidad_medida
             }
             ingredients_list.append(ingredient_data)
     return jsonify(ingredients_list), 200
 
 # UPDATE |
+
 
 @app.route('/dashboard/ingredients', methods=['PUT'])
 @jwt_required()
@@ -425,6 +446,7 @@ def update_ingredient():
     return jsonify({"msg": "Materia Prima actualizada con éxito"}), 200
 
 # DELETE |
+
 
 @app.route('/dashboard/ingredients', methods=['DELETE'])
 @jwt_required()
@@ -459,6 +481,7 @@ def delete_ingredient():
 ####################################################### PRODUCTOS ############################################################
 
 # CREATE |
+
 
 @app.route('/dashboard/products', methods=['POST'])
 @jwt_required()
@@ -495,9 +518,14 @@ def create_product():
     db.session.add(new_user_producto_final)
     db.session.commit()
 
+# Actualiza la photo_url del nuevo producto con la de la receta
+    new_user_producto_final.photo_url = receta.photo_url
+    db.session.commit()
+
     return jsonify({"msg": "Producto Final creado con éxito"}), 201
 
 # READ |
+
 
 @app.route('/dashboard/products', methods=['GET'])
 @jwt_required()
@@ -515,7 +543,8 @@ def get_user_products():
                 "cantidad_inventario": user_product.cantidad_inventario,
                 "clasificacion": user_product.clasificacion,
                 "cantidad_inventario_minimo": user_product.cantidad_inventario_minimo,
-                "unidad_medida": receta.unidad_medida
+                "unidad_medida": receta.unidad_medida,
+                "photo_url": receta.photo_url
             }
             products_list.append(product_data)
     return jsonify(products_list), 200
@@ -538,7 +567,7 @@ def update_product():
 
     # Obtener el producto final
     user_producto = UserProductoFinal.query.filter_by(
-    user_id=user_id, receta_id=product_id).first()
+        user_id=user_id, receta_id=product_id).first()
 
     if user_producto is None:
         return jsonify({"error": "Producto final no encontrado para el usuario especificado"}), 404
@@ -552,7 +581,6 @@ def update_product():
         user_producto.cantidad_inventario_minimo = body["cantidad_inventario_minimo"]
 
     db.session.commit()
-    
 
     return jsonify({"msg": "Producto Final actualizado con éxito"}), 200
 
@@ -578,7 +606,7 @@ def delete_product():
         user_id=user_id, receta_id=product_id).first()
 
     if not user_producto:
-        return jsonify({"error": "Producto final no encontrado para el usuario especificado"}), 404 
+        return jsonify({"error": "Producto final no encontrado para el usuario especificado"}), 404
 
     # Eliminar el producto final del usuario
     db.session.delete(user_producto)
@@ -646,7 +674,8 @@ def create_recipe():
         user_id=user_id).all()
 
     # Asociar ingredientes a la receta
-    ingredientes_receta_info = []  # Lista para almacenar la información de los ingredientes
+    # Lista para almacenar la información de los ingredientes
+    ingredientes_receta_info = []
 
     for ingrediente in body.get("ingredientes", []):
         materia_prima_id = ingrediente.get("materia_prima_id")
@@ -697,6 +726,7 @@ def create_recipe():
     return jsonify({"msg": "Receta creada con éxito", "ingredientes": ingredientes_receta_info}), 201
 
 # READ |
+
 
 @app.route('/dashboard/recipes/<int:recipe_id>', methods=['GET'])
 @jwt_required()
@@ -916,12 +946,14 @@ def make_recipe():
         recipe_id = data.get('recipe_id')
 
         # Verifica que la receta exista para el usuario
-        user_recipe = UserReceta.query.filter_by(user_id=user_id, receta_id=recipe_id).first()
+        user_recipe = UserReceta.query.filter_by(
+            user_id=user_id, receta_id=recipe_id).first()
         if not user_recipe:
             return jsonify({"error": "Receta no encontrada para el usuario especificado"}), 404
 
         # Obtén la lista de ingredientes de la receta
-        ingredients = IngredientesReceta.query.filter_by(receta_id=recipe_id).all()
+        ingredients = IngredientesReceta.query.filter_by(
+            receta_id=recipe_id).all()
 
         # Actualiza las cantidades en las materias primas del usuario
         for ingredient in ingredients:
@@ -929,14 +961,16 @@ def make_recipe():
             quantity_needed = ingredient.cantidad_necesaria
 
             # Resta la cantidad necesaria de cada materia prima
-            user_material = UserMateriasPrimas.query.filter_by(user_id=user_id, materias_primas_id=material_id).first()
+            user_material = UserMateriasPrimas.query.filter_by(
+                user_id=user_id, materias_primas_id=material_id).first()
             if user_material:
                 user_material.cantidad_stock -= quantity_needed
                 db.session.commit()
 
         # Aumenta la cantidad de productos finales según el rendimiento de la receta
         total_yield = user_recipe.receta_relationship.rinde
-        user_product = UserProductoFinal.query.filter_by(user_id=user_id, receta_id=recipe_id).first()
+        user_product = UserProductoFinal.query.filter_by(
+            user_id=user_id, receta_id=recipe_id).first()
         if user_product:
             user_product.cantidad_inventario += total_yield
             db.session.commit()

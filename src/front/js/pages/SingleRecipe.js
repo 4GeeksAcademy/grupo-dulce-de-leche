@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import AlmaCenaSidebar from "../component/AlmaCenaSidebar";
-import { Container, Row, Col, Table, Button, Spinner, Modal } from "react-bootstrap";
+import { Container, Row, Col, Table, Button, Spinner, Modal, Card } from "react-bootstrap";
 import "../../styles/singlerecipe.css";
 import singlerecipe from "../../img/singlerecipe.png";
 
@@ -89,7 +89,9 @@ const SingleRecipe = () => {
             <div className="profile-user bg-white">
               <h4 className="personal">Recipe information</h4>
               <Row className="foto">
-              <Col sm={12} md={4} className="imgsinglerecipe" style={{ backgroundImage: `url(${recipe.photo_url || singlerecipe})` }}></Col>
+                <Col sm={12} md={4} className="imgsinglerecipe">
+                  <Card.Img src={recipe.photo_url || singlerecipe} alt={recipe.nombre} className="img-fluid rounded" />
+                </Col>
                 <Col sm={12} md={8}>
                   <div className="table-totalyield">
                     <Table className="table single recipe">
@@ -153,7 +155,7 @@ const SingleRecipe = () => {
         </Col>
 
       </Row>
-    </Container>
+    </Container >
   );
 };
 

@@ -22,7 +22,7 @@ const CreateIngredientButton = ({ onIngredientCreated }) => {
   const handleSubmit = async () => {
     try {
       const token = localStorage.getItem("jwt-token");
-  
+
       const response = await fetch(process.env.BACKEND_URL + "/dashboard/ingredients", {
         method: "POST",
         headers: {
@@ -31,13 +31,13 @@ const CreateIngredientButton = ({ onIngredientCreated }) => {
         },
         body: JSON.stringify(formData),
       });
-  
+
       if (!response.ok) {
         throw new Error("Error creating ingredient");
       }
-  
+
       setShowModal(false);
-  
+
       if (onIngredientCreated) {
         onIngredientCreated();
       }
@@ -46,7 +46,7 @@ const CreateIngredientButton = ({ onIngredientCreated }) => {
       // Maneja el error
     }
   };
-  
+
   return (
     <>
       <Button variant="primary" onClick={() => setShowModal(true)}>

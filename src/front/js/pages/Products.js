@@ -74,10 +74,10 @@ export const Products = () => {
               </Col>
             </Row>
             <div className="myproducts bg-white">
-              <Row className="g-4 row row-cols-md-2 row-cols-lg-3">
+            <Row xs={1} md={2} lg={3} xl={4} className="g-4">
                 {products.map((product) => (
-                  <Col key={product.receta_id} className="mb-4 me-4">
-                    <Card style={{ width: '24rem' }}>
+                  <Col key={product.receta_id} className="mb-4">
+                    <Card style={{ width: '100%' }}>
                       {product.photo_url ? (
                         <Card.Img
                           variant="top"
@@ -86,7 +86,7 @@ export const Products = () => {
                           alt={product.nombre}
                           style={{
                             width: '100%',
-                            height: '400px',
+                            height: '300px',
                             objectFit: 'cover',
                           }}
                         />
@@ -98,7 +98,7 @@ export const Products = () => {
                           alt="Default Placeholder"
                           style={{
                             width: '100%',
-                            height: '400px',
+                            height: '300px',
                             objectFit: 'cover',
                           }}
                         />

@@ -81,10 +81,10 @@ const Recipes = () => {
               </Col>
             </Row>
             <div className="myproducts bg-white">
-              <Row className="g-4 row row-cols-md-2 row-cols-lg-3 row-cols-1">
+              <Row xs={1} md={2} lg={3} xl={4} className="g-4">
                 {recipes.map((recipe) => (
-                  <Col key={recipe.receta_id}>
-                    <Card>
+                  <Col key={recipe.receta_id} className="mb-4">
+                    <Card style={{ width: '100%' }}>
                       {recipe.photo_url ? (
                         <Card.Img
                           variant="top"
@@ -92,8 +92,8 @@ const Recipes = () => {
                           src={recipe.photo_url}
                           alt={recipe.nombre}
                           style={{
-                            width: `400px`,
-                            height: `400px`,
+                            width: '100%',
+                            height: '300px',
                             objectFit: 'cover',
                           }}
                         />
@@ -104,8 +104,8 @@ const Recipes = () => {
                           src="https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg"
                           alt="Default Placeholder"
                           style={{
-                            width: `400px`,
-                            height: `400px`,
+                            width: '100%',
+                            height: '300px',
                             objectFit: 'cover',
                           }}
                         />

@@ -48,9 +48,9 @@ export const Signup = () => {
       // Registro exitoso
       setRegistrationSuccess(true);
 
-     // Redirección despues de 3 segundos
+     
       setTimeout(() => {
-        navigate("/login"); // Redirige a la página
+        navigate("/login");
       }, 3000);
     } catch (error) {
       setError(

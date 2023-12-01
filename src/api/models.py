@@ -130,7 +130,6 @@ class IngredientesReceta(db.Model):
         }
 
 
-# Revisar, nose si tiene que ser de id receta o nombre de la receta
 class UserProductoFinal(db.Model):
     __tablename__ = 'user_producto_final'
     id = db.Column(db.Integer, primary_key=True)
@@ -141,6 +140,8 @@ class UserProductoFinal(db.Model):
     cantidad_inventario = db.Column(db.Integer, nullable=False)
     clasificacion = db.Column(db.String(80), nullable=False)   
     cantidad_inventario_minimo = db.Column(db.Integer, nullable=False)
+    photo_url = db.Column(db.String(500))
+    
 
     def __repr__(self): #terminal con el print y en el admin
         return 'Usuario {} tiene un producto final {} de la receta {}'.format (self.user.id, self.cantidad_inventario, self.receta.id )
@@ -152,6 +153,7 @@ class UserProductoFinal(db.Model):
             "receta_id": self.receta_id,
             "cantidad_inventario" : self.cantidad_inventario,
             "clasificacion": self.clasificacion_id,
-            "cantidad_inventario_minimo": self.cantidad_inventario_minimo
+            "cantidad_inventario_minimo": self.cantidad_inventario_minimo,
+            "photo_url": self.photo_url
         }
 

@@ -50,7 +50,7 @@ const EditIngredientButton = ({ ingredient, onIngredientUpdated }) => {
   return (
     <>
       <Button variant="warning edit-ingredients" onClick={handleShow}>
-      <i class="fa-regular fa-pen-to-square"></i>
+      <i className="fa-regular fa-pen-to-square"></i>
       </Button>
 
       <Modal show={show} onHide={handleClose}>

@@ -101,7 +101,7 @@ const Dashboard = () => {
                   <Col md={6}>
                     {/* Botonera de Quickactions */}
                     <Card className="rounded mb-5 dashboard-user shadow bg-white">
-                      <CardTitle className="p-4">Quick Start</CardTitle>
+                      <CardTitle className="p-4 fw-bold">Quick Start</CardTitle>
                       <CardBody className="dashboard-user-listado">
                         <div className="my-3 px-5"><CreateIngredientButton /></div>
                         <div className="my-3 px-5"><CreateRecipeButton /></div>
@@ -110,29 +110,31 @@ const Dashboard = () => {
                     </Card>
                     {/* Últimas Recetas agregadas */}
                     <Card className="rounded mb-5 dashboard-user shadow">
-                      <CardTitle className="p-4">Last Recipes</CardTitle>
+                      <CardTitle className="p-4 fw-bold">Last Recipes</CardTitle>
                       <ListGroup variant="flush">
                         {userRecipes.length > 0 ? (
                           <Row xs={1} sm={2} md={3} lg={4} xl={4} className="g-4">
                             {userRecipes.slice(-3).map((recipe) => (
                               <Col key={recipe.receta_id}>
-                                <Card className="h-100">
-                                  <Card.Img
-                                    variant="top"
-                                    className="img-thumbnail"
-                                    src={recipe.photo_url}
-                                    alt={recipe.nombre}
-                                    style={{
-                                      width: '100%',
-                                      height: '150px',
-                                      objectFit: 'cover',
-                                    }}
-                                  />
-                                  <Card.Body>
-                                    <Card.Title>{recipe.nombre}</Card.Title>
-                                    <Card.Text>{recipe.rinde} {recipe.unidad_medida}</Card.Text>
-                                  </Card.Body>
-                                </Card>
+                                <Link to={`/dashboard/recipes/${recipe.receta_id}`} className="text-decoration-none">
+                                  <Card className="h-100">
+                                    <Card.Img
+                                      variant="top"
+                                      className="img-thumbnail"
+                                      src={recipe.photo_url}
+                                      alt={recipe.nombre}
+                                      style={{
+                                        width: '100%',
+                                        height: '150px',
+                                        objectFit: 'cover',
+                                      }}
+                                    />
+                                    <Card.Body>
+                                      <Card.Title className="fs-6 fw-bold">{recipe.nombre}</Card.Title>
+                                      <Card.Text className="fs-6 italic">{recipe.rinde} {recipe.unidad_medida}</Card.Text>
+                                    </Card.Body>
+                                  </Card>
+                                </Link>
                               </Col>
                             ))}
                           </Row>
@@ -173,7 +175,7 @@ const Dashboard = () => {
                           </ListGroup>
                         )}
                         <CardFooter className="dashboard-user-listado">
-                        <div className="d-flex justify-content-center">
+                          <div className="d-flex justify-content-center">
                             <FontAwesomeIcon
                               icon={dropdownStates.productos ? faCircleChevronUp : faCircleChevronDown}
                               size="2x"

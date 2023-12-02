@@ -10,7 +10,7 @@ const CreateRecipeButton = ({ onRecipeCreated }) => {
   const [quantity, setQuantity] = useState("");
   const [recipeName, setRecipeName] = useState("");
   const [rinde, setRinde] = useState(1);
-  const [unidadMedida, setUnidadMedida] = useState("units");
+  const [unidadMedida, setUnidadMedida] = useState("");
   const [recipeImage, setRecipeImage] = useState(null);
 
   const handleClose = () => {
@@ -74,7 +74,7 @@ const CreateRecipeButton = ({ onRecipeCreated }) => {
       formData.append("upload_preset", "almacena-upload");
       formData.append('cloud_name', 'dq5gjc26f');
 
-      // Subir la imagen a Cloudinary
+      
       const response = await fetch("https://api.cloudinary.com/v1_1/dq5gjc26f/image/upload", {
         method: "POST",
         body: formData,
@@ -94,10 +94,10 @@ const CreateRecipeButton = ({ onRecipeCreated }) => {
 
   const handleCreateRecipe = async () => {
     try {
-      // Subir la imagen a Cloudinary y obtener la URL
+     
       const photoUrl = await uploadImageToCloudinary();
 
-      // Crear la receta usando la URL de la imagen
+     
       const response = await fetch(process.env.BACKEND_URL + "/dashboard/recipes", {
         method: "POST",
         headers: {
@@ -108,7 +108,7 @@ const CreateRecipeButton = ({ onRecipeCreated }) => {
           nombre: recipeName,
           rinde: parseInt(rinde, 10),
           unidad_medida: unidadMedida,
-          photo_url: photoUrl, // Agregar la URL de la imagen
+          photo_url: photoUrl, 
           ingredientes: selectedIngredients.map((ingredient) => ({
             materia_prima_id: ingredient.materia_prima_id,
             cantidad_necesaria: parseInt(ingredientQuantities[ingredient.materia_prima_id], 10),
@@ -135,12 +135,12 @@ const CreateRecipeButton = ({ onRecipeCreated }) => {
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
-        Create Recipe
+        New Recipe
       </Button>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Create Recipe</Modal.Title>
+          <Modal.Title>New Recipe</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>

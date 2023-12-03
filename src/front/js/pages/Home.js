@@ -14,6 +14,7 @@ import inventary2 from "../../img/inventary2.png";
 import inventary3 from "../../img/inventary3.png";
 
 import { MenuNavegacion } from "../component/AlmaCenaNavbar.js";
+import ControlledCarousel from "../component/ControlledCarousel.js";
 
 
 export const Home = () => {
@@ -62,82 +63,10 @@ export const Home = () => {
 			<div className="recipes container-fluid" style={{ backgroundImage: `url(${hojas})` }}>
 				{/* style={{ backgroundImage: `url(${process.env.PUBLIC_URL + '/hojas.png'})` }} */}
 				<div className="texto_uno">
-					<h2>Save your <br /> recipes</h2>
-					<p>This is a section of your menu. <br />
-						Give your section a brief description</p>
-				</div>
-
-				{/* primera fila recetas */}
-				<div className="row fila_receta_dos">
-					<div className="col-sm-12 col-md receta_uno">
-						<div className="row interior_receta">
-							<div className="col">
-							<p>Starters</p>
-							</div>
-							<div className="col">
-								<i className="fa-solid fa-arrow-right"></i>
-							</div>
-						</div>
-					</div>
-					<div className="col-sm-12 col-md receta_dos">
-						<div className="row interior_receta">
-							<div className="col">
-							<p>Main</p>
-							</div>
-							<div className="col">
-								<i className="fa-solid fa-arrow-right"></i>
-							</div>
-						</div>
-					</div>
-					<div className="col-sm-12 col-md receta_tres">
-						<div className="row interior_receta">
-							<div className="col">
-							<p>Dessert</p>
-							</div>
-							<div className="col">
-								<i className="fa-solid fa-arrow-right"></i>
-							</div>
-						</div>
+					<h2>How it works?</h2>
+					<ControlledCarousel />
 					</div>
 				</div>
-			
-				{/* segunda fila recetas */}
-				<div className="row fila_receta_dos">
-					<div className="col-sm-12 col-md receta_cuatro">
-						<div className="row interior_receta">
-							<div className="col">
-							<p>Starters</p>
-							</div>
-							<div className="col">
-								<i className="fa-solid fa-arrow-right"></i>
-							</div>
-						</div>
-					</div>
-					<div className="col-sm-12 col-md receta_cinco">
-						<div className="row interior_receta">
-							<div className="col">
-							<p>Main</p>
-							</div>
-							<div className="col">
-								<i className="fa-solid fa-arrow-right"></i>
-							</div>
-						</div>
-					</div>
-					<div className="col-sm-12 col-md receta_seis">
-						<div className="row interior_receta">
-							<div className="col">
-							<p>Dessert</p>
-							</div>
-							<div className="col">
-								<i className="fa-solid fa-arrow-right"></i>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-
-
 			{/* contenedor inventory */}
 			<div className="inventory container-fluid">
 				<div className="texto_uno">

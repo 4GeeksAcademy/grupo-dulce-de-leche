@@ -154,8 +154,9 @@ button.btn.btn-danger.delete-recipe {
   border-left: 1px solid #d9d9d9;
   border-right: 1px solid #d9d9d9;
   border-top: 1px solid #d9d9d9;
-  background: #f2f2f2;
+  background: rgb(176, 203, 187);
   padding: 8px;
+  font-family: 'Nunito', sans-serif;
 }
 
 .columna-r-blanco {
@@ -246,7 +247,6 @@ span.menu-text-movil {
 .p-4.card-title.h5 {
   border-top-right-radius: 6px;
   border-top-left-radius: 6px;
-  background: #ffb7b7;
   margin-bottom: 0px;
 }
 

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/profile.css";
-import perfil from "../../img/perfil.png";
+import perfil from '../../img/perfilchef.jpg';
 import AlmaCenaSidebar from "../component/AlmaCenaSidebar";
 import { Link } from "react-router-dom";
 

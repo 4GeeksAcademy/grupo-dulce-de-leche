@@ -7,8 +7,12 @@ body {
 
 
 
-.rounded.mb-5.dashboard-user.card {
+.rounded.mb-5.dashboard-user.card, .myproducts, .card {
     border: 1px solid #7e7e7e;
+    -webkit-box-shadow: 8px 8px 0px -2px rgba(0,0,0,0.25);
+    -moz-box-shadow: 8px 8px 0px -2px rgba(0,0,0,0.25);
+    box-shadow: 8px 8px 0px -2px rgba(0,0,0,0.25);
+    border-radius: 15px; 
 }
 
 .dashboard-lista.list-group-item {
@@ -30,7 +34,7 @@ body {
     border-top: 1px solid #d9d9d9;
     padding-bottom: 13px;
     padding-top: 13px;
-  }
+}
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
@@ -58,5 +62,5 @@ body {
         padding: 50px 28px;
     }
 
-    
+
 }

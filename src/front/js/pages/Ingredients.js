@@ -69,18 +69,18 @@ const Ingredients = () => {
 
             <div className="myproducts bg-white">
               {/* <Card className="rounded"> */}
-                <Card.Header className="titulo-ingredientes"> 
+                <Card.Header className="titulo-ingredientes rounded"> 
                   <Card.Title className="mb-0">Ingredients</Card.Title>
               </Card.Header>
                 {/* <Card.Body>  */}
-                  <Table striped bordered hover responsive>
+                  <Table hover responsive className="rounded">
                     <thead>
                       <tr>
                         <th>Name</th>
-                        <th>Quantity in Storage</th>
-                        <th>Min Quantity</th>
-                        <th>Unit</th>
-                        <th>Classification</th>
+                        <th className="text-center">Quantity in Storage</th>
+                        <th className="text-center">Min Quantity</th>
+                        <th className="text-center">Unit</th>
+                        <th className="text-center">Classification</th>
                         <th className="columna-r-blanco"></th>
                         <th></th>
                       </tr>
@@ -90,10 +90,10 @@ const Ingredients = () => {
                         materiasPrimas.map((materiaPrima) => (
                           <tr key={materiaPrima.materia_prima_id}>
                             <td>{materiaPrima.nombre}</td>
-                            <td>{materiaPrima.cantidad_stock}</td>
-                            <td>{materiaPrima.cantidad_stock_minimo}</td>
-                            <td>{materiaPrima.unidad_medida}</td>
-                            <td>{materiaPrima.clasificacion}</td>
+                            <td className="text-center">{materiaPrima.cantidad_stock}</td>
+                            <td className="text-center">{materiaPrima.cantidad_stock_minimo}</td>
+                            <td className="text-center">{materiaPrima.unidad_medida}</td>
+                            <td className="text-center">{materiaPrima.clasificacion}</td>
                             <td className="columna-r-gris"><EditIngredientButton
                               ingredient={materiaPrima}
                               onIngredientUpdated={() => fetchIngredientsData()}

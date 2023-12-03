@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
-import { Card, ListGroup, Container, Row, Col, Alert, CardTitle, CardFooter, Button, CardBody, CardImg } from "react-bootstrap";
+import { Card, ListGroup, Container, Row, Col, Alert, CardTitle, CardFooter, CardBody, CardImg } from "react-bootstrap";
 import "../../styles/dashboard.css";
 import AlmaCenaSidebar from "../component/AlmaCenaSidebar";
 import CreateIngredientButton from "../component/CreateIngredientButton";
@@ -100,7 +100,7 @@ const Dashboard = () => {
                 <Row>
                   <Col md={6}>
                     {/* Botonera de Quickactions */}
-                    <Card className="rounded mb-5 dashboard-user shadow bg-white">
+                    <Card className="rounded mb-5 dashboard-user bg-white">
                       <CardTitle className="p-4 fw-bold">Quick Start</CardTitle>
                       <CardBody className="dashboard-user-listado">
                         <div className="my-3 px-5"><CreateIngredientButton /></div>
@@ -109,7 +109,7 @@ const Dashboard = () => {
                       </CardBody>
                     </Card>
                     {/* Últimas Recetas agregadas */}
-                    <Card className="rounded mb-5 dashboard-user shadow">
+                    <Card className="rounded mb-5 dashboard-user">
                       <CardTitle className="p-4 fw-bold">Last Recipes</CardTitle>
                       <ListGroup variant="flush">
                         {userRecipes.length > 0 ? (
@@ -120,7 +120,7 @@ const Dashboard = () => {
                                   <Card className="h-100">
                                     <Card.Img
                                       variant="top"
-                                      className="img-thumbnail"
+                                      className="rounded"
                                       src={recipe.photo_url}
                                       alt={recipe.nombre}
                                       style={{
@@ -144,7 +144,6 @@ const Dashboard = () => {
                           </Alert>
                         )}
                       </ListGroup>
-                      {/* Icono de FontAwesome dentro del Card.Body */}
                       <Card.Body className="text-end">
                         <Link to="/dashboard/recipes" className="text-decoration-none">
                           <FontAwesomeIcon icon={faPlus} size="2x" className="mt-3 mx-3" />
@@ -156,7 +155,7 @@ const Dashboard = () => {
                   <Col md={6}>
                     {/* Dropdown de productos finales */}
                     {productosFinales.length > 0 ? (
-                      <Card className="rounded mb-5 dashboard-user shadow">
+                      <Card className="rounded mb-5 dashboard-user">
                         <CardTitle className="p-4">
                           You are low on these products
                         </CardTitle>
@@ -187,13 +186,13 @@ const Dashboard = () => {
                         </CardFooter>
                       </Card>
                     ) : (
-                      <Alert variant="success" className="shadow">
+                      <Alert variant="success" className="dashboard-user">
                         Products looking good for now.
                       </Alert>
                     )}
                     {/* Dropdown de ingredientes */}
                     {ingredientes.length > 0 ? (
-                      <Card className="rounded mb-5 dashboard-user shadow">
+                      <Card className="rounded mb-5 dashboard-user">
                         <CardTitle className="p-4">You are low on these ingredients:</CardTitle>
                         {dropdownStates.ingredientes && (
                           <ListGroup variant="flush">
@@ -222,7 +221,7 @@ const Dashboard = () => {
                         </CardFooter>
                       </Card>
                     ) : (
-                      <Alert variant="success" className="shadow">Ingredients looking good for now.</Alert>
+                      <Alert variant="success" className="dashboard-user">Ingredients looking good for now.</Alert>
                     )}
                   </Col>
                 </Row>

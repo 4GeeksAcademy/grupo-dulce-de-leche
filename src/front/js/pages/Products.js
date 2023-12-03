@@ -81,7 +81,7 @@ export const Products = () => {
                       {product.photo_url ? (
                         <Card.Img
                           variant="top"
-                          className="img-thumbnail"
+                          className="rounded"
                           src={product.photo_url}
                           alt={product.nombre}
                           style={{
@@ -93,7 +93,7 @@ export const Products = () => {
                       ) : (
                         <Card.Img
                           variant="top"
-                          className="img-thumbnail"
+                          className="rounded"
                           src="https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg"
                           alt="Default Placeholder"
                           style={{

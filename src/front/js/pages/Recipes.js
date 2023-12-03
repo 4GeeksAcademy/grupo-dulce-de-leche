@@ -88,7 +88,7 @@ const Recipes = () => {
                       {recipe.photo_url ? (
                         <Card.Img
                           variant="top"
-                          className="img-thumbnail"
+                          className="rounded"
                           src={recipe.photo_url}
                           alt={recipe.nombre}
                           style={{
@@ -100,7 +100,7 @@ const Recipes = () => {
                       ) : (
                         <Card.Img
                           variant="top"
-                          className="img-thumbnail"
+                          className="rounded"
                           src="https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg"
                           alt="Default Placeholder"
                           style={{

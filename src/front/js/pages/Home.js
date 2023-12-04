@@ -1,12 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import { Context } from "../store/appContext.js";
 import "../../styles/home.css";
 import carne from "../../img/carne.png";
 import spices1 from "../../img/spices1.png";
 import spices2 from "../../img/spices2.png";
 import spices3 from "../../img/spices3.png";
-import imagen from "../../img/imagen.png";
-import sal from "../../img/sal.png";
 import hojas from "../../img/hojas.png";
 import Leaf from "../../img/Leaf.png";
 import inventary1 from "../../img/inventary1.png";
@@ -15,10 +13,15 @@ import inventary3 from "../../img/inventary3.png";
 
 import { MenuNavegacion } from "../component/AlmaCenaNavbar.js";
 import ControlledCarousel from "../component/ControlledCarousel.js";
+import { Button } from "react-bootstrap";
 
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
+	const howItWorksRef = useRef();
+	const scrollToHowItWorks = () => {
+		howItWorksRef.current.scrollIntoView({ behavior: "smooth" });
+	  };
 
 	return (
 <>
@@ -32,7 +35,7 @@ export const Home = () => {
 					<div className="col intro">
 					<img className="carne-movil" src={carne} />
 						<h1>Keep track of < br />your stuff like < br /> never before</h1>
-						<p className="blanco">Lorem ipsum dolor sit amet, consectetur <br />adipiscing elit. Neque congue arcu</p>
+						<div className="col-4"><Button className="learnmorebtn" onClick={scrollToHowItWorks}>Learn More</Button></div>
 						
 					</div>
 				</div>
@@ -49,7 +52,7 @@ export const Home = () => {
 			<div className="recipes container-fluid" style={{ backgroundImage: `url(${hojas})` }}>
 				{/* style={{ backgroundImage: `url(${process.env.PUBLIC_URL + '/hojas.png'})` }} */}
 				<div className="texto_uno">
-					<h2>How it works?</h2>
+					<h2 ref={howItWorksRef}>How it works?</h2>
 					<ControlledCarousel />
 					</div>
 				</div>

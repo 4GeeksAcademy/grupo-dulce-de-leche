@@ -73,7 +73,7 @@ img.started {
 
 .intro {
     padding-bottom: 80px;
-    padding-top: 80px;
+    padding-top: 60px;
 }
 
 .fondo-carne {
@@ -203,6 +203,15 @@ img.leaf {
     width: 64%;
 }
 
+.learnmorebtn {
+background-color: rgb(102, 107, 47);
+border: 1px solid #7e7e7e;
+-webkit-box-shadow: 8px 8px 0px -2px rgba(0,0,0,0.25);
+-moz-box-shadow: 8px 8px 0px -2px rgba(0,0,0,0.25);
+box-shadow: 8px 8px 0px -2px rgba(0,0,0,0.25);
+border-radius: 15px; 
+padding: 20px 0 20px 0;
+}
 
 
 /* Extra small devices (phones, 600px and down) */

@@ -23,24 +23,25 @@ function ControlledCarousel() {
                         data-type="inline"
                         alt="First slide"
                     />
+                    
                     <Carousel.Caption>
-                        <h3>First Step</h3>
-                        <p>Create your ingredients.</p>
+                        <h3 className='text-black'>First Step</h3>
+                        <p className='text-black'>Create your ingredients.</p>
                     </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
                     <Image
                         style={{ width: '100%', margin: 'auto', display: 'block' }}
                         className="vidyard-player-embed"
-                        src="https://play.vidyard.com/C594S4hHbUnacHftJKp5Fb.jpg"
+                        src="https://play.vidyard.com/VZ7HCv3q9KmfXqy6F4mvQP.jpg"
                         data-uuid="C594S4hHbUnacHftJKp5Fb"
                         data-v="4"
                         data-type="inline"
                         alt="Vidyard Player"
                     />
                     <Carousel.Caption>
-                        <h3>Second Step</h3>
-                        <p>Create Your Recipes.</p>
+                        <h3 className='text-black'>Second Step</h3>
+                        <p className='text-black'>Create Your Recipes.</p>
                     </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
@@ -53,8 +54,8 @@ function ControlledCarousel() {
                         data-type="inline"
                     />
                     <Carousel.Caption>
-                        <h3>Third Step</h3>
-                        <p>Create the new Product you have, based on your recipes.</p>
+                        <h3 className='text-black'>Third Step</h3>
+                        <p className='text-black'>Create the new Product you have, based on your recipes.</p>
                     </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
@@ -67,8 +68,8 @@ function ControlledCarousel() {
                         data-type="inline"
                     />
                     <Carousel.Caption>
-                        <h3>Start Making Recipes!</h3>
-                        <p>With the make recipe button you can automate your inventories, adding products made by you and deducting the ingredients from your stock.</p>
+                        <h3 className='text-black'>Start Making Recipes!</h3>
+                        <p className='text-black'>With the make recipe button you can automate your inventories, adding products made by you and deducting the ingredients from your stock.</p>
                     </Carousel.Caption>
                 </Carousel.Item>
             </Carousel>

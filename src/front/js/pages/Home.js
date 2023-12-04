@@ -43,20 +43,6 @@ export const Home = () => {
 					<div className="col"><img className="spices" src={spices3} /></div>
 					<div className="col vacia"></div>
 				</div>
-				<div className="row">
-					<div className="col-sm-12 col-md-6">
-						<img className="imagen" src={imagen} />
-						<h3>Create your < br /> recipe now!</h3>
-						<p className="blanco">Lorem ipsum dolor sit amet consectetur adipiscing elit. <br />Neque congue arcu amet consectetur adipiscing.</p>
-					</div>
-					<div className="col-sm-12 col-md-2">
-
-					</div>
-					<div className="col-sm-12 col-md-4">
-						<p className="blanco">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Neque congue arcu</p>
-						<img className="sal" src={sal} />
-					</div>
-				</div>
 			</div>
 
 			{/* contenedor recetas */}

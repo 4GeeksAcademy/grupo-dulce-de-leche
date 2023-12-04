@@ -33,7 +33,7 @@ function ControlledCarousel() {
                     <Image
                         style={{ width: '100%', margin: 'auto', display: 'block' }}
                         className="vidyard-player-embed"
-                        src="https://play.vidyard.com/VZ7HCv3q9KmfXqy6F4mvQP.jpg"
+                        src="https://play.vidyard.com/C594S4hHbUnacHftJKp5Fb.jpg"
                         data-uuid="C594S4hHbUnacHftJKp5Fb"
                         data-v="4"
                         data-type="inline"
@@ -69,7 +69,7 @@ function ControlledCarousel() {
                     />
                     <Carousel.Caption>
                         <h3 className='text-black'>Start Making Recipes!</h3>
-                        <p className='text-black'>With the make recipe button you can automate your inventories, adding products made by you and deducting the ingredients from your stock.</p>
+                        <p className='text-black'>Automate your inventories, adding products made by you and deducting the ingredients from your stock.</p>
                     </Carousel.Caption>
                 </Carousel.Item>
             </Carousel>

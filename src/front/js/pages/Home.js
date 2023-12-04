@@ -35,7 +35,7 @@ export const Home = () => {
 					<div className="col intro">
 					<img className="carne-movil" src={carne} />
 						<h1>Keep track of < br />your stuff like < br /> never before</h1>
-						<div className="col-4"><Button className="learnmorebtn" onClick={scrollToHowItWorks}>Learn More</Button></div>
+						<div className="col-4"><Button className="learnmorebtn fw-bolder" onClick={scrollToHowItWorks}>Learn More</Button></div>
 						
 					</div>
 				</div>
@@ -69,16 +69,12 @@ export const Home = () => {
 						</div>
 						<div className="col-sm-12 col-md-5">
 							<h2>Keep your inventory up to date </h2>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-								Purus lorem id penatibus imperdiet. Turpis egestas ultricies
-								purus auctor tincidunt lacus nunc.
-							</p>
 						</div>
 					</div>
 				</div>
 
 				{/* primera fila recetas */}
-				<div className="row fila_receta_uno">
+				<div className="row fila_receta_uno pb-5 px-5">
 					<div className="col-sm-12 col-md-4">
 						<div className="row interior_receta">
 						<img className="esparrago" src={inventary1} />	

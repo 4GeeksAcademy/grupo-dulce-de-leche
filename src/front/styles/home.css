@@ -183,7 +183,6 @@ img.esparrago {
 }
 
 .inventory {
-    padding: 140px 80px;
     background: #EBF0E4;
 }
 
@@ -275,7 +274,7 @@ padding: 20px 0 20px 0;
     }
 
     .inventory {
-        padding: 60px 30px;
+        padding: 20px 30px;
         background: #EBF0E4;
     }
 
